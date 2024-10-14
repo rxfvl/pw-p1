@@ -28,58 +28,89 @@ public class Pista
 		this.materiales = new ArrayList<>();
 	}
 	
-	public String getNombre(){
+	public String getNombre()
+	{
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
+	public void setNombre(String nombre) 
+	{
 		this.nombre = nombre;
 	}
 
-	public boolean isEstado() {
+	public boolean isEstado() 
+	{
 		return estado;
 	}
 
-	public void setEstado(boolean estado) {
+	public void setEstado(boolean estado) 
+	{
 		this.estado = estado;
 	}
 
-	public boolean isTipo() {
+	public boolean isTipo()
+	{
 		return tipo;
 	}
 
-	public void setTipo(boolean tipo) {
+	public void setTipo(boolean tipo) 
+	{
 		this.tipo = tipo;
 	}
 
-	public tamanio getPista() {
+	public tamanio getPista() 
+	{
 		return pista;
 	}
 
-	public void setPista(tamanio pista) {
+	public void setPista(tamanio pista) 
+	{
 		this.pista = pista;
 	}
 
-	public int getJugadores_max() {
+	public int getJugadores_max() 
+	{
 		return jugadores_max;
 	}
 
-	public void setJugadores_max(int jugadores_max) {
+	public void setJugadores_max(int jugadores_max) 
+	{
 		this.jugadores_max = jugadores_max;
 	}
 
-	public ArrayList<Material> getMateriales() {
+	public ArrayList<Material> getMateriales() 
+	{
 		return materiales;
 	}
 
-	public void setMateriales(ArrayList<Material> materiales) {
+	public void setMateriales(ArrayList<Material> materiales) 
+	{
 		this.materiales = materiales;
 	}
 
-	@Override
-	public String toString() {
+	public String toString() 
+	{
 		return "Pista [nombre = " + nombre + ", estado = " + estado + ", tipo = " + tipo + 
 				", pista = " + pista + ", jugadores maximos = " + jugadores_max + "]";
 	}
+
+	public ArrayList<Material> consultarMaterialesDisponibles() 
+	{
+		ArrayList<Material> aux;
+		aux = new ArrayList<>();
+
+		for(Material material : materiales)
+		{
+			if (material.getStatus() == "disponible") 
+			{
+				aux.add(material);
+			}
+		}
+		return aux;
+	}	
+
+	public void asociarMaterialAPista(Material material) 
+	{
 		
+	}
 }
