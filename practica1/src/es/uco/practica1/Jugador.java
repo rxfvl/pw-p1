@@ -1,7 +1,7 @@
 package es/uco/practica1;
 
 /**
- * Persona class
+ * Jugador class
  * @author Miriam Prado Martínez
  * */
 
