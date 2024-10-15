@@ -2,28 +2,17 @@ package es.uco.practica1;
 
 public class Material {
 	
-	public enum tipo
-	{
-		pelotas,
-		canastas,
-		conos
-	}
-	public enum estado {
-		disponible,
-		reservado,
-		malEstado
-	}
 	private int id;
 	
-	private tipo type;
+	private Enums.tipo type;
 	
-	private estado status;
+	private Enums.estado status;
 	
 	private boolean usoMaterial;
 	
 	
 
-	public Material(int id, tipo type, boolean usoMaterial, estado status)
+	public Material(int id, Enums.tipo type, boolean usoMaterial, Enums.estado status)
 	{
 		this.id = id;
 		this.type = type;
@@ -42,12 +31,12 @@ public class Material {
 		return this.id;
 	}
 	
-	public tipo getType()
+	public Enums.tipo getType()
 	{
 		return this.type;
 	}
 	
-	public estado getStatus()
+	public Enums.estado getStatus()
 	{
 		return this.status;
 	}

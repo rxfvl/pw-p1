@@ -2,24 +2,28 @@ package es.uco.practica1;
 
 import java.util.ArrayList;
 import es.uco.practica1.Material;
+import java.util.*;
 
 public class Pista
-{
-	private enum tamanio{MINIBASKET, ADULTOS, TRES_VS_TRES, NONE}
-	
+{	
 	private String nombre; 
 	private boolean estado;
-	private boolean tipo; //True = interior, false = exterior
-	private tamanio pista;
+	private boolean tipo; //true = interior, false = exterior
+	private Enums.tamanio pista;
 	private int jugadores_max;
 	private ArrayList<Material> materiales;
 	
 	public Pista() 
 	{
+		this.nombre = "SIN_NOMBRE";
 		this.estado = true;
+		this.tipo = true;
+		this.pista = Enums.tamanio.NONE;
+		this.jugadores_max = -1;
+		this.materiales = new ArrayList<Material>();
 	}
 	
-	public Pista(String nombre, boolean estado, boolean tipo, tamanio tamanio, int jugadores)
+	public Pista(String nombre, boolean estado, boolean tipo, Enums.tamanio tamanio, int jugadores)
 	{
 		this.nombre = nombre;
 		this.estado = estado;
@@ -39,7 +43,7 @@ public class Pista
 		this.nombre = nombre;
 	}
 
-	public boolean isEstado() 
+	public boolean getEstado() 
 	{
 		return estado;
 	}
@@ -49,7 +53,7 @@ public class Pista
 		this.estado = estado;
 	}
 
-	public boolean isTipo()
+	public boolean getTipo()
 	{
 		return tipo;
 	}
@@ -59,12 +63,12 @@ public class Pista
 		this.tipo = tipo;
 	}
 
-	public tamanio getPista() 
+	public Enums.tamanio getPista() 
 	{
 		return pista;
 	}
 
-	public void setPista(tamanio pista) 
+	public void setPista(Enums.tamanio pista) 
 	{
 		this.pista = pista;
 	}
@@ -102,7 +106,7 @@ public class Pista
 
 		for(Material material : materiales)
 		{
-			if (material.getStatus() == Material.estado.disponible) 
+			if (material.getStatus() == Enums.estado.DISPONIBLE) 
 			{
 				aux.add(material);
 			}
@@ -112,6 +116,30 @@ public class Pista
 
 	public void asociarMaterialAPista(Material material) 
 	{
-		
+		if((getEstado() == true) || (material.getMaterialUse() == getEstado()))
+		{
+			if(material.getType() == Enums.tipo.PELOTAS)
+			{
+				if((Collections.frequency(getMateriales(), Enums.tipo.PELOTAS)) < 12)
+				{
+					getMateriales().add(material);
+				}
+			}
+			if(material.getType() == Enums.tipo.CANASTAS)
+			{
+				if((Collections.frequency(getMateriales(), Enums.tipo.CANASTAS)) < 2)
+				{
+					getMateriales().add(material);
+				}
+			}
+			if(material.getType() == Enums.tipo.CONOS)
+			{
+				if((Collections.frequency(getMateriales(), Enums.tipo.CONOS)) < 20)
+				{
+					getMateriales().add(material);
+				}
+			}
+		}
+		else {System.out.println("Error, no se pueden usar materiales de interior en una pista exterior\n");}
 	}
 }
