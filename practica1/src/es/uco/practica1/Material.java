@@ -2,13 +2,13 @@ package es.uco.practica1;
 
 public class Material {
 	
-	private enum tipo
+	public enum tipo
 	{
 		pelotas,
 		canastas,
 		conos
 	}
-	private enum estado {
+	public enum estado {
 		disponible,
 		reservado,
 		malEstado

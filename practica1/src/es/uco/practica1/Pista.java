@@ -1,14 +1,15 @@
 package es.uco.practica1;
 
 import java.util.ArrayList;
+import es.uco.practica1.Material;
 
 public class Pista
 {
-	private enum tamanio{MINIBASKET, ADULTOS, TRES_VS_TRES}
+	private enum tamanio{MINIBASKET, ADULTOS, TRES_VS_TRES, NONE}
 	
 	private String nombre; 
 	private boolean estado;
-	private boolean tipo;
+	private boolean tipo; //True = interior, false = exterior
 	private tamanio pista;
 	private int jugadores_max;
 	private ArrayList<Material> materiales;
@@ -101,7 +102,7 @@ public class Pista
 
 		for(Material material : materiales)
 		{
-			if (material.getStatus() == "disponible") 
+			if (material.getStatus() == Material.estado.disponible) 
 			{
 				aux.add(material);
 			}
