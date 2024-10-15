@@ -1,4 +1,5 @@
 package es.uco.practica1;
+import es.uco.practica1.Enums
 
 public class Material {
 	
@@ -8,7 +9,7 @@ public class Material {
 	
 	private Enums.estado status;
 	
-	private boolean usoMaterial;
+	private boolean usoMaterial; // true  = interior, false = exterior
 	
 	
 
@@ -24,6 +25,8 @@ public class Material {
 	{
 		this.id = 0;
 		this.usoMaterial = true;
+		this.type = Enums.tipo.NONE;
+		this.status = Enums.estado.NONE;
 	}
 	
 	public int getId()
