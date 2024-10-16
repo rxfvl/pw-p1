@@ -18,12 +18,7 @@ public class ReservaAdultos extends Reserva
 		super(id,duracion,idpista,precio,descuento,fecha);
 		this.participantes=participantes;
 	}
-	public ReservaAdultos(int id, int duracion, int idpista, float precio, float descuento, Date fecha , String idbono, int sesionbono, int participantes)
-	{
-		super(id,duracion,idpista,precio,descuento,fecha,idbono,sesionbono);
-		this.participantes=participantes;
-	}
-		
+	
 	public int getParticipantes()
 	{
 		return participantes;
@@ -34,12 +29,11 @@ public class ReservaAdultos extends Reserva
 	}
 		
 	@Override
-		public String toString() {
-			return "ReservaAdultos [participantes=" + participantes + ", getParticipantes()=" + getParticipantes()
-					+ ", getId()=" + getId() + ", getFecha()=" + getFecha() + ", getDuracion()=" + getDuracion()
-					+ ", getIdPista()=" + getIdPista() + ", getPrecio()=" + getPrecio() + ", getDescuento()="
-					+ getDescuento() + ", getIdbono()=" + getIdbono() + ", getSesionBono()=" + getSesionBono()
-					+ ", toString()=" + super.toString() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-					+ "]";
-		}
+	public String toString() {
+		return "ReservaAdultos [participantes=" + participantes + ", getParticipantes()=" + getParticipantes()
+				+ ", getId()=" + getId() + ", getFecha()=" + getFecha() + ", getDuracion()=" + getDuracion()
+				+ ", getIdPista()=" + getIdPista() + ", getPrecio()=" + getPrecio() + ", getDescuento()="
+				+ getDescuento() + ", toString()=" + super.toString() + ", getClass()=" + getClass() + ", hashCode()="
+				+ hashCode() + "]";
+	}
 }
