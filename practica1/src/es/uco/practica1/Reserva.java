@@ -3,7 +3,7 @@ package es.uco.practica1;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class Reserva 
+public abstract class Reserva 
 {
 	//Atributos:
 	private int id;
@@ -12,6 +12,8 @@ public class Reserva
 	private int idpista;
 	private float precio;
 	private float descuento;
+	private String idbono;
+	private int sesionbono;
 	
 	//Constructores:
 	public Reserva()
@@ -22,6 +24,8 @@ public class Reserva
 		this.idpista=-1;
 		this.precio= 0;
 		this.descuento= 0;
+		this.idbono="";
+		this.sesionbono=-1;
 	}
 	public Reserva(int id, int duracion, int idpista, float precio, float descuento, Date fecha)
 	{
@@ -31,6 +35,17 @@ public class Reserva
 		this.idpista=idpista;
 		this.precio=precio;
 		this.descuento=descuento;
+	}
+	public Reserva(int id, int duracion, int idpista, float precio, float descuento, Date fecha, String idbono, int sesionbono)
+	{
+		this.id=id;
+		this.fecha=fecha;
+		this.duracion=duracion;
+		this.idpista=idpista;
+		this.precio=precio;
+		this.descuento=descuento;
+		this.idbono=idbono;
+		this.sesionbono=sesionbono;
 	}
 	
 	//Metodos get/set:
@@ -82,6 +97,22 @@ public class Reserva
 	{
 		this.descuento=descuento;
 	}
+	public String getIdbono()
+	{
+		return idbono;
+	}
+	public void setIdbono(String idbono)
+	{
+		this.idbono=idbono;
+	}
+	public int getSesionBono()
+	{
+		return sesionbono;
+	}
+	public void setSesionBono(int sesionbono)
+	{
+		this.sesionbono=sesionbono;
+	}
 	
 	//Metodo toString para imprimir la informacion de la reserva:
 	public String toString()
@@ -93,6 +124,8 @@ public class Reserva
         		" Duración: " + this.duracion + 
         		" IdPista: " + this.idpista +
         		" Precio: " + this.precio + 
-        		" Descuento: " + this.descuento;
+        		" Descuento: " + this.descuento +
+        		"Id Bono: " + this.idbono +
+        		"Sesión Bono: " + this.sesionbono;
 	}
 }
