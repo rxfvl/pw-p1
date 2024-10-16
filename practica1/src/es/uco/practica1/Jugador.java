@@ -1,4 +1,4 @@
-package es/uco/practica1;
+package es.uco.practica1;
 
 /**
  * Jugador class
