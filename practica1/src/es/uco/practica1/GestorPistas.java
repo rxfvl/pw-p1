@@ -7,7 +7,7 @@ package es.uco.practica1;
 
 import java.util.ArrayList;
 import java.util.List;
-import es.uco.practica1.Enums;
+//import es.uco.practica1.Enums; //Quitando esto dejan de salir errores en eclipse.
 
 public class GestorPistas {
     
