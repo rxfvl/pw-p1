@@ -1,94 +1,185 @@
 package es.uco.practica1;
 
-/**
- * Jugador class
- * @author Miriam Prado Martínez
- * */
-
 //Importaciones:
 import java.util.Date;					//Para manejar las fechas.
+import java.text.ParseException;
 import java.text.SimpleDateFormat;		//Para formatear las fechas: dd/MM/yyyy.
 import java.util.concurrent.TimeUnit;	//Para realizar conversiones de tiempo.
 
 public class Jugador {
-    // Atributos:
-    private String nombre;
-    private String apellidos;
+    
+	/**
+     * El nombre del jugador.
+     */
+    private String nombre; 
+    /**
+     * Los apellidos del jugador.
+     */
+    private String apellidos; 
+    /**
+     * La fecha de nacimiento del jugador.
+     */
     private Date fechaNacimiento;
-    private Date fechaInscripcion;
-    private String correoElectronico;
+    /**
+     * La fecha de inscripción en el sistema.
+     */
+    private Date fechaInscripcion;   
+    /**
+     * El correo electrónico del jugador.
+     */
+    private String correoElectronico; 
 
-    // Constructor vacío:
+    /**
+     * Constructor por defecto que inicializa el jugador con valores por defecto.
+     * Los valores predeterminados son:
+     * <ul>
+     *     <li>Nombre: "SIN_NOMBRE"</li>
+     *     <li>Apellidos: "SIN_APELLIDOS"</li>
+     *     <li>Fecha de nacimiento: {@code null}</li>
+     *     <li>Fecha de inscripción: {@code null}</li>
+     *     <li>Correo electrónico: "SIN_CORREO"</li>
+     * </ul>
+     */
     public Jugador() {
-        // Inicializa los atributos si es necesario
+        this.nombre = "SIN_NOMBRE";
+        this.apellidos = "SIN_APELLIDOS";
+        this.fechaNacimiento = null;
+        this.fechaInscripcion = null;
+        this.correoElectronico = "SIN_CORREO";
     }
 
-    // Constructor parametrizado:
+    /**
+     * Constructor que inicializa un nuevo jugador con los parámetros especificados.
+     * 
+     * @param nombre          El nombre del jugador.
+     * @param apellidos       Los apellidos del jugador.
+     * @param fechaNacimiento La fecha de nacimiento del jugador.
+     * @param correoElectronico El correo electrónico del jugador.
+     */
     public Jugador(String nombre, String apellidos, Date fechaNacimiento, String correoElectronico) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
         this.correoElectronico = correoElectronico;
-        this.fechaInscripcion = new Date(); // hora actual del sistema
+        this.fechaInscripcion = new Date(); // Se asigna la fecha actual como fecha de inscripción
     }
 
-    // Métodos get/set
+    /**
+     * Obtiene el nombre del jugador.
+     * 
+     * @return El nombre del jugador.
+     */
     public String getNombre() {
         return nombre;
     }
 
+    /**
+     * Establece el nombre del jugador.
+     * 
+     * @param nombre El nuevo nombre del jugador.
+     */
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
 
+    /**
+     * Obtiene los apellidos del jugador.
+     * 
+     * @return Los apellidos del jugador.
+     */
     public String getApellidos() {
         return apellidos;
     }
 
+    /**
+     * Establece los apellidos del jugador.
+     * 
+     * @param apellidos Los nuevos apellidos del jugador.
+     */
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
     }
 
+    /**
+     * Obtiene la fecha de nacimiento del jugador.
+     * 
+     * @return La fecha de nacimiento del jugador.
+     */
     public Date getFechaNacimiento() {
         return fechaNacimiento;
     }
 
+    /**
+     * Establece la fecha de nacimiento del jugador.
+     * 
+     * @param fechaNacimiento La nueva fecha de nacimiento del jugador.
+     */
     public void setFechaNacimiento(Date fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
+    /**
+     * Obtiene la fecha de inscripción del jugador.
+     * 
+     * @return La fecha de inscripción del jugador.
+     */
     public Date getFechaInscripcion() {
         return fechaInscripcion;
     }
 
+    /**
+     * Establece la fecha de inscripción del jugador.
+     * 
+     * @param fechaInscripcion La nueva fecha de inscripción del jugador.
+     */
     public void setFechaInscripcion(Date fechaInscripcion) {
         this.fechaInscripcion = fechaInscripcion;
     }
 
+    /**
+     * Obtiene el correo electrónico del jugador.
+     * 
+     * @return El correo electrónico del jugador.
+     */
     public String getCorreoElectronico() {
         return correoElectronico;
     }
 
+    /**
+     * Establece el correo electrónico del jugador.
+     * 
+     * @param correoElectronico El nuevo correo electrónico del jugador.
+     */
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
 
-    // Método toString para imprimir la información del usuario:
+    /**
+     * Devuelve una representación en cadena del objeto Jugador.
+     * La representación incluye el nombre, apellidos, fecha de nacimiento, 
+     * fecha de inscripción y correo electrónico del jugador.
+     * 
+     * @return Una cadena que representa el jugador.
+     */
     @Override
     public String toString() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return "Jugador{" +
                 "nombre='" + nombre + '\'' +
                 ", apellidos='" + apellidos + '\'' +
-                ", fechaNacimiento=" + dateFormat.format(fechaNacimiento) +
-                ", fechaInscripcion=" + dateFormat.format(fechaInscripcion) +
+                ", fechaNacimiento=" + (fechaNacimiento != null ? dateFormat.format(fechaNacimiento) : "N/A") +
+                ", fechaInscripcion=" + (fechaInscripcion != null ? dateFormat.format(fechaInscripcion) : "N/A") +
                 ", correoElectronico='" + correoElectronico + '\'' +
                 '}';
     }
 
-    // Método calcularAntiguedad:
+    /**
+     * Calcula la antigüedad del jugador en el sistema, en años.
+     * 
+     * @return La antigüedad del jugador en años.
+     */
     public int calcularAntiguedad() {
         long diferenciaMilisegundos = new Date().getTime() - fechaInscripcion.getTime();
-        return (int) TimeUnit.MILLISECONDS.toDays(diferenciaMilisegundos) / 365; // convertir a años
+        return (int) TimeUnit.MILLISECONDS.toDays(diferenciaMilisegundos) / 365;
     }
 }
