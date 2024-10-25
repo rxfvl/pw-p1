@@ -4,9 +4,24 @@ import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.util.Properties;
 
 public class FileManager {
+    private Properties properties;
 
+    public FileManager() {
+        properties = new Properties();
+        try (FileReader reader = new FileReader("config.properties")) {
+            properties.load(reader);
+        } catch (IOException e) {
+            System.out.println("Error al cargar el fichero de propiedades: " + e.getMessage());
+        }
+    }
+
+    public String getFilePath(String key) {
+        return properties.getProperty(key);
+    }
+    
     // Leer el contenido de un archivo
     public String readFile(String filePath) {
         StringBuilder content = new StringBuilder();
