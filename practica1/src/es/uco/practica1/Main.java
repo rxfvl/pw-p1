@@ -41,18 +41,18 @@ public class Main {
             switch (opcion) {
                 case 1:
                     // Lógica de gestión de usuarios
-                    gestionarUsuarios(scanner);
+                    MainUsuarios.main(args); // Llamada al main de gestión de usuarios
                     break;
                 case 2:
                     // Lógica de gestión de pistas
-                    gestionarPistas(scanner);
+                    MainPistas.main(args); // Llamada al main de gestión de pistas
                     break;
                 case 3:
                     // Lógica de gestión de reservas
-                    gestionarReservas(scanner);
+                    MainReservas.main(args); // Llamada al main de gestión de reservas
                     break;
                 case 0:
-                    salir = true;
+                    salir = true; // Salir del bucle
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor intenta de nuevo.");
@@ -66,6 +66,7 @@ public class Main {
         scanner.close();
         System.out.println("Saliendo de la aplicación. ¡Hasta luego!");
     }
+}
 
     private static void gestionarUsuarios(Scanner scanner) {
         // Implementa la lógica para el menú de usuarios
