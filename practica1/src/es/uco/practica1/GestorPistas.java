@@ -1,13 +1,8 @@
 package es.uco.practica1;
 
-/**
- * GestorPistas class
- * @author Miriam Prado Martínez
- * */
-
 import java.util.ArrayList;
 import java.util.List;
-//import es.uco.practica1.Enums; //Quitando esto dejan de salir errores en eclipse.
+import java.util.Scanner;
 
 public class GestorPistas {
     
@@ -19,19 +14,79 @@ public class GestorPistas {
         this.materiales = new ArrayList<>();
     }
 
-    // Crear pistas:
-    public void crearPista(String nombre, boolean estado, boolean tipo, Enums.tamanio tamanio, int jugadores) {
-        Pista pista = new Pista(nombre, estado, tipo, tamanio, jugadores);
+    public boolean addPista(String filePath, Pista pista) {
+        FileManager fileMan = new FileManager();
+        pistas = fileMan.cargarPistasDesdeArchivo(filePath);
+        
+        if (pistaExists(pista.getNombre())) {
+            System.out.println("ERR: La pista ya existe
+");
+            return false;
+        }
+        
         pistas.add(pista);
+        fileMan.guardarPistasEnArchivo(filePath, pistas);
+        System.out.println("Pista agregada con éxito
+");
+        return true;
     }
 
-    // Crear materiales:
-    public void crearMaterial(int id, Enums.tipo type, boolean usoMaterial, Enums.estado status) {
-        Material material = new Material(id, type, usoMaterial, status);
+    public void modPista(String filePath, String nombrePista) {
+        FileManager fileMan = new FileManager();
+        pistas = fileMan.cargarPistasDesdeArchivo(filePath);
+        Scanner scanner = new Scanner(System.in);
+
+        for (int i = 0; i < pistas.size(); i++) {
+            if (pistas.get(i).getNombre().equals(nombrePista)) {
+                // Detalles para modificar la pista
+                System.out.print("Ingrese el nuevo estado (true/false): ");
+                boolean estado = scanner.nextBoolean();
+
+                System.out.print("Ingrese el nuevo tipo (true/false): ");
+                boolean tipo = scanner.nextBoolean();
+
+                System.out.print("Ingrese el nuevo tamaño: ");
+                Enums.tamanio tamanio = Enums.tamanio.valueOf(scanner.next().toUpperCase());
+
+                System.out.print("Ingrese el nuevo número máximo de jugadores: ");
+                int jugadores = scanner.nextInt();
+
+                // Actualizo la pista
+                pistas.get(i).setEstado(estado);
+                pistas.get(i).setTipo(tipo);
+                pistas.get(i).setTamanio(tamanio);
+                pistas.get(i).setJugadores_max(jugadores);
+
+                break;
+            }
+        }
+        fileMan.guardarPistasEnArchivo(filePath, pistas);
+        System.out.println("Pista modificada con éxito
+");
+    }
+
+    public List<Pista> listPistas(String filePath) {
+        FileManager fileMan = new FileManager();
+        return fileMan.cargarPistasDesdeArchivo(filePath);
+    }
+
+    private boolean pistaExists(String nombre) {
+        for (Pista pista : pistas) {
+            if (pista.getNombre().equals(nombre)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Métodos adicionales para manejar materiales y asociarlos
+    public void crearMaterial(String filePath, Material material) {
+        FileManager fileMan = new FileManager();
+        materiales = fileMan.cargarMaterialesDesdeArchivo(filePath);
         materiales.add(material);
+        fileMan.guardarMaterialesEnArchivo(filePath, materiales);
     }
 
-    // Asociar materiales a pistas:
     public boolean asociarMaterialAPista(String nombrePista, int idMaterial) {
         Pista pista = buscarPista(nombrePista);
         Material material = buscarMaterial(idMaterial);
@@ -39,33 +94,11 @@ public class GestorPistas {
         if (pista != null && material != null) {
             if (material.getStatus() == Enums.estado.DISPONIBLE) {
                 pista.asociarMaterialAPista(material);
-                material.getStatus();  // Cambiar el estado del material a otro (por ejemplo, RESERVADO o MALESTADO)
+                material.setStatus(Enums.estado.RESERVADO);
                 return true;  // Asociación exitosa
             }
         }
         return false;  // Error en la asociación
-    }
-
-    // Listar pistas no disponibles:
-    public List<Pista> listarPistasNoDisponibles() {
-        List<Pista> noDisponibles = new ArrayList<>();
-        for (Pista pista : pistas) {
-            if (!pista.getEstado()) {
-                noDisponibles.add(pista);
-            }
-        }
-        return noDisponibles;
-    }
-
-    // Obtener pistas libres según número de jugadores y tipo de pista:
-    public List<Pista> obtenerPistasLibres(int numJugadores, boolean tipoPista) {
-        List<Pista> libres = new ArrayList<>();
-        for (Pista pista : pistas) {
-            if (pista.getEstado() && pista.getTipo() == tipoPista && pista.getJugadores_max() >= numJugadores) {
-                libres.add(pista);
-            }
-        }
-        return libres;
     }
 
     private Pista buscarPista(String nombre) {
@@ -84,10 +117,5 @@ public class GestorPistas {
             }
         }
         return null;
-    }
-    
-    public List<Pista> GetPistas()
-    {
-    	return this.pistas;
     }
 }
