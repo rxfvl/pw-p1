@@ -17,7 +17,7 @@ public class GestorReservas {
     }
 
     // Método para crear una reserva individual:
-    public Reserva crearReservaIndividual(int duracion, int idpista, float precio, float descuento, Date fecha, int participantes, Usuario usuario) {
+    public Reserva crearReservaIndividual(int duracion, int idpista, float precio, float descuento, Date fecha, int participantes, Jugador usuario) {
         // Comprobar si el usuario está registrado:
         if (!usuario.isRegistrado()) {
             System.out.println("El usuario no está registrado.");
@@ -35,7 +35,7 @@ public class GestorReservas {
     }
 
     // Método para crear una reserva dentro de un bono:
-    public Reserva crearReservaBono(int duracion, int idpista, float precio, Date fecha, Usuario usuario, int tipoReserva) {
+    public Reserva crearReservaBono(int duracion, int idpista, float precio, Date fecha, Jugador usuario, int tipoReserva) {
         // Comprobar que el usuario está registrado y que no haya alcanzado el límite de reservas:
         if (!usuario.isRegistrado()) {
             System.out.println("El usuario no está registrado.");

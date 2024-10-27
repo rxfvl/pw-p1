@@ -72,6 +72,24 @@ public class Jugador {
         this.fechaInscripcion = new Date(); // Se asigna la fecha actual como fecha de inscripción
         this.dni = dni;
     }
+    /**
+     * Constructor que inicializa un nuevo jugador con los parámetros especificados.
+     * 
+     * @param nombre          El nombre del jugador.
+     * @param apellidos       Los apellidos del jugador.
+     * @param fechaNacimiento La fecha de nacimiento del jugador.
+     * @param fechaInscripcion La fecha de inscripcion del jugador
+     * @param correoElectronico El correo electrónico del jugador.
+     * @param dni El DNI del jugador.
+     */
+    public Jugador(String nombre, String apellidos, Date fechaNacimiento, Date fechaInscripcion, String correoElectronico, String dni) {
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.fechaNacimiento = fechaNacimiento;
+        this.correoElectronico = correoElectronico;
+        this.fechaInscripcion = fechaInscripcion;
+        this.dni = dni;
+    }
 
     /**
      * Obtiene el nombre del jugador.

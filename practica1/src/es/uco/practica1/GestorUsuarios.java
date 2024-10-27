@@ -1,20 +1,30 @@
 package es.uco.practica1;
 
+import java.util.*;
+
 public class GestorUsuarios {
 	
-	private boolean userExists(String filePath)
+	private List<Jugador> arrayJugadores;
+	
+	public GestorUsuarios(String path)
+	{
+		FileManager fileMan = new FileManager();
+		this.arrayJugadores =  fileMan.cargarJugadoresDesdeArchivo(path);
+	}
+	
+	public boolean addUser(String filePath, Jugador jugador)
 	{
 		FileManager fileMan = new FileManager();
 		
-		if (!fileMan.fileExists(filePath))
-		{
-			System.out.println("ERR: Fichero usuarios.txt no existe, cree el archivo\n");
-		}
 		
-		else
-		{
-			
-		}
 	}
 	
+	public void listUsers(String filePath)
+	{
+		FileManager fileMan = new FileManager();
+		
+		System.out.println(fileMan.readFile(filePath));
+	}
 }
+
+

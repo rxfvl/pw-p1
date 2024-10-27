@@ -1,13 +1,20 @@
 package es.uco.practica1;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Properties;
 
 public class FileManager {
     private Properties properties;
+    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Formato de fecha esperado
 
     public FileManager() {
         properties = new Properties();
@@ -36,6 +43,21 @@ public class FileManager {
         return content.toString();
     }
 
+    public boolean findLine(String filePath, String targetLine) {
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                if (line.equals(targetLine)) {
+                    return true; // Devuelve la línea si coincide con targetLine
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        }
+        return false; // Devuelve null si no se encontró la línea
+    }
+
+    
     // Escribir en un archivo (sobrescribe el contenido existente)
     public void writeFile(String filePath, String content) {
         try (FileWriter writer = new FileWriter(filePath)) {
@@ -77,6 +99,37 @@ public class FileManager {
     public boolean fileExists(String filePath) {
         File file = new File(filePath);
         return file.exists();
+    }
+    
+    public List<Jugador> cargarJugadoresDesdeArchivo(String filePath) {
+        List<Jugador> jugadores = new ArrayList<>();
+
+        try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
+            String line;
+            while ((line = br.readLine()) != null) {
+                String[] datos = line.split(",");
+
+                if (datos.length == 6) { // Verifica que la línea tenga todos los datos necesarios
+                    String nombre = datos[0];
+                    String apellidos = datos[1];
+                    Date fechaNacimiento = dateFormat.parse(datos[2]);
+                    Date fechaInscripcion = dateFormat.parse(datos[3]);
+                    String correoElectronico = datos[4];
+                    String dni = datos[5];
+
+                    Jugador jugador = new Jugador(nombre, apellidos, fechaNacimiento, fechaInscripcion, correoElectronico, dni);
+                    jugadores.add(jugador);
+                } else {
+                    System.out.println("Línea con formato incorrecto: " + line);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error al leer el archivo: " + e.getMessage());
+        } catch (ParseException e) {
+            System.out.println("Error al parsear una fecha: " + e.getMessage());
+        }
+
+        return jugadores;
     }
 
 }
