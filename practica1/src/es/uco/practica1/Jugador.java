@@ -30,6 +30,11 @@ public class Jugador {
     private String correoElectronico; 
 
     /**
+     * El dni del jugador.
+     */
+    private String dni;
+    
+    /**
      * Constructor por defecto que inicializa el jugador con valores por defecto.
      * Los valores predeterminados son:
      * <ul>
@@ -38,6 +43,7 @@ public class Jugador {
      *     <li>Fecha de nacimiento: {@code null}</li>
      *     <li>Fecha de inscripción: {@code null}</li>
      *     <li>Correo electrónico: "SIN_CORREO"</li>
+     *     <li>DNI: "SIN_DNI"</li>
      * </ul>
      */
     public Jugador() {
@@ -46,6 +52,7 @@ public class Jugador {
         this.fechaNacimiento = null;
         this.fechaInscripcion = null;
         this.correoElectronico = "SIN_CORREO";
+        this.dni = "SIN_DNI";
     }
 
     /**
@@ -55,13 +62,15 @@ public class Jugador {
      * @param apellidos       Los apellidos del jugador.
      * @param fechaNacimiento La fecha de nacimiento del jugador.
      * @param correoElectronico El correo electrónico del jugador.
+     * @param dni El DNI del jugador.
      */
-    public Jugador(String nombre, String apellidos, Date fechaNacimiento, String correoElectronico) {
+    public Jugador(String nombre, String apellidos, Date fechaNacimiento, String correoElectronico, String dni) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.fechaNacimiento = fechaNacimiento;
         this.correoElectronico = correoElectronico;
         this.fechaInscripcion = new Date(); // Se asigna la fecha actual como fecha de inscripción
+        this.dni = dni;
     }
 
     /**
@@ -153,6 +162,24 @@ public class Jugador {
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
     }
+    
+    /**
+     * Obtiene el DNI del jugador.
+     * 
+     * @return El DNI del jugador.
+     */
+    public String getDni() {
+        return dni;
+    }
+
+    /**
+     * Establece el DNI del jugador.
+     * 
+     * @param dni El nuevo DNI del jugador.
+     */
+    public void setDni(String dni) {
+        this.dni = dni;
+    }
 
     /**
      * Devuelve una representación en cadena del objeto Jugador.
@@ -170,6 +197,7 @@ public class Jugador {
                 ", fechaNacimiento=" + (fechaNacimiento != null ? dateFormat.format(fechaNacimiento) : "N/A") +
                 ", fechaInscripcion=" + (fechaInscripcion != null ? dateFormat.format(fechaInscripcion) : "N/A") +
                 ", correoElectronico='" + correoElectronico + '\'' +
+                ", DNI='" + dni + '\'' +
                 '}';
     }
 
