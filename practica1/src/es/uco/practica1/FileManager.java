@@ -131,6 +131,26 @@ public class FileManager {
 
         return jugadores;
     }
+    
+    public void guardarJugadoresEnArchivo(String filePath, List<Jugador> jugadores) {
+        try (FileWriter writer = new FileWriter(filePath)) {
+            for (Jugador jugador : jugadores) {
+                // Convierte cada jugador a una línea en formato CSV
+                String line = String.format("%s,%s,%s,%s,%s,%s\n",
+                        jugador.getNombre(),
+                        jugador.getApellidos(),
+                        dateFormat.format(jugador.getFechaNacimiento()),
+                        dateFormat.format(jugador.getFechaInscripcion()),
+                        jugador.getCorreoElectronico(),
+                        jugador.getDni());
+                
+                writer.write(line);
+            }
+            System.out.println("Jugadores guardados exitosamente en el archivo.");
+        } catch (IOException e) {
+            System.out.println("Error al guardar jugadores en el archivo: " + e.getMessage());
+        }
+    }
 
 }
 
