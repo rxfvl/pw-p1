@@ -85,4 +85,9 @@ public class GestorPistas {
         }
         return null;
     }
+    
+    public List<Pista> GetPistas()
+    {
+    	return this.pistas;
+    }
 }
