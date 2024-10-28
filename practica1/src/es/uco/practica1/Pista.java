@@ -68,7 +68,7 @@ public class Pista
 		this.tipo = tipo;
 		this.pista = tamanio;
 		this.jugadores_max = jugadores;
-		this.materiales = new ArrayList<>();
+		this.materiales = new ArrayList<Material>();
 	}
 	
     /**

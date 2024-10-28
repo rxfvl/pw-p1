@@ -17,8 +17,7 @@ public class GestorReservas {
         
         reservas.add(reserva);
         fileMan.guardarReservasEnArchivo(filePath, reservas);
-        System.out.println("Reserva agregada con éxito
-");
+        System.out.println("Reserva agregada con éxito");
         return true;
     }
 
@@ -33,8 +32,7 @@ public class GestorReservas {
                 // por simplicidad, solo cambio la fecha y notificar que se ha modificado
                 reserva.setFecha(new Date(/* nueva fecha a establecer */));
                 fileMan.guardarReservasEnArchivo(filePath, reservas);
-                System.out.println("Reserva modificada con éxito
-");
+                System.out.println("Reserva modificada con éxito");
                 return true; // Modificación exitosa
             }
         }
@@ -52,8 +50,7 @@ public class GestorReservas {
                     it.remove();
                     FileManager fileMan = new FileManager();
                     fileMan.guardarReservasEnArchivo(filePath, reservas);
-                    System.out.println("Reserva cancelada con éxito
-");
+                    System.out.println("Reserva cancelada con éxito");
                     return true;
                 } else {
                     System.out.println("No se puede cancelar la reserva con menos de 24 horas de antelación.\n");

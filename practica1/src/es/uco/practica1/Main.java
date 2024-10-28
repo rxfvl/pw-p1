@@ -4,19 +4,22 @@ import java.util.*;
 import java.io.*;
 import java.util.Properties;
 
-public class Main {
-    
-    private static GestorUsuarios gestorUsuarios;
+public class Main 
+{
+	private static GestorUsuarios gestorUsuarios;
     private static GestorPistas gestorPistas;
     private static GestorReservas gestorReservas;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         Properties propiedades = new Properties();
         
         // Cargar propiedades del fichero
-        try (InputStream input = new FileInputStream("config.properties")) {
+        try (InputStream input = new FileInputStream("config.properties")) 
+        {
             propiedades.load(input);
-        } catch (IOException ex) {
+        } catch (IOException ex) 
+        {
             System.out.println("Error al cargar las propiedades: " + ex.getMessage());
             return;
         }
@@ -29,7 +32,8 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         boolean salir = false;
 
-        while (!salir) {
+        while (!salir) 
+        {
             System.out.println("1. Gestión de Usuarios");
             System.out.println("2. Gestión de Pistas");
             System.out.println("3. Gestión de Reservas");
@@ -38,7 +42,8 @@ public class Main {
             int opcion = scanner.nextInt();
             scanner.nextLine(); // Limpiar el buffer
 
-            switch (opcion) {
+            switch (opcion) 
+            {
                 case 1:
                     // Lógica de gestión de usuarios
                     MainUsuarios.main(args); // Llamada al main de gestión de usuarios
@@ -66,7 +71,6 @@ public class Main {
         scanner.close();
         System.out.println("Saliendo de la aplicación. ¡Hasta luego!");
     }
-}
 
     private static void gestionarUsuarios(Scanner scanner) {
         // Implementa la lógica para el menú de usuarios

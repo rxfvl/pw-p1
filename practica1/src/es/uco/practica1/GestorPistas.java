@@ -19,15 +19,13 @@ public class GestorPistas {
         pistas = fileMan.cargarPistasDesdeArchivo(filePath);
         
         if (pistaExists(pista.getNombre())) {
-            System.out.println("ERR: La pista ya existe
-");
+            System.out.println("ERR: La pista ya existe");
             return false;
         }
         
         pistas.add(pista);
         fileMan.guardarPistasEnArchivo(filePath, pistas);
-        System.out.println("Pista agregada con éxito
-");
+        System.out.println("Pista agregada con éxito");
         return true;
     }
 
@@ -54,15 +52,14 @@ public class GestorPistas {
                 // Actualizo la pista
                 pistas.get(i).setEstado(estado);
                 pistas.get(i).setTipo(tipo);
-                pistas.get(i).setTamanio(tamanio);
+                pistas.get(i).setPista(tamanio);
                 pistas.get(i).setJugadores_max(jugadores);
 
                 break;
             }
         }
         fileMan.guardarPistasEnArchivo(filePath, pistas);
-        System.out.println("Pista modificada con éxito
-");
+        System.out.println("Pista modificada con exito");
     }
 
     public List<Pista> listPistas(String filePath) {

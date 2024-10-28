@@ -114,7 +114,7 @@ public abstract class Reserva
 	 * 
 	 * @param fecha La nueva fecha de la reserva.
 	 */
-	public void setfecha(Date fecha)
+	public void setFecha(Date fecha)
 	{
 		this.fecha=fecha;
 	}

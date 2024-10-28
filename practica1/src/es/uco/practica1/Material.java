@@ -64,6 +64,16 @@ public class Material
     }
     
     /**
+     * Establece el id del material
+     * 
+     * @param id El identificador del material.
+     * */
+    public void setId(int id)
+    {
+    	this.id = id;
+    }
+    
+    /**
      * Devuelve el tipo de material.
      * 
      * @return El tipo de material, de tipo {@link Enums.tipo}.
@@ -71,6 +81,16 @@ public class Material
     public Enums.tipo getType()
     {
         return this.type;
+    }
+    
+    /**
+     * Establece el tipo del material
+     * 
+     * @param type El tipo de material.
+     * */
+    public void setType(Enums.tipo type)
+    {
+    	this.type = type;
     }
     
     /**
@@ -84,6 +104,16 @@ public class Material
     }
     
     /**
+     * Establece el estado del material
+     * 
+     * @param status El estado del material.
+     * */
+    public void setStatus(Enums.estado status)
+    {
+    	this.status = status;
+    }
+    
+    /**
      * Devuelve el uso del material, indicando si es para interiores o exteriores.
      * 
      * @return true si el material es para interiores, false si es para exteriores.
@@ -91,6 +121,16 @@ public class Material
     public boolean getMaterialUse()
     {
         return this.usoMaterial;
+    }
+    
+    /**
+     * Establece el uso del material (true para interiores y false para exteriores)
+     * 
+     * @param uso El uso del material.
+     * */
+    public void setMaterialUse(boolean uso)
+    {
+    	this.usoMaterial = uso;
     }
     
     /**
