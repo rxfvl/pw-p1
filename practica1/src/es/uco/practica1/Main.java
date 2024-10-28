@@ -6,7 +6,7 @@ import java.util.Properties;
 
 public class Main 
 {
-	private static GestorUsuarios gestorUsuarios;
+	//private static GestorUsuarios gestorUsuarios;
     private static GestorPistas gestorPistas;
     private static GestorReservas gestorReservas;
 
@@ -25,7 +25,7 @@ public class Main
         }
 
         // Iniciar gestores
-        gestorUsuarios = new GestorUsuarios(propiedades.getProperty("usuarios.file"));
+        //gestorUsuarios = new GestorUsuarios(propiedades.getProperty("usuariosFile"));
         gestorPistas = new GestorPistas();
         gestorReservas = new GestorReservas();
 
@@ -54,7 +54,7 @@ public class Main
                     break;
                 case 3:
                     // Lógica de gestión de reservas
-                    MainReservas.main(args); // Llamada al main de gestión de reservas
+                    // MainReservas.main(args); // Llamada al main de gestión de reservas
                     break;
                 case 0:
                     salir = true; // Salir del bucle
@@ -65,7 +65,7 @@ public class Main
         }
 
         // Guardar datos al cerrar
-        gestorUsuarios.guardarJugadoresEnArchivo();
+        // gestorUsuarios.guardarJugadoresEnArchivo();
         // Aquí se pueden añadir llamadas para guardar pistas y reservas si se implementaron métodos.
 
         scanner.close();

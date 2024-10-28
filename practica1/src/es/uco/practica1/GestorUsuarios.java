@@ -10,17 +10,29 @@ public class GestorUsuarios {
 	private static final SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); // Formato de fecha esperado
 	
 	private List<Jugador> arrayJugadores;
+	private String path;
+	
+	public GestorUsuarios(String path)
+	{
+		this.path = path;
+	}
+	
+	public String getPath() {return this.path;}
+	public void setPath(String path) {this.path = path;}
+	
 	
 	private boolean jugadorExists(String dni)
 	{
+		if(arrayJugadores.isEmpty())
+			return false;
 		for (Jugador player : arrayJugadores)
 		{
-			if (player.getDni() == dni)
+			if (dni.equals(player.getDni()))
 			{
-				return false;
+				return true;
 			}
 		}
-		return true;
+		return false;
 	}
 		
 	
@@ -37,6 +49,7 @@ public class GestorUsuarios {
 		}
 		arrayJugadores.add(jugador);
 		fileMan.guardarJugadoresEnArchivo(filePath, arrayJugadores);
+		System.out.println("JUGADORES GUARDADOS LOL");
 		arrayJugadores.clear();
 		return true;
 	}
@@ -50,10 +63,12 @@ public class GestorUsuarios {
 		
 		if (jugadorExists(dni))
 		{
-			for (int i = 0; i < arrayJugadores.size(); i++)
+			for (Jugador player : arrayJugadores)
 			{
-				if (arrayJugadores.get(i).getDni().equals(dni))
+				System.out.println(player.getDni());
+				if (player.getDni().equals(dni))
 				{
+					
 					try
 					{
 						System.out.print("Ingrese el nombre: ");
@@ -75,20 +90,19 @@ public class GestorUsuarios {
                         String newDni = scanner.nextLine();
                         
                         // Actualizo el jugador
-                        arrayJugadores.get(i).setNombre(nombre);
-                        arrayJugadores.get(i).setApellidos(apellidos);
-                        arrayJugadores.get(i).setFechaNacimiento(fechaNacimiento);
-                        arrayJugadores.get(i).setFechaInscripcion(fechaInscripcion);
-                        arrayJugadores.get(i).setCorreoElectronico(correo);
-                        arrayJugadores.get(i).setDni(newDni);
-                        
+                        player.setNombre(nombre);
+                        player.setApellidos(apellidos);
+                        player.setFechaNacimiento(fechaNacimiento);
+                        player.setFechaInscripcion(fechaInscripcion);
+                        player.setCorreoElectronico(correo);
+                        player.setDni(newDni);
+                        break;
 					}
 					catch(ParseException e)
 					{
 						System.out.println("Error al parsear la fecha: " + e.getMessage());
 					}
 				}
-				break;
 			}
 			fileMan.guardarJugadoresEnArchivo(filePath, arrayJugadores);
 			arrayJugadores.clear();
