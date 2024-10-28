@@ -66,24 +66,10 @@ public class Main
 
         // Guardar datos al cerrar
         gestorUsuarios.guardarJugadoresEnArchivo();
-        // Aquí se pueden añadir llamadas para guardar pistas y reservas si se implementaron métodos.
-
+        gestorPistas.guardarPistasEnArchivo();
+        gestorReservas.guardarReservasEnArchivo();
+	    
         scanner.close();
         System.out.println("Saliendo de la aplicación. ¡Hasta luego!");
-    }
-
-    private static void gestionarUsuarios(Scanner scanner) {
-        // Implementa la lógica para el menú de usuarios
-        System.out.println("Gestión de Usuarios:");
-        // Por ejemplo agregar, listar, etc.
-        // Por cada opción puedes crear métodos privados para mantener el código organizado.
-    }
-
-    private static void gestionarPistas(Scanner scanner) {
-        // Implementa la lógica para el menú de pistas
-    }
-
-    private static void gestionarReservas(Scanner scanner) {
-        // Implementa la lógica para el menú de reservas
     }
 }
