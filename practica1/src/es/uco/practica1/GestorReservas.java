@@ -2,15 +2,32 @@ package es.uco.practica1;
 
 import java.util.*;
 
+/**
+ * La clase GestorReservas gestiona una lista de reservas proporcionando métodos para añadir,
+ * modificar, cancelar reservas y consultar reservas futuras o por día y pista específica.
+ */
 public class GestorReservas {
+    /** Lista de reservas gestionadas por la clase */
     private List<Reserva> reservas;
+    /** Contador de IDs para asignar IDs únicos a las reservas */
     private int idCounter;
 
+    /**
+     * Constructor de la clase GestorReservas.
+     * Inicializa la lista de reservas y el contador de IDs.
+     */
     public GestorReservas() {
         this.reservas = new ArrayList<>();
         this.idCounter = 1; // Inicia el contador de IDs para las reservas
     }
 
+    /**
+     * Añade una nueva reserva a la lista y guarda los cambios en el archivo.
+     * 
+     * @param filePath Ruta del archivo donde se almacenan los datos de las reservas
+     * @param reserva Reserva a añadir
+     * @return true si la reserva se añadió correctamente
+     */
     public boolean addReserva(String filePath, Reserva reserva) {
         FileManager fileMan = new FileManager();
         reservas = fileMan.cargarReservasDesdeArchivo(filePath);
@@ -21,6 +38,13 @@ public class GestorReservas {
         return true;
     }
 
+    /**
+     * Modifica una reserva existente.
+     * 
+     * @param filePath Ruta del archivo donde se almacenan los datos de las reservas
+     * @param idReserva ID de la reserva a modificar
+     * @return true si la modificación fue exitosa, false si no se encontró la reserva
+     */
     public boolean modReserva(String filePath, int idReserva) {
         FileManager fileMan = new FileManager();
         reservas = fileMan.cargarReservasDesdeArchivo(filePath);
@@ -40,6 +64,13 @@ public class GestorReservas {
         return false; // Reserva no encontrada
     }
 
+    /**
+     * Cancela una reserva existente.
+     * 
+     * @param filePath Ruta del archivo donde se almacenan los datos de las reservas
+     * @param idReserva ID de la reserva a cancelar
+     * @return true si la cancelación fue exitosa, false si no se encontró la reserva o si no se puede cancelar con menos de 24 horas de antelación
+     */
     public boolean cancelarReserva(String filePath, int idReserva) {
         Iterator<Reserva> it = reservas.iterator();
         while (it.hasNext()) {
@@ -62,7 +93,11 @@ public class GestorReservas {
         return false; // Reserva no encontrada
     }
 
-    // Método para consultar el número de reservas futuras:
+    /**
+     * Consulta el número de reservas futuras.
+     * 
+     * @return Número de reservas futuras
+     */
     public int contarReservasFuturas() {
         int count = 0;
         for (Reserva reserva : reservas) {
@@ -73,7 +108,13 @@ public class GestorReservas {
         return count;
     }
 
-    // Método para consultar las reservas de un día y una pista específica:
+    /**
+     * Consulta las reservas de un día y una pista específica.
+     * 
+     * @param fecha Fecha de las reservas a consultar
+     * @param idPista ID de la pista de las reservas a consultar
+     * @return Lista de reservas que coinciden con la fecha y pista especificadas
+     */
     public List<Reserva> consultarReservasPorDiaYPista(Date fecha, int idPista) {
         List<Reserva> reservasFiltradas = new ArrayList<>();
         for (Reserva reserva : reservas) {

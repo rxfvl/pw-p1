@@ -9,8 +9,6 @@ import java.util.Date;
  * 
  * Esta clase sigue el patrón Factory, proporcionando una interfaz para la creación de objetos sin especificar 
  * las clases exactas que serán instanciadas.
- * 
- * @author Juan Manuel Ramírez Hinojosa
  */
 public abstract class ReservaTypeFactory 
 {

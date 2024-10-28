@@ -6,8 +6,6 @@ import java.util.Date;
 /**
  * Clase abstracta que representa una Reserva genérica. Contiene información
  * básica sobre la reserva como id, fecha, duración, id de la pista, precio y descuento.
- * 
- * @author Juan Manuel Ramírez Hinojosa
  */
 public abstract class Reserva 
 {

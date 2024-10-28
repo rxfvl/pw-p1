@@ -15,8 +15,6 @@ import java.util.ArrayList;
  * @see ReservaInfantil
  * @see ReservaAdultos
  * @see ReservaFamiliar
- * 
- * @author Juan Manuel Ramírez Hinojosa
  */
 public class ReservaBonoFactory extends ReservaTypeFactory
 {

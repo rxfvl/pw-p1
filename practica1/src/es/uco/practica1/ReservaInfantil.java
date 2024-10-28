@@ -5,8 +5,6 @@ import java.util.Date;
 /**
  * Clase que extiende de la clase abstracta {@link Reserva} y representa una reserva infantil.
  * Incluye el número de niños como atributo adicional.
- * 
- * @author Juan Manuel Ramírez Hinojosa
  */
 public class ReservaInfantil extends Reserva
 {

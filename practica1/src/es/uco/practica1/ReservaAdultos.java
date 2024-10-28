@@ -5,8 +5,6 @@ import java.util.Date;
 /**
  * Clase que extiende de la clase abstracta {@link Reserva} y representa una reserva para adultos.
  * Incluye el número de participantes como atributo adicional.
- * 
- * @author Juan Manuel Ramírez Hinojosa
  */
 public class ReservaAdultos extends Reserva
 {

@@ -13,8 +13,6 @@ import java.util.Date;
  * @see ReservaInfantil
  * @see ReservaAdultos
  * @see ReservaFamiliar
- * 
- * @author Juan Manuel Ramírez Hinojosa
  */
 public class ReservaIndividualFactory extends ReservaTypeFactory 
 {

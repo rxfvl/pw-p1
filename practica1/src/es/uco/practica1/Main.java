@@ -64,18 +64,7 @@ public class Main
             }
         }
 
-        // Guardar datos al cerrar
-<<<<<<< HEAD
-        // gestorUsuarios.guardarJugadoresEnArchivo();
-        // Aquí se pueden añadir llamadas para guardar pistas y reservas si se implementaron métodos.
-
-=======
-        gestorUsuarios.guardarJugadoresEnArchivo();
-        gestorPistas.guardarPistasEnArchivo();
-        gestorReservas.guardarReservasEnArchivo();
-	    
->>>>>>> f4788f2798d341bb9cd7a18e7c03055a205d88b2
         scanner.close();
-        System.out.println("Saliendo de la aplicación. ¡Hasta luego!");
+        System.out.println("Saliendo de la aplicación.");
     }
 }
