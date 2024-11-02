@@ -208,7 +208,7 @@ public class FileManager {
 		                {
 		                	pista.asociarMaterialAPista(mat);
 		                }
-		                //pistas.add(pista);	                	
+		                pistas.add(pista);	                	
 	                }
 
 	            } else {
@@ -264,7 +264,7 @@ public class FileManager {
 	
 	public List<Material> cargarMaterialesDesdeArchivo(String filePath) {
         List<Material> materiales = new ArrayList<>();
-
+        System.out.println(filePath);
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -280,10 +280,10 @@ public class FileManager {
 	                    tipo = Enums.tipo.NONE;
 	                    System.out.println("Valor inválido para tipo. Estableciendo a NONE.");
 	                }
-	                boolean uso = Boolean.parseBoolean(datos[3]);
+	                boolean uso = Boolean.parseBoolean(datos[2]);
 	                Enums.estado estado;
 	                try {
-	                    estado = Enums.estado.valueOf(datos[2].toUpperCase());
+	                    estado = Enums.estado.valueOf(datos[3].trim().toUpperCase());
 	                } catch (IllegalArgumentException e) 
 	                {
 	                    estado = Enums.estado.NONE;

@@ -138,6 +138,7 @@ public class GestorUsuarios {
         } else {
             System.out.println("El usuario no existe\n");
         }
+        scanner.close();
     }
 
     /**

@@ -18,7 +18,7 @@ public class GestorReservas {
      */
     public GestorReservas() {
         this.reservas = new ArrayList<>();
-        this.idCounter = 1; // Inicia el contador de IDs para las reservas
+        this.setIdCounter(1); // Inicia el contador de IDs para las reservas
     }
 
     /**
@@ -124,4 +124,12 @@ public class GestorReservas {
         }
         return reservasFiltradas;
     }
+
+	public int getIdCounter() {
+		return idCounter;
+	}
+
+	public void setIdCounter(int idCounter) {
+		this.idCounter = idCounter;
+	}
 }

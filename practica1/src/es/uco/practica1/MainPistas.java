@@ -3,7 +3,6 @@ package es.uco.practica1;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.List;
 import java.util.Properties;
 import java.util.Scanner;
 
@@ -26,7 +25,7 @@ public class MainPistas {
         }
     	
         scanner = new Scanner(System.in);
-        gestorPistas = new GestorPistas(propiedades.getProperty("pistasFile")); // Inicia el gestor de pistas
+        gestorPistas = new GestorPistas(propiedades.getProperty("pistasFile"), propiedades.getProperty("materialesFile")); // Inicia el gestor de pistas
 
         boolean salir = false;
         

@@ -2,7 +2,6 @@ package es.uco.practica1;
 
 //Importaciones:
 import java.util.Date;					//Para manejar las fechas.
-import java.text.ParseException;
 import java.text.SimpleDateFormat;		//Para formatear las fechas: dd/MM/yyyy.
 import java.util.concurrent.TimeUnit;	//Para realizar conversiones de tiempo.
 
