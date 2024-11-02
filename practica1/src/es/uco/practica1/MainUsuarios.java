@@ -74,6 +74,6 @@ public class MainUsuarios
             }
         }
         
-		
+		scanner.close();
     }
 }

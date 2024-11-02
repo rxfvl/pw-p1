@@ -6,10 +6,6 @@ import java.util.Properties;
 
 public class Main 
 {
-	//private static GestorUsuarios gestorUsuarios;
-    private static GestorPistas gestorPistas;
-    private static GestorReservas gestorReservas;
-
     public static void main(String[] args) 
     {
         Properties propiedades = new Properties();
@@ -23,11 +19,6 @@ public class Main
             System.out.println("Error al cargar las propiedades: " + ex.getMessage());
             return;
         }
-
-        // Iniciar gestores
-        //gestorUsuarios = new GestorUsuarios(propiedades.getProperty("usuariosFile"));
-        gestorPistas = new GestorPistas();
-        gestorReservas = new GestorReservas();
 
         Scanner scanner = new Scanner(System.in);
         boolean salir = false;

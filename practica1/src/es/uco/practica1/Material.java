@@ -1,4 +1,5 @@
 package es.uco.practica1;
+import es.uco.practica1.Enums;
 
 public class Material 
 {

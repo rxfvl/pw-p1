@@ -3,3 +3,5 @@ Rafa,Tortosa,2024-10-28,2024-10-28,email.uco.es,26794424e
 juanma,rodriguez,2024-10-28,2024-10-28,juanmaaa,78942991d
 manolo,manolo,5555-02-12,3333-12-12,correooo,666
 paco,ramirez,2024-10-28,2024-10-28,a@gmail.com,49834645H
+manolo,paco,2345-03-12,1111-12-31,email.lol,7777
+jjajaj,ajajj,2024-11-02,2024-11-02,jajaj@fdsf,111

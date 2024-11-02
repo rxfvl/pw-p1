@@ -1,6 +1,10 @@
 package es.uco.practica1;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
+import java.util.Properties;
 import java.util.Scanner;
 
 public class MainPistas {
@@ -9,8 +13,20 @@ public class MainPistas {
     private static Scanner scanner;
 
     public static void main(String[] args) {
+    	Properties propiedades = new Properties();
+        
+        // Cargar propiedades del fichero
+        try (InputStream input = new FileInputStream("config.properties")) 
+        {
+            propiedades.load(input);
+        } catch (IOException ex) 
+        {
+            System.out.println("Error al cargar las propiedades: " + ex.getMessage());
+            return;
+        }
+    	
         scanner = new Scanner(System.in);
-        gestorPistas = new GestorPistas(); // Inicia el gestor de pistas
+        gestorPistas = new GestorPistas(propiedades.getProperty("pistasFile")); // Inicia el gestor de pistas
 
         boolean salir = false;
         
@@ -29,7 +45,7 @@ public class MainPistas {
                     crearPista();
                     break;
                 case 2:
-                    listarPistas();
+                    gestorPistas.listPistas(gestorPistas.getPath());
                     break;
                 case 3:
                     asociarMaterialAPista();
@@ -65,21 +81,11 @@ public class MainPistas {
         System.out.print("Número máximo de jugadores: ");
         int jugadores = scanner.nextInt();
 
-        gestorPistas.crearPista(nombre, estado, tipo, tamanio, jugadores);
-        System.out.println("Pista creada con éxito.");
+        Pista pista = new Pista(nombre, estado, tipo, tamanio, jugadores); // CAMBIAR
+        
+        gestorPistas.addPista(gestorPistas.getPath(), pista);
     }
 
-    private static void listarPistas() {
-        List<Pista> pistas = gestorPistas.listPistas();
-        if (pistas.isEmpty()) {
-            System.out.println("No hay pistas disponibles.");
-        } else {
-            System.out.println("Lista de pistas:");
-            for (Pista pista : pistas) {
-                System.out.println(pista.toString());
-            }
-        }
-    }
 
     private static void asociarMaterialAPista() {
         System.out.print("Nombre de la pista: ");

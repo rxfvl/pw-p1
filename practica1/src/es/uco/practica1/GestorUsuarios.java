@@ -99,7 +99,6 @@ public class GestorUsuarios {
 
         if (jugadorExists(dni)) {
             for (Jugador player : arrayJugadores) {
-                System.out.println(player.getDni());
                 if (player.getDni().equals(dni)) {
                     try {
                         System.out.print("Ingrese el nombre: ");

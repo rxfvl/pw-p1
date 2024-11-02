@@ -1,6 +1,7 @@
 package es.uco.practica1;
 
 import java.util.ArrayList;
+import es.uco.practica1.Material;
 import java.util.*;
 
 public class Pista

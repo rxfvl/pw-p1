@@ -133,7 +133,7 @@ public class FileManager {
     }
     
     public void guardarJugadoresEnArchivo(String filePath, List<Jugador> jugadores) {
-        try (FileWriter writer = new FileWriter(filePath)) {
+    	try (FileWriter writer = new FileWriter(filePath)) {
             for (Jugador jugador : jugadores) {
                 // Convierte cada jugador a una línea en formato CSV
                 String line = String.format("%s,%s,%s,%s,%s,%s\n",
@@ -178,31 +178,39 @@ public class FileManager {
 	                    System.out.println("Valor inválido para tamanio. Estableciendo a NONE.");
 	                }
 	                int jugadores = Integer.parseInt(datos[4]);
-	                
-	                String[] materialesArray = datos[5].split(" ");
-	                List<Material> materialesList = new ArrayList<>();
-	                for (String materialStr : materialesArray) 
+	                if (datos[5].equals("Empty"))
 	                {
-	                    // Dividir cada material por "/"
-	                    String[] campos = materialStr.split("/");
-	
-	                    // Convertir los campos apropiadamente
-	                    int id = Integer.parseInt(campos[0]);
-	                    Enums.tipo tipoMat = Enums.tipo.valueOf(campos[1]);
-	                    boolean usoMaterial = Boolean.parseBoolean(campos[2]);
-	                    Enums.estado estadoMat = Enums.estado.valueOf(campos[3]);
-	
-	                    // Crear una nueva instancia de Material
-	                    Material material = new Material(id, tipoMat, usoMaterial, estadoMat);
-	                    materialesList.add(material);
+	                	Pista pista = new Pista(nombre, estado, tipo, tam, jugadores);
+	                	pistas.add(pista);
 	                }
-	
-	                Pista pista = new Pista(nombre, estado, tipo, tam, jugadores);
-	                for(Material mat : materialesList)
+	                else
 	                {
-	                	pista.asociarMaterialAPista(mat);
+		                String[] materialesArray = datos[5].split(" ");
+		                List<Material> materialesList = new ArrayList<>();
+		                for (String materialStr : materialesArray) 
+		                {
+		                    // Dividir cada material por "/"
+		                    String[] campos = materialStr.split("/");
+		
+		                    // Convertir los campos apropiadamente
+		                    int id = Integer.parseInt(campos[0]);
+		                    Enums.tipo tipoMat = Enums.tipo.valueOf(campos[1]);
+		                    boolean usoMaterial = Boolean.parseBoolean(campos[2]);
+		                    Enums.estado estadoMat = Enums.estado.valueOf(campos[3]);
+		
+		                    // Crear una nueva instancia de Material
+		                    Material material = new Material(id, tipoMat, usoMaterial, estadoMat);
+		                    materialesList.add(material);
+		                }
+		
+		                Pista pista = new Pista(nombre, estado, tipo, tam, jugadores);
+		                for(Material mat : materialesList)
+		                {
+		                	pista.asociarMaterialAPista(mat);
+		                }
+		                //pistas.add(pista);	                	
 	                }
-	                pistas.add(pista);
+
 	            } else {
 	                System.out.println("Línea con formato incorrecto: " + line);
 	            }
@@ -216,10 +224,11 @@ public class FileManager {
 	}
 	
 	public void guardarPistasEnArchivo(String filePath, List<Pista> pistas) {
-        try (FileWriter writer = new FileWriter(filePath)) {
+		try (FileWriter writer = new FileWriter(filePath)) {
             for (Pista pista : pistas) {
                 // Convierte cada jugador a una línea en formato CSV
                 String materiales = formatoMat(pista.getMateriales());
+                if (materiales.isBlank()) {materiales = "Empty";}
                 String line = String.format("%s,%b,%b,%s,%d,%s\n",
                         pista.getNombre(),
                         pista.getEstado(),
@@ -229,7 +238,7 @@ public class FileManager {
                         materiales);
                 writer.write(line);
             }
-            System.out.println("Pistas guardadas exitosamente en el archivo.");
+            // System.out.println("Pistas guardadas exitosamente en el archivo.");
         } catch (IOException e) {
             System.out.println("Error al guardar pistas en el archivo: " + e.getMessage());
         }

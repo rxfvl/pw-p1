@@ -12,7 +12,8 @@ import java.util.Scanner;
 public class GestorPistas {
 
     /** Lista de pistas gestionadas por la clase */
-    private List<Pista> pistas;
+    private String path;
+	private List<Pista> pistas;
 
     /** Lista de materiales gestionados por la clase */
     private List<Material> materiales;
@@ -21,11 +22,21 @@ public class GestorPistas {
      * Constructor de la clase GestorPistas.
      * Inicializa las listas de pistas y materiales.
      */
-    public GestorPistas() {
+    public GestorPistas(String path) {
+    	this.path = path;
         this.pistas = new ArrayList<>();
         this.materiales = new ArrayList<>();
     }
 
+    public String getPath()
+    {
+    	return this.path;
+    }
+    
+    public void setPath(String path)
+    {
+    	this.path = path;
+    }
     /**
      * Añade una nueva pista a la lista y guarda los cambios en el archivo.
      * 
@@ -36,14 +47,16 @@ public class GestorPistas {
     public boolean addPista(String filePath, Pista pista) {
         FileManager fileMan = new FileManager();
         pistas = fileMan.cargarPistasDesdeArchivo(filePath);
-        
-        if (pistaExists(pista.getNombre())) {
+        boolean existe = pistaExists(pista.getNombre());
+        if (existe) {
             System.out.println("ERR: La pista ya existe");
+            pistas.clear();
             return false;
         }
         
         pistas.add(pista);
         fileMan.guardarPistasEnArchivo(filePath, pistas);
+        pistas.clear();
         System.out.println("Pista agregada con éxito");
         return true;
     }
@@ -84,7 +97,9 @@ public class GestorPistas {
             }
         }
         fileMan.guardarPistasEnArchivo(filePath, pistas);
+        pistas.clear();
         System.out.println("Pista modificada con exito");
+        scanner.close();
     }
 
     /**
@@ -93,9 +108,9 @@ public class GestorPistas {
      * @param filePath Ruta del archivo donde se almacenan los datos de las pistas
      * @return Lista de pistas
      */
-    public List<Pista> listPistas(String filePath) {
+    public void listPistas(String filePath) {
         FileManager fileMan = new FileManager();
-        return fileMan.cargarPistasDesdeArchivo(filePath);
+        System.out.println(fileMan.readFile(filePath));
     }
 
     /**
@@ -105,7 +120,7 @@ public class GestorPistas {
      * @return true si la pista existe, false en caso contrario
      */
     private boolean pistaExists(String nombre) {
-        for (Pista pista : pistas) {
+    	for (Pista pista : pistas) {
             if (pista.getNombre().equals(nombre)) {
                 return true;
             }

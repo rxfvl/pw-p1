@@ -1,0 +1,3 @@
+p1,true,false,ADULTOS,5,Empty
+p2,false,true,TRES_VS_TRES,6,Empty
+p3,false,false,MINIBASKET,2,Empty
