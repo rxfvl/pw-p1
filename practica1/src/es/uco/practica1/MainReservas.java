@@ -1,6 +1,7 @@
 package es.uco.practica1;
 
 import java.util.Date;
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Scanner;
 
@@ -70,7 +71,7 @@ public class MainReservas {
         System.out.print("Número de participantes: ");
         int participantes = scanner.nextInt();
         
-        Reserva reserva = gestorReservas.crearReservaIndividual(duracion, idPista, precio, descuento, fecha, participantes, new Usuario());
+        Reserva reserva = gestorReservas.crearReservaIndividual(duracion, idPista, precio, descuento, fecha, participantes, new Jugador());
         
         if (reserva != null) {
             System.out.println("Reserva creada con éxito: " + reserva);
@@ -94,7 +95,7 @@ public class MainReservas {
         System.out.print("Nuevo ID de pista: ");
         int nuevaIdPista = scanner.nextInt();
         
-        if (gestorReservas.modificarReserva(idReserva, nuevaFecha, nuevaDuracion, nuevaIdPista)) {
+        if (gestorReservas.modReserva(idReserva, nuevaFecha, nuevaDuracion, nuevaIdPista)) {
             System.out.println("Reserva modificada con éxito.");
         } else {
             System.out.println("Error al modificar la reserva.");

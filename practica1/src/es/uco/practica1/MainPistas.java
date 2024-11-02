@@ -70,7 +70,7 @@ public class MainPistas {
     }
 
     private static void listarPistas() {
-        List<Pista> pistas = gestorPistas.GetPistas();
+        List<Pista> pistas = gestorPistas.listPistas();
         if (pistas.isEmpty()) {
             System.out.println("No hay pistas disponibles.");
         } else {
