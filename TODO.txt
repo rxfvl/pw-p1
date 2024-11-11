@@ -1,0 +1,1 @@
+Meter las clases (Jugador, Pistas...) que, seran los DTO, en Business junto a los Gestores
