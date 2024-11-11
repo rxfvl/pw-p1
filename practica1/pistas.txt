@@ -1,3 +1,0 @@
-p1,true,false,ADULTOS,5,1/PELOTAS/true/RESERVADO 2/CANASTAS/false/RESERVADO 3/CONOS/true/RESERVADO
-p2,false,true,TRES_VS_TRES,6,Empty
-p3,false,false,MINIBASKET,2,Empty
