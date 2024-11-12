@@ -10,7 +10,7 @@ public class MainPistas {
     
     private GestorPistas gestorP = new GestorPistas();
 
-    public static void main(String[] args) {
+    public void main(String[] args) {
         scanner = new Scanner(System.in);
         gestorPistas = new GestorPistas(); // Inicia el gestor de pistas
 
@@ -21,6 +21,7 @@ public class MainPistas {
             System.out.println("1. Crear Pista");
             System.out.println("2. Listar Pistas");
             System.out.println("3. Asociar Material a Pista");
+            System.out.println("4. Borrar Pista");
             System.out.println("0. Volver al Menú Principal");
             System.out.print("Selecciona una opción: ");
             int opcion = scanner.nextInt();
@@ -36,6 +37,9 @@ public class MainPistas {
                 case 3:
                     asociarMat();
                     break;
+                case 4:
+                	borrarP();
+                	break;
                 case 0:
                     salir = true; // Volver al menú principal
                     break;
@@ -64,30 +68,48 @@ public class MainPistas {
         gestorP.crearPista(nombre, estado, tipo, tamanio, jugadores);
     }
 
-    private static void listarP() {
-        List<Pista> pistas = gestorPistas.GetPistas();
+    private void listarP() {
+        List<PistaDTO> pistas = gestorP.ListarPistas();
         if (pistas.isEmpty()) {
             System.out.println("No hay pistas disponibles.");
         } else {
             System.out.println("Lista de pistas:");
-            for (Pista pista : pistas) {
+            for (PistaDTO pista : pistas) {
                 System.out.println(pista.toString());
             }
         }
     }
 
-    private static void asociarMat() {
-        System.out.print("Nombre de la pista: ");
-        String nombrePista = scanner.nextLine();
-
-        System.out.print("ID del material: ");
-        int idMaterial = scanner.nextInt();
-
-        boolean resultado = gestorPistas.asociarMaterialAPista(nombrePista, idMaterial);
-        if (resultado) {
-            System.out.println("Material asociado a la pista con éxito.");
-        } else {
-            System.out.println("No se pudo asociar el material a la pista. Verifica que la pista y el material existen y están disponibles.");
-        }
+    private void asociarMat() {
+        
+    }
+    
+    private void borrarP() {
+    	int op = 0, res = 0, id = -1;
+    	String nombre = null;
+    	while(op != 1 || op != 2)
+    	{
+    		System.out.println("Borrar por ID (1) o por nombre (2): ");
+        	op = scanner.nextInt();
+        	
+        	switch(op) 
+        	{
+        		case 1:
+        			System.out.println("Introduce el id: ");
+        			id = scanner.nextInt();
+        			break;
+        		case 2:
+        			System.out.println("Introduce el nombre: ");
+        			nombre = scanner.nextLine();
+        			break;
+        		default:
+        			System.out.println("Opción no válida. Por favor intenta de nuevo.");
+        	}
+    	}
+    	
+    	res = gestorP.borrarPista(id, nombre);
+    	
+    	if(res == -1) {System.out.println("La pista introducida no existe");}
+    	else {System.out.println("Pista borrada con éxito");}
     }
 }
