@@ -25,8 +25,8 @@ public class MainProgram {
 
         // Iniciar gestores
         //gestorUsuarios = new GestorUsuarios(propiedades.getProperty("usuariosFile"));
-        gestorPistas = new GestorPistas();
-        gestorReservas = new GestorReservas();
+        //gestorPistas = new GestorPistas();
+        //gestorReservas = new GestorReservas();
 
         Scanner scanner = new Scanner(System.in);
         boolean salir = false;

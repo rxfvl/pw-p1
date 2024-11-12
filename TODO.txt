@@ -1,2 +1,4 @@
 Poner restricciones de numeros en algunos campos de los constructores
 (Material y Pista)
+
+Poner auto-increment en las claves primarias
