@@ -7,6 +7,8 @@ import es.uco.practica2.business.*;
 public class MainPistas {
 	private static GestorPistas gestorPistas;
     private static Scanner scanner;
+    
+    private GestorPistas gestorP = new GestorPistas();
 
     public static void main(String[] args) {
         scanner = new Scanner(System.in);
@@ -43,7 +45,7 @@ public class MainPistas {
         }
     }
 
-    private static void crearP() {
+    private void crearP() {
         System.out.print("Nombre de la pista: ");
         String nombre = scanner.nextLine();
         
@@ -58,9 +60,8 @@ public class MainPistas {
 
         System.out.print("Número máximo de jugadores: ");
         int jugadores = scanner.nextInt();
-
-        crearPista(nombre, estado, tipo, tamanio, jugadores);
-        System.out.println("Pista creada con éxito.");       
+        
+        gestorP.crearPista(nombre, estado, tipo, tamanio, jugadores);
     }
 
     private static void listarP() {

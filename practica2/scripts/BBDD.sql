@@ -6,7 +6,7 @@ drop table if exists bonos;
 
 create table jugadores 
 (
-  id int primary key,
+  id int primary key auto_increment,
   nombre varchar(50) not null,
   apellidos varchar(50) not null,
   fecha_nacimiento date not null,
