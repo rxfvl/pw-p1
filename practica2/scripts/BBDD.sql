@@ -16,7 +16,7 @@ create table jugadores
 
 create table pistas 
 (
-  id int primary key,
+  id int primary key auto_increment,
   nombre varchar(50) not null,
   estado int not null,
   tipo int not null,
@@ -26,7 +26,7 @@ create table pistas
 
 create table materiales 
 (
-  id int primary key,
+  id int primary key auto_increment,
   tipo int not null,
   uso_material int not null,
   estado int not null,
@@ -36,7 +36,7 @@ create table materiales
 
 create table bonos
 (
-  id int primary key,
+  id int primary key auto_increment,
   tamanio_pista int not null,
   id_jugador int  not null,
   sesiones int not null,
@@ -46,7 +46,7 @@ create table bonos
 
 create table reservas 
 (
-  id int primary key,
+  id int primary key auto_increment,
   fecha date not null,
   duracion int not null,
   id_pista int  not null,
