@@ -1,1 +1,2 @@
-Meter las clases (Jugador, Pistas...) que, seran los DTO, en Business junto a los Gestores
+Poner restricciones de numeros en algunos campos de los constructores
+(Material y Pista)
