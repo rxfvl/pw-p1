@@ -9,7 +9,7 @@ public class ReservasDTO {
 	private int id_pista;
 	private float precio;
 	private float descuento;
-	private int tipo_reserva;
+	private int tipo_reserva;	//0=adultos; 1=infantil; 2=familiar;
 	private int num_ninios;
 	private int num_adultos;
 	private int id_bono;
