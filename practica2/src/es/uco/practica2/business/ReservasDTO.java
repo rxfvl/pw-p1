@@ -14,9 +14,9 @@ public class ReservasDTO {
 	private int num_adultos;
 	private int id_bono;
 	
-	public ReservasDTO(int id, Date fecha, int duracion, int id_pista, float precio, float descuento, int tipo_reserva,
+	public ReservasDTO(Date fecha, int duracion, int id_pista, float precio, float descuento, int tipo_reserva,
 			int num_ninios, int num_adultos, int id_bono) {
-		this.id = id;
+		//this.id = id;
 		this.fecha = fecha;
 		this.duracion = duracion;
 		this.id_pista = id_pista;
