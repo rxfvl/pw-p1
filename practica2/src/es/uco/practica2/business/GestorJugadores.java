@@ -23,12 +23,12 @@ public class GestorJugadores {
         jugadorDAO.updateJugador(jugador);
     }
 
-    public void deleteJugador(int dni) throws SQLException {
-        jugadorDAO.deleteJugador(dni);
+    public void deleteJugador(int id) throws SQLException {
+        jugadorDAO.deleteJugador(id);
     }
 
-    public JugadorDTO getJugador(int dni) throws SQLException {
-        return jugadorDAO.getJugador(dni);
+    public JugadorDTO getJugador(int id) throws SQLException {
+        return jugadorDAO.getJugador(id);
     }
 
     public List<JugadorDTO> getAllJugadores() throws SQLException {
