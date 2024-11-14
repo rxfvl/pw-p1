@@ -8,8 +8,8 @@ public class PistaDTO {
 	private int tamanio;
 	private int jugadores_max;
 	
-	public PistaDTO(int id, String nombre, int estado, int tipo, int tamanio, int jugadores_max) {
-		this.id = id;
+	public PistaDTO(String nombre, int estado, int tipo, int tamanio, int jugadores_max) {
+		//this.id = id;
 		this.nombre = nombre;
 		this.estado = estado;
 		this.tipo = tipo;

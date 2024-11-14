@@ -10,9 +10,9 @@ public class JugadorDTO {
 	private Date fecha_inscripcion;
 	private String correo_electronico;
 
-	public JugadorDTO(int id, String nombre, String apellidos, Date fecha_nacimiento, Date fecha_inscripcion,
+	public JugadorDTO(String nombre, String apellidos, Date fecha_nacimiento, Date fecha_inscripcion,
 			String correo_electronico) {
-		this.id = id;
+		//this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.fecha_nacimiento = fecha_nacimiento;

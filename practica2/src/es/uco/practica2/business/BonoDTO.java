@@ -10,8 +10,8 @@ public class BonoDTO {
 	private Date fecha_cad;
 	
 	
-	public BonoDTO(int id, int tamanio_pista, int id_jugador, int sesiones, Date fecha_cad) {
-		this.id = id;
+	public BonoDTO(int tamanio_pista, int id_jugador, int sesiones, Date fecha_cad) {
+		//this.id = id;
 		this.tamanio_pista = tamanio_pista;
 		this.id_jugador = id_jugador;
 		this.sesiones = sesiones;
