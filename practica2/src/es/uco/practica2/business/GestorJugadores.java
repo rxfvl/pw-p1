@@ -1,14 +1,13 @@
 package es.uco.practica2.gestores;
 
 import es.uco.practica2.business.JugadorDTO;
-import es.uco.practica2.dao.JugadorDAO;
+import es.uco.practica2.data.dao.JugadorDAO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 public class GestorJugadores {
-
     private JugadorDAO jugadorDAO;
 
     public GestorJugadores(Connection connection) {
