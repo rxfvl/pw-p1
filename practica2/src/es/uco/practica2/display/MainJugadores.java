@@ -1,45 +1,43 @@
 package es.uco.practica2.display;
 
 import java.io.*;
-import java.util.*;
-import es.uco.practica2.business.*;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.Date;
+import java.util.Properties;
+import java.util.Scanner;
+import es.uco.practica2.business.JugadorDTO;
+import es.uco.practica2.gestores.GestorJugadores;
 
 public class MainJugadores {
-	public static void main(String[] args) 
-	{
-		Properties propiedades = new Properties();
-        
+    public static void main(String[] args) {
+        Properties propiedades = new Properties();
+        Connection connection = new DBConnection().getConnection(); // Conexión a la base de datos
+        GestorJugadores gestorJugadores = new GestorJugadores(connection);
+
         // Cargar propiedades del fichero
-        try (InputStream input = new FileInputStream("config.properties")) 
-        {
+        try (InputStream input = new FileInputStream("config.properties")) {
             propiedades.load(input);
-        } catch (IOException ex) 
-        {
+        } catch (IOException ex) {
             System.out.println("Error al cargar las propiedades: " + ex.getMessage());
             return;
         }
-		
-        GestorJugadores gestorJugadores = new GestorJugadores(propiedades.getProperty("JugadoresFile"));
-        
+
         boolean salir = false;
         Scanner scanner = new Scanner(System.in);
-        
-        while (!salir) 
-        {
+
+        while (!salir) {
             System.out.println("1. Añadir Jugador");
-            System.out.println("2. Modificar informacion Jugador");
+            System.out.println("2. Modificar información Jugador");
             System.out.println("3. Listar Jugadores");
             System.out.println("0. Salir");
             System.out.print("Selecciona una opción: ");
             int opcion = scanner.nextInt();
             scanner.nextLine(); // Limpiar el buffer
 
-            switch (opcion) 
-            {
+            switch (opcion) {
                 case 1:
-                    // Lógica de gestión de Jugadores
-                	Date date = new Date();
-                	
+                    // Lógica para añadir un jugador
                     System.out.print("Ingrese su nombre: ");
                     String nombre = scanner.nextLine();
 
@@ -49,22 +47,62 @@ public class MainJugadores {
                     System.out.print("Ingrese su correo electrónico: ");
                     String correo = scanner.nextLine();
 
-                    System.out.print("Ingrese su DNI: ");
-                    String dni = scanner.nextLine();
-                	
-                	Jugador jugador = new Jugador(nombre, apellidos, date, correo, dni);
-                	
-                    gestorJugadores.addUser(gestorJugadores.getPath(), jugador); // Llamada al main de gestión de Jugadores
+                    System.out.print("Ingrese su fecha de nacimiento (dd/MM/yyyy): ");
+                    String fechaNac = scanner.nextLine();
+                    Date fechaNacimiento = new SimpleDateFormat("dd/MM/yyyy").parse(fechaNac);  // Asegúrate de manejar este parse correctamente
+
+                    System.out.print("Ingrese la fecha de inscripción (dd/MM/yyyy): ");
+                    String fechaInscripcion = scanner.nextLine();
+                    Date fechaIns = new SimpleDateFormat("dd/MM/yyyy").parse(fechaInscripcion); // Asegúrate de manejar este parse correctamente
+
+                    JugadorDTO jugador = new JugadorDTO(0, nombre, apellidos, fechaNacimiento, fechaIns, correo); // ID inicial en 0
+
+                    try {
+                        gestorJugadores.addJugador(jugador);
+                        System.out.println("Jugador añadido con éxito.");
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 2:
-                    // Lógica de gestión de pistas
-                	System.out.println("Introduzca el DNI de la persona a modificar");
-                	String dniM = scanner.nextLine();
-                    gestorJugadores.modUser(gestorJugadores.getPath(), dniM); // Llamada al main de gestión de pistas
+                    // Lógica para modificar un jugador
+                    System.out.print("Introduzca el ID del jugador a modificar: ");
+                    int idM = scanner.nextInt();
+                    scanner.nextLine(); // Limpiar el buffer
+                    JugadorDTO jugadorParaModificar = gestorJugadores.getJugador(idM);
+
+                    if (jugadorParaModificar != null) {
+                        System.out.print("Nombre (actual " + jugadorParaModificar.getNombre() + "): ");
+                        jugadorParaModificar.setNombre(scanner.nextLine());
+
+                        System.out.print("Apellidos (actual " + jugadorParaModificar.getApellidos() + "): ");
+                        jugadorParaModificar.setApellidos(scanner.nextLine());
+
+                        System.out.print("Correo electrónico (actual " + jugadorParaModificar.getCorreo_electronico() + "): ");
+                        jugadorParaModificar.setCorreo_electronico(scanner.nextLine());
+
+                        // Modificar la fecha de nacimiento o inscripción si deseas
+                        // ...
+
+                        try {
+                            gestorJugadores.updateJugador(jugadorParaModificar);
+                            System.out.println("Jugador modificado con éxito.");
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    } else {
+                        System.out.println("Jugador no encontrado.");
+                    }
                     break;
                 case 3:
-                    // Lógica de gestión de reservas
-                    gestorJugadores.listUsers(gestorJugadores.getPath());
+                    // Listar jugadores
+                    try {
+                        for (JugadorDTO j : gestorJugadores.getAllJugadores()) {
+                            System.out.println(j);
+                        }
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
                     break;
                 case 0:
                     salir = true; // Salir del bucle
@@ -73,5 +111,6 @@ public class MainJugadores {
                     System.out.println("Opción no válida. Por favor intenta de nuevo.");
             }
         }
+        scanner.close();
     }
 }
