@@ -1,6 +1,0 @@
-Poner restricciones de numeros en algunos campos de los constructores
-(Material y Pista) HECHO
-
-Poner auto-increment en las claves primarias HECHO
-
-TERMINAR asociarMaterialPista (RAFA) (Contar filas de materiales)

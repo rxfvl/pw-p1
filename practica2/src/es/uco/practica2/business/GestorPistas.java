@@ -17,19 +17,15 @@ public class GestorPistas {
         this.materiales = new ArrayList<>();
     }
     
-	public void crearPista(String nombre, boolean estado, boolean tipo, int tamanio, int jugadores)
-	{
-		int estadoInt, tipoInt;
+	public int crearPista(String nombre, int estado, int tipo, int tamanio, int jugadores)
+	{		
+		int res;
 		
-		if(estado){estadoInt = 1;}
-		else {estadoInt = 2;}
+		PistaDTO pista = new PistaDTO(-1, nombre, estado, tipo, tamanio, jugadores);
 		
-		if(tipo){tipoInt = 1;}
-		else {tipoInt = 2;}
+		res = pistaDAO.crearPista(pista);
 		
-		PistaDTO pista = new PistaDTO(-1, nombre, estadoInt, tipoInt, tamanio, jugadores);
-		
-		pistaDAO.crearPista(pista);
+		return res;
 	}
 	
 	public List<PistaDTO> ListarPistas()
@@ -39,13 +35,18 @@ public class GestorPistas {
 		return pistas;
 	}
 	
-	public int borrarPista(int id, String nombre)
+	public int borrarPista(String nombre)
 	{
 		int res;
-		PistaDTO pista = new PistaDTO(id, nombre, -1, -1, -1, -1);
+		PistaDTO pista = new PistaDTO(-1, nombre, -1, -1, -1, -1);
 				
 		res = pistaDAO.borrarPista(pista);
 		
 		return res;
+	}
+	
+	public int crearMat(int mat, int uso, int estado)
+	{
+		
 	}
 }

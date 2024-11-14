@@ -8,18 +8,33 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class PistaDAO {
-	public void crearPista(PistaDTO pista)
+	public int crearPista(PistaDTO pista)
 	{
+		int cont = 0, status = -1;
 		try{
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			
-			PreparedStatement ps = con.prepareStatement("insert into Pistas (nombre,estado,tipo,tamanio,jugadores_max) values(?,?,?,?,?)");
-			ps.setString(1,pista.getNombre());	
-			ps.setInt(2, pista.getEstado());
-			ps.setInt(3, pista.getTipo());
-			ps.setInt(4, pista.getTamanio());
-			ps.setInt(5, pista.getJugadores_max());
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from Pistas where nombre= " + pista.getNombre());
+			
+			if(!rs.next())
+			{
+				PreparedStatement ps = con.prepareStatement("insert into Pistas (nombre,estado,tipo,tamanio,jugadores_max) values(?,?,?,?,?)");
+				ps.setString(1,pista.getNombre());	
+				ps.setInt(2, pista.getEstado());
+				ps.setInt(3, pista.getTipo());
+				ps.setInt(4, pista.getTamanio());
+				ps.setInt(5, pista.getJugadores_max());
+				
+				status = ps.executeUpdate();
+			}
+			else
+			{
+				return -1;
+			}
+			
+			return status;
 			
 		}catch(Exception e)
 		{
@@ -80,25 +95,7 @@ public class PistaDAO {
 				System.err.println(e);
 				e.printStackTrace();
 			}
-		}
-		else
-		{
-			try{
-				DBConnection dbConnection = new DBConnection();
-				Connection con = dbConnection.getConnection();
-				
-				PreparedStatement ps = con.prepareStatement("delete from Pistas where id=?");
-				ps.setInt(1,pista.getId());
-				
-				status=ps.executeUpdate();
-				
-			}catch(Exception e)
-			{
-				System.err.println(e);
-				e.printStackTrace();
-			}
-		}
-		
+		}		
 		return status;
 	}
 }

@@ -56,6 +56,8 @@ create table reservas
   num_ninios int,
   num_adultos int,
   id_bono int,
+  id_jugador int not null,
   foreign key (id_pista) references pistas (id),
-  foreign key (id_bono) references bonos (id)
+  foreign key (id_bono) references bonos (id),
+  foreign key (id_jugador) references jugadores (id)
 );

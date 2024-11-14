@@ -5,14 +5,13 @@ import java.util.Scanner;
 import es.uco.practica2.business.*;
 
 public class MainPistas {
-	private static GestorPistas gestorPistas;
+	
     private static Scanner scanner;
-    
-    private GestorPistas gestorP = new GestorPistas();
+    private static GestorPistas gestorP;
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
         scanner = new Scanner(System.in);
-        gestorPistas = new GestorPistas(); // Inicia el gestor de pistas
+        gestorP = new GestorPistas(); // Inicia el gestor de pistas
 
         boolean salir = false;
         
@@ -20,8 +19,8 @@ public class MainPistas {
             System.out.println("\n--- Gestión de Pistas ---");
             System.out.println("1. Crear Pista");
             System.out.println("2. Listar Pistas");
-            System.out.println("3. Asociar Material a Pista");
-            System.out.println("4. Borrar Pista");
+            System.out.println("3. Borrar Pista");
+            System.out.println("4. Opciones de materiales");
             System.out.println("0. Volver al Menú Principal");
             System.out.print("Selecciona una opción: ");
             int opcion = scanner.nextInt();
@@ -35,10 +34,10 @@ public class MainPistas {
                     listarP();
                     break;
                 case 3:
-                    asociarMat();
+                	borrarP();
                     break;
                 case 4:
-                	borrarP();
+                	materiales();
                 	break;
                 case 0:
                     salir = true; // Volver al menú principal
@@ -48,16 +47,51 @@ public class MainPistas {
             }
         }
     }
+    
+    private static void materiales()
+    {
+    	boolean salir = false;
+    	int op;
+    	
+    	while(!salir)
+    	{
+    		System.out.println("1. Crear Material");
+            System.out.println("2. Asociar Material a Pista");
+            System.out.println("3. Borrar Material");
+            System.out.println("0. Volver");
+            op = scanner.nextInt();
+            
+            switch(op)
+            {
+            	case 1:
+            		crearM();
+            		break;
+            	case 2:
+            		asociarM();
+            		break;
+            	case 3:
+            		borrarM();
+            		break;
+            	case 0:
+            		salir = true;
+            		break;
+            	default:
+            		System.out.println("Opción no válida. Por favor intenta de nuevo.");
+            }
+    	}
+    }
 
-    private void crearP() {
+    private static void crearP() {
+    	int res;
+    	
         System.out.print("Nombre de la pista: ");
         String nombre = scanner.nextLine();
         
-        System.out.print("Estado (true para disponible, false para no disponible): ");
-        boolean estado = scanner.nextBoolean();
+        System.out.print("Estado (1 para DISPONIBLE, 2 para NO DISPONIBLE): ");
+        int estado = scanner.nextInt();
         
-        System.out.print("Tipo de pista (true para interior, false para tipo exterior): ");
-        boolean tipo = scanner.nextBoolean();
+        System.out.print("Tipo de pista (1 para INTERIOR, 2 para EXTERIOR): ");
+        int tipo = scanner.nextInt();
         
         System.out.print("Tamaño de la pista (1 para MINIBASKET, 2 para ADULTOS, 3 para TRES_VS_TRES): ");
         int tamanio = scanner.nextInt();
@@ -65,10 +99,13 @@ public class MainPistas {
         System.out.print("Número máximo de jugadores: ");
         int jugadores = scanner.nextInt();
         
-        gestorP.crearPista(nombre, estado, tipo, tamanio, jugadores);
+       res = gestorP.crearPista(nombre, estado, tipo, tamanio, jugadores);
+       
+       if (res != 0) {System.out.println("Pista creada con éxito");}
+       else {System.out.println("Error en la creación de la pista");}
     }
 
-    private void listarP() {
+    private static void listarP() {
         List<PistaDTO> pistas = gestorP.ListarPistas();
         if (pistas.isEmpty()) {
             System.out.println("No hay pistas disponibles.");
@@ -79,37 +116,46 @@ public class MainPistas {
             }
         }
     }
-
-    private void asociarMat() {
-        
+    
+    private static void borrarP() {
+    	int res;
+    	String nombre;
+    	
+    	System.out.print("Introduce el nombre de la pista: ");
+    	nombre = scanner.nextLine();
+    	
+    	res = gestorP.borrarPista(nombre);
+    	
+    	if(res == 0) {System.out.println("La pista introducida no existe");}
+    	else {System.out.println("Pista borrada con éxito");}
     }
     
-    private void borrarP() {
-    	int op = 0, res = 0, id = -1;
-    	String nombre = null;
-    	while(op != 1 || op != 2)
-    	{
-    		System.out.println("Borrar por ID (1) o por nombre (2): ");
-        	op = scanner.nextInt();
-        	
-        	switch(op) 
-        	{
-        		case 1:
-        			System.out.println("Introduce el id: ");
-        			id = scanner.nextInt();
-        			break;
-        		case 2:
-        			System.out.println("Introduce el nombre: ");
-        			nombre = scanner.nextLine();
-        			break;
-        		default:
-        			System.out.println("Opción no válida. Por favor intenta de nuevo.");
-        	}
-    	}
+    private static void crearM()
+    {
+    	int mat, uso, estado, res;
     	
-    	res = gestorP.borrarPista(id, nombre);
+    	System.out.print("Tipo de material (1 para CANASTAS, 2 para CONOS, 3 para PELOTAS): ");
+    	mat = scanner.nextInt();
     	
-    	if(res == -1) {System.out.println("La pista introducida no existe");}
-    	else {System.out.println("Pista borrada con éxito");}
+    	System.out.print("Uso del material (1 para INTERIOR, 2 para EXTERIOR)");
+    	uso = scanner.nextInt();
+    	
+    	System.out.print("Estado del material (1 para DISPONIBLE, 2 para RESERVADO, 3 para MALESTADO)");
+    	estado = scanner.nextInt();
+    	
+    	res = gestorP.crearMat(mat, uso, estado);
+    	
+    	if (res != 0) {System.out.println("Pista creada con éxito");}
+    	else {System.out.println("Error en la creación de la pista");}
+    }
+    
+    private static void asociarM()
+    {
+    	
+    }
+    
+    private static void borrarM()
+    {
+    	
     }
 }
