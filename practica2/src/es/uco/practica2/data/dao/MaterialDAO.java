@@ -74,7 +74,21 @@ public class MaterialDAO {
 	
 	public int asociarMaterialPista(String nombrePista, int tipo)
 	{
-		//TO DO
+		try
+		{
+			DBConnection dbcon = new DBConnection();
+			Connection con = dbcon.getConnection();
+			
+			String selectPistaQuery = "SELECT * FROM pistas where id = ?";
+			String selectMateriales = "SELECT * FROM materiales where tipo = ? and id_pista = ?";
+			// TERMINAR
+			
+			
+		}catch(Exception e)
+		{
+			System.err.println(e);
+			e.printStackTrace();
+		}
 	}
 	
 }
