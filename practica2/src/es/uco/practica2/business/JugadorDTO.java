@@ -3,16 +3,16 @@ package es.uco.practica2.business;
 import java.util.Date;
 
 public class JugadorDTO {
-	private int dni;
+	private int id;
 	private String nombre;
 	private String apellidos;
 	private Date fecha_nacimiento;
 	private Date fecha_inscripcion;
 	private String correo_electronico;
 
-	public JugadorDTO(int dni, String nombre, String apellidos, Date fecha_nacimiento, Date fecha_inscripcion,
+	public JugadorDTO(int id, String nombre, String apellidos, Date fecha_nacimiento, Date fecha_inscripcion,
 			String correo_electronico) {
-		this.dni = dni;
+		this.id = id;
 		this.nombre = nombre;
 		this.apellidos = apellidos;
 		this.fecha_nacimiento = fecha_nacimiento;
@@ -22,16 +22,16 @@ public class JugadorDTO {
 	public JugadorDTO() {}
 	
 	/**
-	 * @return the dni
+	 * @return the id
 	 */
-	public int getDni() {
-		return dni;
+	public int getId() {
+		return id;
 	}
 	/**
-	 * @param dni the dni to set
+	 * @param id the id to set
 	 */
-	public void setDni(int dni) {
-		this.dni = dni;
+	public void setId(int id) {
+		this.id = id;
 	}
 	/**
 	 * @return the nombre
@@ -95,7 +95,7 @@ public class JugadorDTO {
 	}
 	@Override
 	public String toString() {
-		return "JugadorDTO [dni=" + dni + ", nombre=" + nombre + ", apellidos=" + apellidos + ", fecha_nacimiento="
+		return "JugadorDTO [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", fecha_nacimiento="
 				+ fecha_nacimiento + ", fecha_inscripcion=" + fecha_inscripcion + ", correo_electronico="
 				+ correo_electronico + "]";
 	}
