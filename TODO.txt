@@ -1,4 +1,5 @@
 Poner restricciones de numeros en algunos campos de los constructores
 (Material y Pista)
 
-Poner auto-increment en las claves primarias
+Desasociar los materiales de las pistas que se borren y
+comprobar que no se puedan añadir pistas duplicadas o borrar inexistentes.
