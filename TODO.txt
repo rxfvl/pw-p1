@@ -1,5 +1,11 @@
 Poner restricciones de numeros en algunos campos de los constructores
-(Material y Pista)
+(Material y Pista) HECHO
 
+<<<<<<< HEAD
 Desasociar los materiales de las pistas que se borren y
 comprobar que no se puedan añadir pistas duplicadas o borrar inexistentes.
+=======
+Poner auto-increment en las claves primarias HECHO
+
+Hacer asociarMaterialPista (RAFA)
+>>>>>>> 5744274023695178ae58bb7e5daa0531eff6c004

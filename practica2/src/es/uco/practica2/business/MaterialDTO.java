@@ -8,11 +8,11 @@ public class MaterialDTO {
 	private int id_pista;
 	
 	
-	public MaterialDTO(int id, int tipo, int uso_material, int estado, int id_pista) {
-		this.id = id;
+	public MaterialDTO(int tipo, int uso_material, int estado, int id_pista) {
+		//this.id = id;
 		this.tipo = tipo;
 		this.uso_material = uso_material;
-		this.estado = estado;
+		this.estado = estado; // 1 DISPONIBLE; 2 RESERVADO; 3 MALESTADO
 		this.id_pista = id_pista;
 	}
 	public MaterialDTO() {}
