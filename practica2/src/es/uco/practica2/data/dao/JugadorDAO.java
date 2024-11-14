@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JugadorDAO {
-
     private DBConnection dbConnection;
 
     public JugadorDAO() {
@@ -19,14 +18,13 @@ public class JugadorDAO {
     }
 
     public void addJugador(JugadorDTO jugador) throws SQLException {
-        String sql = "INSERT INTO jugadores (id, nombre, apellidos, fecha_nacimiento, fecha_inscripcion, correo_electronico) VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO jugadores (nombre, apellidos, fecha_nacimiento, fecha_inscripcion, correo_electronico) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = dbConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, jugador.getId());  // Cambiado de getDni a getId
-            stmt.setString(2, jugador.getNombre());
-            stmt.setString(3, jugador.getApellidos());
-            stmt.setDate(4, new java.sql.Date(jugador.getFecha_nacimiento().getTime()));
-            stmt.setDate(5, new java.sql.Date(jugador.getFecha_inscripcion().getTime()));
-            stmt.setString(6, jugador.getCorreo_electronico());
+            stmt.setString(1, jugador.getNombre());
+            stmt.setString(2, jugador.getApellidos());
+            stmt.setDate(3, new java.sql.Date(jugador.getFecha_nacimiento().getTime()));
+            stmt.setDate(4, new java.sql.Date(jugador.getFecha_inscripcion().getTime()));
+            stmt.setString(5, jugador.getCorreo_electronico());
             stmt.executeUpdate();
         }
     }
@@ -39,23 +37,23 @@ public class JugadorDAO {
             stmt.setDate(3, new java.sql.Date(jugador.getFecha_nacimiento().getTime()));
             stmt.setDate(4, new java.sql.Date(jugador.getFecha_inscripcion().getTime()));
             stmt.setString(5, jugador.getCorreo_electronico());
-            stmt.setInt(6, jugador.getId());  // Cambiado de getDni a getId
+            stmt.setInt(6, jugador.getId());
             stmt.executeUpdate();
         }
     }
 
-    public void deleteJugador(int id) throws SQLException {  // Cambiado de dni a id
+    public void deleteJugador(int id) throws SQLException {
         String sql = "DELETE FROM jugadores WHERE id = ?";
         try (Connection connection = dbConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);  // Cambiado de dni a id
+            stmt.setInt(1, id);
             stmt.executeUpdate();
         }
     }
 
-    public JugadorDTO getJugador(int id) throws SQLException {  // Cambiado de dni a id
+    public JugadorDTO getJugador(int id) throws SQLException {
         String sql = "SELECT * FROM jugadores WHERE id = ?";
         try (Connection connection = dbConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
-            stmt.setInt(1, id);  // Cambiado de dni a id
+            stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return new JugadorDTO(
