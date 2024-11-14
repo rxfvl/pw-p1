@@ -3,22 +3,24 @@ package es.uco.practica2.business;
 import java.util.Date;
 
 public class JugadorDTO {
-	private int id;
-	private String nombre;
-	private String apellidos;
-	private Date fecha_nacimiento;
-	private Date fecha_inscripcion;
-	private String correo_electronico;
+    private int id;
+    private String nombre;
+    private String apellidos;
+    private Date fecha_nacimiento;
+    private Date fecha_inscripcion;
+    private String correo_electronico;
 
-	public JugadorDTO(String nombre, String apellidos, Date fecha_nacimiento, Date fecha_inscripcion,
-			String correo_electronico) {
-		//this.id = id;
-		this.nombre = nombre;
-		this.apellidos = apellidos;
-		this.fecha_nacimiento = fecha_nacimiento;
-		this.fecha_inscripcion = fecha_inscripcion;
-		this.correo_electronico = correo_electronico;
-	}
+    // Constructor que incluye el ID
+    public JugadorDTO(int id, String nombre, String apellidos, Date fecha_nacimiento, Date fecha_inscripcion,
+                      String correo_electronico) {
+        this.id = id; // Seteo del ID
+        this.nombre = nombre;
+        this.apellidos = apellidos;
+        this.fecha_nacimiento = fecha_nacimiento;
+        this.fecha_inscripcion = fecha_inscripcion;
+        this.correo_electronico = correo_electronico;
+    }
+	
 	public JugadorDTO() {}
 	
 	/**
@@ -93,11 +95,12 @@ public class JugadorDTO {
 	public void setCorreo_electronico(String correo_electronico) {
 		this.correo_electronico = correo_electronico;
 	}
+	
 	@Override
 	public String toString() {
-		return "JugadorDTO [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", fecha_nacimiento="
-				+ fecha_nacimiento + ", fecha_inscripcion=" + fecha_inscripcion + ", correo_electronico="
-				+ correo_electronico + "]";
+        return "JugadorDTO [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", fecha_nacimiento="
+                + fecha_nacimiento + ", fecha_inscripcion=" + fecha_inscripcion + ", correo_electronico="
+                + correo_electronico + "]";
 	}
 	
 }
