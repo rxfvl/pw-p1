@@ -1,4 +1,4 @@
-package es.uco.practica2.gestores;
+package es.uco.practica2.business;
 
 import es.uco.practica2.business.JugadorDTO;
 import es.uco.practica2.data.dao.JugadorDAO;
