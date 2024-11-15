@@ -1,4 +1,4 @@
-package es.uco.practica2.data;
+package es.uco.practica2.data.dao;
 
 import es.uco.practica2.business.BonoDTO;
 import es.uco.practica2.data.common.DBConnection;
