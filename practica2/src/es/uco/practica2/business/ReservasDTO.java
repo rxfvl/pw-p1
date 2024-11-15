@@ -13,9 +13,10 @@ public class ReservasDTO {
 	private int num_ninios;
 	private int num_adultos;
 	private int id_bono;
+	private int id_jugador;
 	
 	public ReservasDTO(Date fecha, int duracion, int id_pista, float precio, float descuento, int tipo_reserva,
-			int num_ninios, int num_adultos, int id_bono) {
+			int num_ninios, int num_adultos, int id_bono, int id_jugador) {
 		//this.id = id;
 		this.fecha = fecha;
 		this.duracion = duracion;
@@ -26,6 +27,7 @@ public class ReservasDTO {
 		this.num_ninios = num_ninios;
 		this.num_adultos = num_adultos;
 		this.id_bono = id_bono;
+		this.id_jugador= id_jugador;
 	}
 	
 	public ReservasDTO() {}
@@ -169,10 +171,24 @@ public class ReservasDTO {
 	public void setId_bono(int id_bono) {
 		this.id_bono = id_bono;
 	}
+	
+	/**
+	 * @return the id_jugador
+	 */
+	public int getId_jugador() {
+		return id_jugador;
+	}
+
+	/**
+	 * @param id_jugador the id_jugador to set
+	 */
+	public void setId_jugador(int id_jugador) {
+		this.id_jugador = id_jugador;
+	}
 	@Override
 	public String toString() {
 		return "ReservasDTO [id=" + id + ", fecha=" + fecha + ", duracion=" + duracion + ", id_pista=" + id_pista
 				+ ", precio=" + precio + ", descuento=" + descuento + ", tipo_reserva=" + tipo_reserva + ", num_ninios="
-				+ num_ninios + ", num_adultos=" + num_adultos + ", id_bono=" + id_bono + "]";
+				+ num_ninios + ", num_adultos=" + num_adultos + ", id_bono=" + id_bono + ", id_jugador=" + id_jugador + "]";
 	}
 }
