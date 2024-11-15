@@ -146,7 +146,7 @@ public class ReservaDAO {
 		}
 	}
 	
-	public void modificarReserva(ReservasDTO reserva)
+	public void modificarReserva(ReservasDTO reserva, int id)
 	{
 		try{
 			DBConnection dbConnection = new DBConnection();
@@ -161,7 +161,7 @@ public class ReservaDAO {
 			ps.setInt(6, reserva.getTipo_reserva());
 			ps.setInt(7, reserva.getNum_ninios());
 			ps.setInt(8, reserva.getNum_adultos());
-			ps.setInt(9, reserva.getId());
+			ps.setInt(9, id);
 			ps.executeUpdate();
 				
 		}catch(Exception e)
@@ -171,14 +171,14 @@ public class ReservaDAO {
 		}
 	}
 	
-	public void cancelarReserva(ReservasDTO reserva)
+	public void cancelarReserva(int id)
 	{
 		try{
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			PreparedStatement ps = null;
 			ps = con.prepareStatement("DELETE FROM reservas WHERE id = ?");
-			ps.setInt(1, reserva.getId());
+			ps.setInt(1, id);
 			ps.executeUpdate();
 				
 		}catch(Exception e)
