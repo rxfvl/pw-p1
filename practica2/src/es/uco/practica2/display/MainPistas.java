@@ -156,11 +156,18 @@ public class MainPistas {
     	
     	System.out.print("Tipo de material a asociar (1 para CANASTAS, 2 para CONOS, 3 para PELOTAS):");
     	tipo = scanner.nextInt();
-    	System.out.print();
+    	System.out.print("Uso del material (1 para INTERIOR, 2 para EXTERIOR)");
+    	uso = scanner.nextInt();
+    	System.out.print("Estado del material (1 para DISPONIBLE, 2 para RESERVADO, 3 para MALESTADO)");
+    	estado = scanner.nextInt();
     	System.out.print("Nombre de la pista a la que asociarlo: ");
     	nombre = scanner.nextLine();
     	
-    	res = gestorP.asociar(nombre, tipo);
+    	res = gestorP.asociar(nombre, tipo, uso, estado);
+    	
+    	if(res == 0){System.out.println("La pista indicada no existe");}
+    	else if(res == -1){System.out.println("La pista ha alcanzado el número máximo de materiales de ese tipo");}
+    	else{System.out.println("Material asociado con éxito");}
     }
     
     private static void borrarM()

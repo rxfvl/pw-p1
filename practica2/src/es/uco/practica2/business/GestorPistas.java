@@ -60,13 +60,15 @@ public class GestorPistas {
 		return res;
 	}
 	
-	public int asociar(String nombre, int tipo)
+	public int asociar(String nombre, int tipo, int uso, int estado)
 	{
 		int res;
 		
-		MaterialDTO mat = new MaterialDTO(tipo, -1, -1, -1);
+		MaterialDTO mat = new MaterialDTO(tipo, uso, estado, -1);
 		PistaDTO pista = new PistaDTO(nombre, -1, -1, -1, -1);
 		
 		res = matDAO.asociarMaterialPista(pista, mat);
+		
+		return res;
 	}
 }

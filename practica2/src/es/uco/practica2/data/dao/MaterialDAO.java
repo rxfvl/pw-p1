@@ -104,14 +104,13 @@ public class MaterialDAO {
 					
 					if(insertar == 1)
 					{
-						
+						mat.setId(pistaID);
+						return crearMaterial(mat);
 					}
-					else {return -1;}
+					else{return -1;}
 				}
 			}
-			else{return 0;}
-			// TERMINAR
-			
+			else{return 0;}			
 			
 		}catch(Exception e)
 		{
