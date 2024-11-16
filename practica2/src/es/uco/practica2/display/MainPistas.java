@@ -145,13 +145,22 @@ public class MainPistas {
     	
     	res = gestorP.crearMat(mat, uso, estado);
     	
-    	if (res != 0) {System.out.println("Pista creada con éxito");}
-    	else {System.out.println("Error en la creación de la pista");}
+    	if (res == 1) {System.out.println("Material creado con éxito");}
+    	else {System.out.println("Error en la creación del Material");}
     }
     
     private static void asociarM()
     {
+    	int tipo, uso, estado, res;
+    	String nombre;
     	
+    	System.out.print("Tipo de material a asociar (1 para CANASTAS, 2 para CONOS, 3 para PELOTAS):");
+    	tipo = scanner.nextInt();
+    	System.out.print();
+    	System.out.print("Nombre de la pista a la que asociarlo: ");
+    	nombre = scanner.nextLine();
+    	
+    	res = gestorP.asociar(nombre, tipo);
     }
     
     private static void borrarM()

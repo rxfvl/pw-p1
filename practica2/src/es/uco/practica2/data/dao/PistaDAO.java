@@ -10,15 +10,16 @@ import java.util.ArrayList;
 public class PistaDAO {
 	public int crearPista(PistaDTO pista)
 	{
-		int cont = 0, status = -1;
+		int cont = 0, status;
 		try{
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			
-			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from Pistas where nombre= " + pista.getNombre());
+			PreparedStatement stmt = con.prepareStatement("select * from Pistas where nombre = ?");
+			stmt.setString(1, pista.getNombre());
+			ResultSet rs = stmt.executeQuery();
 			
-			if(!rs.next())
+			if(rs.next())
 			{
 				PreparedStatement ps = con.prepareStatement("insert into Pistas (nombre,estado,tipo,tamanio,jugadores_max) values(?,?,?,?,?)");
 				ps.setString(1,pista.getNombre());	
@@ -28,13 +29,11 @@ public class PistaDAO {
 				ps.setInt(5, pista.getJugadores_max());
 				
 				status = ps.executeUpdate();
-			}
-			else
-			{
-				return -1;
+				
+				return status;
 			}
 			
-			return status;
+			return 0;
 			
 		}catch(Exception e)
 		{
@@ -55,13 +54,12 @@ public class PistaDAO {
 			
 			while(rs.next())
 			{
-				int id = rs.getInt("id");
 				String nombre = rs.getString("nombre");
 				int estado = rs.getInt("estado");
 				int tipo = rs.getInt("tipo");
 				int tamanio = rs.getInt("tamanio");
 				int jugadores = rs.getInt("jugadores_max");
-				PistaDTO pista = new PistaDTO();
+				PistaDTO pista = new PistaDTO(nombre, estado, tipo, tamanio, jugadores);
 				lista.add(pista);
 			}
 			if (stmt != null) {stmt.close();}
