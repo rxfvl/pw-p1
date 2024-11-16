@@ -172,6 +172,14 @@ public class MainPistas {
     
     private static void borrarM()
     {
+    	int tipo, res;
     	
+    	System.out.print("Tipo de material a borrar (1 para CANASTAS, 2 para CONOS, 3 para PELOTAS):");
+    	tipo = scanner.nextInt();
+    	
+    	res = gestorP.borrarMat(tipo);
+    	
+    	if(res == 0){System.out.print("No existe el material");}
+    	else{System.out.print("Material borrado con éxito");}
     }
 }

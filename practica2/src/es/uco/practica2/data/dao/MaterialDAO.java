@@ -32,7 +32,7 @@ public class MaterialDAO {
 		return status;
 	}
 	
-	public int borrarMaterial(int tipo)
+	public int borrarMaterial(MaterialDTO material)
 	{
 		ResultSet select;
 		int status = -1;
@@ -43,7 +43,7 @@ public class MaterialDAO {
 			String selectQuery = "select min(id) from materiales where id_pista is null and estado = 1 and tipo = ?";
 			
 			PreparedStatement ps = con.prepareStatement(selectQuery);
-			ps.setInt(1, tipo);
+			ps.setInt(1, material.getTipo());
 			select = ps.executeQuery();
 			int idDelete = -1;
 			
@@ -105,18 +105,20 @@ public class MaterialDAO {
 					if(insertar == 1)
 					{
 						mat.setId(pistaID);
-						return crearMaterial(mat);
+						int res = crearMaterial(mat);
+						return res;
 					}
 					else{return -1;}
 				}
-			}
-			else{return 0;}			
+			}		
 			
 		}catch(Exception e)
 		{
 			System.err.println(e);
 			e.printStackTrace();
 		}
+		
+		return 0;
 	}
 	
 }
