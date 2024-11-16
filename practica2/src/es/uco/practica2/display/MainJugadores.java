@@ -3,11 +3,12 @@ package es.uco.practica2.display;
 import java.io.*;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 import java.util.Scanner;
 import es.uco.practica2.business.JugadorDTO;
-import es.uco.practica2.gestores.GestorJugadores;
+import es.uco.practica2.business.GestorJugadores;
 
 public class MainJugadores {
     public static void main(String[] args) {
