@@ -11,27 +11,33 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JugadorDAO {
-    private Connection connection;
+    private DBConnection dbConnection;
 
-    public JugadorDAO(Connection connection) {
-        this.connection = connection;
+    public JugadorDAO() {
+        this.dbConnection = new DBConnection();
+    }
+    
+    private Connection getConnection() throws SQLException {
+        return dbConnection.getConnection();
     }
 
-    public void addJugador(JugadorDTO jugador) throws SQLException {
+    public void addJugador(JugadorDTO jugador) {
         String sql = "INSERT INTO jugadores (nombre, apellidos, fecha_nacimiento, fecha_inscripcion, correo_electronico) VALUES (?, ?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, jugador.getNombre());
             stmt.setString(2, jugador.getApellidos());
             stmt.setDate(3, new java.sql.Date(jugador.getFecha_nacimiento().getTime()));
             stmt.setDate(4, new java.sql.Date(jugador.getFecha_inscripcion().getTime()));
             stmt.setString(5, jugador.getCorreo_electronico());
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public void updateJugador(JugadorDTO jugador) throws SQLException {
+    public void updateJugador(JugadorDTO jugador) {
         String sql = "UPDATE jugadores SET nombre = ?, apellidos = ?, fecha_nacimiento = ?, fecha_inscripcion = ?, correo_electronico = ? WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, jugador.getNombre());
             stmt.setString(2, jugador.getApellidos());
             stmt.setDate(3, new java.sql.Date(jugador.getFecha_nacimiento().getTime()));
@@ -39,20 +45,24 @@ public class JugadorDAO {
             stmt.setString(5, jugador.getCorreo_electronico());
             stmt.setInt(6, jugador.getId());
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public void deleteJugador(int id) throws SQLException {
+    public void deleteJugador(int id) {
         String sql = "DELETE FROM jugadores WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
-    public JugadorDTO getJugador(int id) throws SQLException {
+    public JugadorDTO getJugador(int id) {
         String sql = "SELECT * FROM jugadores WHERE id = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -65,14 +75,16 @@ public class JugadorDAO {
                         rs.getString("correo_electronico")
                 );
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return null;
     }
 
-    public List<JugadorDTO> getAllJugadores() throws SQLException {
+    public List<JugadorDTO> getAllJugadores() {
         List<JugadorDTO> jugadores = new ArrayList<>();
         String sql = "SELECT * FROM jugadores";
-        try (PreparedStatement stmt = connection.prepareStatement(sql);
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 jugadores.add(new JugadorDTO(
@@ -84,6 +96,8 @@ public class JugadorDAO {
                         rs.getString("correo_electronico")
                 ));
             }
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
         return jugadores;
     }
