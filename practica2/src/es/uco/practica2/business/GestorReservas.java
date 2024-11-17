@@ -8,7 +8,7 @@ import java.util.List;
 public class GestorReservas {
 	
 	private List<ReservasDTO> reservas;
-    private ReservaDAO reservaDAO;
+    private ReservaDAO reservaDAO = new ReservaDAO();
 	
 	public ReservasDTO crearReservaIndividual(Date fecha,int duracion,int id_pista,float precio,float descuento,int tipo_reserva,int num_ninios,int num_adultos, String correo)
 	{

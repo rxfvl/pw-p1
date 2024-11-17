@@ -188,9 +188,10 @@ public class MainReservas {
         
     	System.out.print("ID de pista asignada a la reserva a modificar: ");
         int IdPista = scanner.nextInt();
+        scanner.nextLine();//limpiar buffer
         // Cambiar la lógica según tus requisitos
         System.out.print("Fecha de la reserva a modificar (dd/MM/yyyy): ");
-        String fechaNuevaInput = scanner.nextLine(); // Limpiar buffer
+        String fechaNuevaInput = scanner.nextLine(); 
         Date Fecha;
 		try {
 			Fecha = new SimpleDateFormat("dd/MM/yyyy").parse(fechaNuevaInput);
@@ -242,6 +243,7 @@ public class MainReservas {
     private static void cancelarReserva() {
     	System.out.print("ID de pista asignada a la reserva a cancelar: ");
         int IdPista = scanner.nextInt();
+        scanner.nextLine();//limpiar buffer
         // Cambiar la lógica según tus requisitos
         System.out.print("Fecha de la reserva a cancelar (dd/MM/yyyy): ");
         String fechaNuevaInput = scanner.nextLine(); // Limpiar buffer
@@ -280,8 +282,9 @@ public class MainReservas {
     	System.out.print("ID de pista asignada a la reserva a consultar: ");
         int IdPista = scanner.nextInt();
         // Cambiar la lógica según tus requisitos
+        scanner.nextLine();
         System.out.print("Fecha de la reserva a consultar (dd/MM/yyyy): ");
-        String fechaNuevaInput = scanner.nextLine(); // Limpiar buffer
+        String fechaNuevaInput = scanner.nextLine();
         Date Fecha;
 		try {
 			Fecha = new SimpleDateFormat("dd/MM/yyyy").parse(fechaNuevaInput);

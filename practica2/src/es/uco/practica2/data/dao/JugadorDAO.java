@@ -45,7 +45,7 @@ public class JugadorDAO {
     }
 
     public int updateJugador(JugadorDTO jugador) {
-        String sql = "UPDATE jugadores SET nombre = ?, apellidos = ?, fecha_nacimiento = ?, WHERE correo_electronico = ?";
+        String sql = "UPDATE jugadores SET nombre = ?, apellidos = ?, fecha_nacimiento = ? WHERE correo_electronico = ?";
         try{
         	DBConnection dbcon = new DBConnection();
 			Connection con = dbcon.getConnection();

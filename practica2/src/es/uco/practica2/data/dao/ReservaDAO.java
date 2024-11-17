@@ -20,13 +20,14 @@ public class ReservaDAO {
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			PreparedStatement ps = null;
-			ps = con.prepareStatement("SELECT id FROM jugadores where correo_electronico = ?");
+			ps = con.prepareStatement("SELECT * FROM jugadores where correo_electronico = ?");
 			ps.setString(1, correo);
 			ResultSet id_jugador = ps.executeQuery();
+			id_jugador.next();
 			switch(reserva.getTipo_reserva())
 			{
 				case 0:	//adultos
-					ps = con.prepareStatement("insert into Reservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
+					ps = con.prepareStatement("insert into r0eservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
 					ps.setInt(1, reserva.getId());	
 					ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 					ps.setInt(3, reserva.getDuracion());
@@ -42,7 +43,7 @@ public class ReservaDAO {
 				break;
 				
 				case 1:	//infantil
-					ps = con.prepareStatement("insert into Reservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
+					ps = con.prepareStatement("insert into reservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
 					ps.setInt(1, reserva.getId());	
 					ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 					ps.setInt(3, reserva.getDuracion());
@@ -58,7 +59,7 @@ public class ReservaDAO {
 				break;
 				
 				case 2:	//familiar
-					ps = con.prepareStatement("insert into Reservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
+					ps = con.prepareStatement("insert into reservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
 					ps.setInt(1, reserva.getId());	
 					ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 					ps.setInt(3, reserva.getDuracion());
@@ -89,13 +90,14 @@ public class ReservaDAO {
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			PreparedStatement ps = null;
-			ps = con.prepareStatement("SELECT id FROM jugadores where correo_electronico = ?");
+			ps = con.prepareStatement("SELECT * FROM jugadores where correo_electronico = ?");
 			ps.setString(1, correo);
 			ResultSet id_jugador = ps.executeQuery();
+			id_jugador.next();
 			switch(reserva.getTipo_reserva())
 			{
 				case 0:	//adultos
-					ps = con.prepareStatement("insert into Reservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
+					ps = con.prepareStatement("insert into reservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
 					ps.setInt(1, reserva.getId());	
 					ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 					ps.setInt(3, reserva.getDuracion());
@@ -111,7 +113,7 @@ public class ReservaDAO {
 				break;
 				
 				case 1:	//infantil
-					ps = con.prepareStatement("insert into Reservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
+					ps = con.prepareStatement("insert into reservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
 					ps.setInt(1, reserva.getId());	
 					ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 					ps.setInt(3, reserva.getDuracion());
@@ -127,7 +129,7 @@ public class ReservaDAO {
 				break;
 				
 				case 2:	//familiar
-					ps = con.prepareStatement("insert into Reservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
+					ps = con.prepareStatement("insert into reservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
 					ps.setInt(1, reserva.getId());	
 					ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 					ps.setInt(3, reserva.getDuracion());
@@ -158,11 +160,12 @@ public class ReservaDAO {
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			PreparedStatement ps = null;
-			ps = con.prepareStatement("SELECT id FROM reservas where id_pista = ? and fecha = ?");
+			ps = con.prepareStatement("SELECT * FROM reservas where id_pista = ? and fecha = ?");
 			ps.setInt(1, reserva.getId_pista());
 			ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 			ResultSet id = ps.executeQuery();
-			ps = con.prepareStatement("UPDATE reservas SET fecha = ?, duracion = ?, id_pista = ?, precio = ?, descuento = ?, tipo_reserva = ?, num_ninios = ?, num_adultos = ?, WHERE id = ?");
+			id.next();
+			ps = con.prepareStatement("UPDATE reservas SET fecha = ?, duracion = ?, id_pista = ?, precio = ?, descuento = ?, tipo_reserva = ?, num_ninios = ?, num_adultos = ? WHERE id = ?");
 			ps.setDate(1, new java.sql.Date(reserva.getFecha().getTime()));
 			ps.setInt(2, reserva.getDuracion());
 			ps.setInt(3, reserva.getId_pista());
@@ -255,8 +258,8 @@ public class ReservaDAO {
 				reserva.setPrecio(select.getFloat("precio"));
 				reserva.setDescuento(select.getFloat("descuento"));
 				reserva.setTipo_reserva(select.getInt("tipo_reserva"));
-				reserva.setNum_ninios(select.getInt("nun_ninios"));
-				reserva.setNum_adultos(select.getInt("num_adutlos"));
+				reserva.setNum_ninios(select.getInt("num_ninios"));
+				reserva.setNum_adultos(select.getInt("num_adultos"));
 				reserva.setId_bono(select.getInt("id_bono"));
 				reserva.setId_jugador(select.getInt("id_jugador"));
 			}
