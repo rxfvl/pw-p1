@@ -1,12 +1,30 @@
 package es.uco.practica2.data.dao;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Properties;
 import es.uco.practica2.business.*;
 import es.uco.practica2.data.common.DBConnection;
 
 public class MaterialDAO {
+	
+	private Properties propiedades = new Properties();
+	
+	public MaterialDAO()
+	{
+		try (InputStream input = new FileInputStream("sql.properties")) 
+        {
+            this.propiedades.load(input);
+        } catch (IOException ex) 
+        {
+            System.out.println("Error al cargar las propiedades: " + ex.getMessage());
+            return;
+        }
+	}
 	
 	public int crearMaterial(MaterialDTO material)
 	{
@@ -15,7 +33,8 @@ public class MaterialDAO {
 			DBConnection dbConnection = new DBConnection();
 			Connection connection = dbConnection.getConnection();
 			
-			PreparedStatement ps = connection.prepareStatement("insert into materiales (tipo, uso_material, estado, id_pista) values(?,?,?,?)");
+			
+			PreparedStatement ps = connection.prepareStatement(this.propiedades.getProperty("crearMatInsert"));
 			ps.setInt(1,material.getTipo());	
 			ps.setInt(2, material.getUso_material());
 			ps.setInt(3, material.getEstado());
@@ -42,7 +61,7 @@ public class MaterialDAO {
 			DBConnection dbcon = new DBConnection();
 			Connection con = dbcon.getConnection();
 		
-			String selectQuery = "select min(id) from materiales where id_pista is null and estado = 1 and tipo = ?";
+			String selectQuery = this.propiedades.getProperty("borrarMatSelect");
 			
 			PreparedStatement ps = con.prepareStatement(selectQuery);
 			ps.setInt(1, material.getTipo());
@@ -56,7 +75,7 @@ public class MaterialDAO {
 			
 			if (idDelete != -1)
 			{
-				PreparedStatement psDel = con.prepareStatement("delete from materiales where id = ?");
+				PreparedStatement psDel = con.prepareStatement(this.propiedades.getProperty("borrarMatDelete"));
 				psDel.setInt(1, idDelete);
 				status = psDel.executeUpdate();
 			}
@@ -81,7 +100,7 @@ public class MaterialDAO {
 			DBConnection dbcon = new DBConnection();
 			Connection con = dbcon.getConnection();
 			
-			PreparedStatement psPista = con.prepareStatement("SELECT * FROM pistas where nombre = ?");
+			PreparedStatement psPista = con.prepareStatement(this.propiedades.getProperty("asMatSelect1"));
 			psPista.setString(1, pista.getNombre());
 			
 			ResultSet rsP = psPista.executeQuery();
@@ -90,7 +109,7 @@ public class MaterialDAO {
 			{
 				pistaID = rsP.getInt("id");
 				
-				PreparedStatement psMat = con.prepareStatement("SELECT COUNT(*) as total FROM materiales where tipo = ? and id_pista = ?");
+				PreparedStatement psMat = con.prepareStatement(this.propiedades.getProperty("asMatSelect2"));
 				psMat.setInt(1, mat.getTipo());
 				psMat.setInt(2, pistaID);
 				
@@ -131,7 +150,7 @@ public class MaterialDAO {
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from materiales");
+			ResultSet rs = stmt.executeQuery(this.propiedades.getProperty("listMatSelect"));
 			
 			while(rs.next())
 			{
