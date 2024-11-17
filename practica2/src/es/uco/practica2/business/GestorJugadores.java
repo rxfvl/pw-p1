@@ -2,15 +2,14 @@ package es.uco.practica2.business;
 
 import es.uco.practica2.data.dao.JugadorDAO;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 public class GestorJugadores {
     private JugadorDAO jugadorDAO;
 
-    public GestorJugadores(Connection connection) {
-        this.jugadorDAO = new JugadorDAO(connection);
+    public GestorJugadores() {
+        this.jugadorDAO = new JugadorDAO();
     }
 
     public void addJugador(JugadorDTO jugador) throws SQLException {
@@ -21,15 +20,15 @@ public class GestorJugadores {
         jugadorDAO.updateJugador(jugador);
     }
 
-    public void deleteJugador(int id) throws SQLException {
+    public void deleteJugador(int id) {
         jugadorDAO.deleteJugador(id);
     }
 
-    public JugadorDTO getJugador(int id) throws SQLException {
+    public JugadorDTO getJugador(int id) {
         return jugadorDAO.getJugador(id);
     }
 
-    public List<JugadorDTO> getAllJugadores() throws SQLException {
+    public List<JugadorDTO> getAllJugadores() {
         return jugadorDAO.getAllJugadores();
     }
 }
