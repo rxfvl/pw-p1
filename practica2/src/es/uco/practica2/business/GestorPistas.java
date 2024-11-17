@@ -63,4 +63,9 @@ public class GestorPistas {
 		
 		return  matDAO.borrarMaterial(mat);
 	}
+	
+	public List<MaterialDTO> ListarMat()
+	{
+		return matDAO.listarMateriales();
+	}
 }
