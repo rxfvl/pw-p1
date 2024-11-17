@@ -58,6 +58,7 @@ public class MainPistas {
     		System.out.println("1. Crear Material");
             System.out.println("2. Asociar Material a Pista");
             System.out.println("3. Borrar Material");
+            System.out.println("4. Listar Materiales");
             System.out.println("0. Volver");
             op = scanner.nextInt();
             
@@ -71,6 +72,9 @@ public class MainPistas {
             		break;
             	case 3:
             		borrarM();
+            		break;
+            	case 4:
+            		listarM();
             		break;
             	case 0:
             		salir = true;
@@ -167,15 +171,26 @@ public class MainPistas {
     }
     
     private static void borrarM()
-    {
-    	int tipo, res;
-    	
+    {    	
     	System.out.print("Tipo de material a borrar (1 para CANASTAS, 2 para CONOS, 3 para PELOTAS): ");
-    	tipo = scanner.nextInt();
+    	int tipo = scanner.nextInt();
     	
-    	res = gestorP.borrarMat(tipo);
+    	int res = gestorP.borrarMat(tipo);
     	
     	if(res == 0){System.out.print("No existe el material");}
-    	else{System.out.print("Material borrado con éxito");}
+    	else{System.out.println("Material borrado con éxito");}
+    }
+    
+    private static void listarM()
+    {
+    	List<MaterialDTO> materiales = gestorP.ListarMat();
+        if (materiales.isEmpty()) {
+            System.out.println("No hay materiales disponibles.");
+        } else {
+            System.out.println("Lista de materiales:");
+            for (MaterialDTO mat : materiales) {
+                System.out.println(mat.toString());
+            }
+        }
     }
 }

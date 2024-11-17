@@ -21,7 +21,7 @@ public class JugadorDAO {
         return dbConnection.getConnection();
     }
 
-    public void addJugador(JugadorDTO jugador) {
+    public int addJugador(JugadorDTO jugador) {
         String sql = "INSERT INTO jugadores (nombre, apellidos, fecha_nacimiento, fecha_inscripcion, correo_electronico) VALUES (?, ?, ?, ?, ?)";
         try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, jugador.getNombre());
@@ -29,9 +29,10 @@ public class JugadorDAO {
             stmt.setDate(3, new java.sql.Date(jugador.getFecha_nacimiento().getTime()));
             stmt.setDate(4, new java.sql.Date(jugador.getFecha_inscripcion().getTime()));
             stmt.setString(5, jugador.getCorreo_electronico());
-            stmt.executeUpdate();
+            return stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
+            return -1;
         }
     }
 

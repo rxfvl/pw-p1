@@ -11,9 +11,9 @@ public class JugadorDTO {
     private String correo_electronico;
 
     // Constructor que incluye el ID
-    public JugadorDTO(int id, String nombre, String apellidos, Date fecha_nacimiento, Date fecha_inscripcion,
+    public JugadorDTO(String nombre, String apellidos, Date fecha_nacimiento, Date fecha_inscripcion,
                       String correo_electronico) {
-        this.id = id; // Seteo del ID
+        //this.id = id;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.fecha_nacimiento = fecha_nacimiento;
@@ -98,7 +98,7 @@ public class JugadorDTO {
 	
 	@Override
 	public String toString() {
-        return "JugadorDTO [id=" + id + ", nombre=" + nombre + ", apellidos=" + apellidos + ", fecha_nacimiento="
+        return "JugadorDTO [nombre=" + nombre + ", apellidos=" + apellidos + ", fecha_nacimiento="
                 + fecha_nacimiento + ", fecha_inscripcion=" + fecha_inscripcion + ", correo_electronico="
                 + correo_electronico + "]";
 	}

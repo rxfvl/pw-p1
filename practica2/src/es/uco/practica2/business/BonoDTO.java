@@ -92,7 +92,7 @@ public class BonoDTO
 
 	@Override
 	public String toString() {
-		return "BonoDTO [id=" + id + ", tamanio_pista=" + tamanio_pista + ", id_jugador=" + id_jugador + ", sesiones="
+		return "BonoDTO [tamanio_pista=" + tamanio_pista + ", id_jugador=" + id_jugador + ", sesiones="
 				+ sesiones + ", fecha_cad=" + fecha_cad + "]";
 	}
 

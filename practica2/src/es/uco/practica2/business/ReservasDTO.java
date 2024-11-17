@@ -187,7 +187,7 @@ public class ReservasDTO {
 	}
 	@Override
 	public String toString() {
-		return "ReservasDTO [id=" + id + ", fecha=" + fecha + ", duracion=" + duracion + ", id_pista=" + id_pista
+		return "ReservasDTO [fecha=" + fecha + ", duracion=" + duracion + ", id_pista=" + id_pista
 				+ ", precio=" + precio + ", descuento=" + descuento + ", tipo_reserva=" + tipo_reserva + ", num_ninios="
 				+ num_ninios + ", num_adultos=" + num_adultos + ", id_bono=" + id_bono + ", id_jugador=" + id_jugador + "]";
 	}
