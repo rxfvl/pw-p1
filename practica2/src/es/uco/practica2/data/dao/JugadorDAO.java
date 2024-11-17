@@ -3,25 +3,43 @@ package es.uco.practica2.data.dao;
 import es.uco.practica2.business.JugadorDTO;
 import es.uco.practica2.data.common.DBConnection;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.sql.Date;
 import java.time.LocalDate;
 
 public class JugadorDAO {
 	
+	private Properties propiedades = new Properties();
+	
+	public JugadorDAO()
+	{
+		try (InputStream input = new FileInputStream("sql.properties")) 
+		{
+			this.propiedades.load(input);
+		} catch (IOException ex) 
+		{
+			System.out.println("Error al cargar las propiedades: " + ex.getMessage());
+			return;
+		}
+	}
+	
     public int addJugador(JugadorDTO jugador)
     {
-        String sql = "INSERT INTO jugadores (nombre, apellidos, fecha_nacimiento, fecha_inscripcion, correo_electronico) VALUES (?, ?, ?, ?, ?)";
+        String sql = this.propiedades.getProperty("addJugInsert");
         try{
         	DBConnection dbcon = new DBConnection();
 			Connection con = dbcon.getConnection();
 			
-			PreparedStatement stmtsel = con.prepareStatement("select * from jugadores where correo_electronico = ?");
+			PreparedStatement stmtsel = con.prepareStatement(this.propiedades.getProperty("addJugSelect"));
 			stmtsel.setString(1, jugador.getCorreo_electronico());
 			ResultSet rs = stmtsel.executeQuery();
 			
@@ -45,7 +63,7 @@ public class JugadorDAO {
     }
 
     public int updateJugador(JugadorDTO jugador) {
-        String sql = "UPDATE jugadores SET nombre = ?, apellidos = ?, fecha_nacimiento = ? WHERE correo_electronico = ?";
+        String sql = this.propiedades.getProperty("updJugUpdate");
         try{
         	DBConnection dbcon = new DBConnection();
 			Connection con = dbcon.getConnection();
@@ -70,7 +88,7 @@ public class JugadorDAO {
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 				
-			PreparedStatement ps = con.prepareStatement("delete from jugadores where correo_electronico = ?");
+			PreparedStatement ps = con.prepareStatement(this.propiedades.getProperty("delJugDelete"));
 			ps.setString(1,jugador.getCorreo_electronico());
 				
 			status=ps.executeUpdate();
@@ -84,7 +102,7 @@ public class JugadorDAO {
 
     public List<JugadorDTO> getAllJugadores() {
         List<JugadorDTO> jugadores = new ArrayList<>();
-        String sql = "SELECT * FROM jugadores";
+        String sql = this.propiedades.getProperty("getJugSelect");
         try {
         	DBConnection dbcon = new DBConnection();
 			Connection con = dbcon.getConnection();

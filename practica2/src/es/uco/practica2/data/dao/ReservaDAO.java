@@ -1,5 +1,8 @@
 package es.uco.practica2.data.dao;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,25 +12,41 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
 import es.uco.practica2.business.*;
 import es.uco.practica2.data.common.DBConnection;
 
 public class ReservaDAO {
+	
+	private Properties propiedades = new Properties();
+	
+	public ReservaDAO()
+	{
+		try (InputStream input = new FileInputStream("sql.properties")) 
+		{
+			this.propiedades.load(input);
+		} catch (IOException ex) 
+		{
+			System.out.println("Error al cargar las propiedades: " + ex.getMessage());
+			return;
+		}
+	}
+	
 	public void crearReservaIndividual(ReservasDTO reserva, String correo)
 	{
 		try{
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			PreparedStatement ps = null;
-			ps = con.prepareStatement("SELECT * FROM jugadores where correo_electronico = ?");
+			ps = con.prepareStatement(this.propiedades.getProperty("crearResISelect"));
 			ps.setString(1, correo);
 			ResultSet id_jugador = ps.executeQuery();
 			id_jugador.next();
 			switch(reserva.getTipo_reserva())
 			{
 				case 0:	//adultos
-					ps = con.prepareStatement("insert into r0eservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
+					ps = con.prepareStatement(this.propiedades.getProperty("crearResInsert"));
 					ps.setInt(1, reserva.getId());	
 					ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 					ps.setInt(3, reserva.getDuracion());
@@ -43,7 +62,7 @@ public class ReservaDAO {
 				break;
 				
 				case 1:	//infantil
-					ps = con.prepareStatement("insert into reservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
+					ps = con.prepareStatement(this.propiedades.getProperty("crearResInsert"));
 					ps.setInt(1, reserva.getId());	
 					ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 					ps.setInt(3, reserva.getDuracion());
@@ -59,7 +78,7 @@ public class ReservaDAO {
 				break;
 				
 				case 2:	//familiar
-					ps = con.prepareStatement("insert into reservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
+					ps = con.prepareStatement(this.propiedades.getProperty("crearResInsert"));
 					ps.setInt(1, reserva.getId());	
 					ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 					ps.setInt(3, reserva.getDuracion());
@@ -90,14 +109,14 @@ public class ReservaDAO {
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			PreparedStatement ps = null;
-			ps = con.prepareStatement("SELECT * FROM jugadores where correo_electronico = ?");
+			ps = con.prepareStatement(this.propiedades.getProperty("crearResBSelect"));
 			ps.setString(1, correo);
 			ResultSet id_jugador = ps.executeQuery();
 			id_jugador.next();
 			switch(reserva.getTipo_reserva())
 			{
 				case 0:	//adultos
-					ps = con.prepareStatement("insert into reservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
+					ps = con.prepareStatement(this.propiedades.getProperty("crearResInsert"));
 					ps.setInt(1, reserva.getId());	
 					ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 					ps.setInt(3, reserva.getDuracion());
@@ -113,7 +132,7 @@ public class ReservaDAO {
 				break;
 				
 				case 1:	//infantil
-					ps = con.prepareStatement("insert into reservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
+					ps = con.prepareStatement(this.propiedades.getProperty("crearResInsert"));
 					ps.setInt(1, reserva.getId());	
 					ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 					ps.setInt(3, reserva.getDuracion());
@@ -129,7 +148,7 @@ public class ReservaDAO {
 				break;
 				
 				case 2:	//familiar
-					ps = con.prepareStatement("insert into reservas (id,fecha,duracion,id_pista,precio,descuento,tipo_reserva,num_ninios,num_adultos,id_bono,id_jugador) values(?,?,?,?,?,?,?,?,?,?,?)");
+					ps = con.prepareStatement(this.propiedades.getProperty("crearResInsert"));
 					ps.setInt(1, reserva.getId());	
 					ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 					ps.setInt(3, reserva.getDuracion());
@@ -160,12 +179,12 @@ public class ReservaDAO {
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			PreparedStatement ps = null;
-			ps = con.prepareStatement("SELECT * FROM reservas where id_pista = ? and fecha = ?");
+			ps = con.prepareStatement(this.propiedades.getProperty("modResSelect"));
 			ps.setInt(1, reserva.getId_pista());
 			ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 			ResultSet id = ps.executeQuery();
 			id.next();
-			ps = con.prepareStatement("UPDATE reservas SET fecha = ?, duracion = ?, id_pista = ?, precio = ?, descuento = ?, tipo_reserva = ?, num_ninios = ?, num_adultos = ? WHERE id = ?");
+			ps = con.prepareStatement(this.propiedades.getProperty("modResUpdate"));
 			ps.setDate(1, new java.sql.Date(reserva.getFecha().getTime()));
 			ps.setInt(2, reserva.getDuracion());
 			ps.setInt(3, reserva.getId_pista());
@@ -190,7 +209,7 @@ public class ReservaDAO {
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			PreparedStatement ps = null;
-			ps = con.prepareStatement("DELETE FROM reservas WHERE id_pista = ? and fecha = ?");
+			ps = con.prepareStatement(this.propiedades.getProperty("canResDelete"));
 			ps.setInt(1, reserva.getId_pista());
 			ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 			ps.executeUpdate();
@@ -210,7 +229,7 @@ public class ReservaDAO {
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from reservas WHERE fecha > "+ LocalDate.now());
+			ResultSet rs = stmt.executeQuery(this.propiedades.getProperty("lisResSelect") + LocalDate.now());
 			
 			while(rs.next())
 			{
@@ -245,7 +264,7 @@ public class ReservaDAO {
 			DBConnection dbcon = new DBConnection();
 			Connection con = dbcon.getConnection();
 		
-			String selectQuery = "select * from reservas where id_pista = ? and fecha = ?";
+			String selectQuery = this.propiedades.getProperty("conResSelect");
 			
 			PreparedStatement ps = con.prepareStatement(selectQuery);
 			ps.setInt(1, reserva.getId_pista());

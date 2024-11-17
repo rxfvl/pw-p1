@@ -15,15 +15,15 @@ public class PistaDAO {
 	
 	private Properties propiedades = new Properties();
 	
-		public PistaDAO()
+	public PistaDAO()
+	{
+		try (InputStream input = new FileInputStream("sql.properties")) 
 		{
-			try (InputStream input = new FileInputStream("sql.properties")) 
-			{
-				this.propiedades.load(input);
-			} catch (IOException ex) 
-			{
-				System.out.println("Error al cargar las propiedades: " + ex.getMessage());
-				return;
+			this.propiedades.load(input);
+		} catch (IOException ex) 
+		{
+			System.out.println("Error al cargar las propiedades: " + ex.getMessage());
+			return;
 		}
 	}
 	public int crearPista(PistaDTO pista)

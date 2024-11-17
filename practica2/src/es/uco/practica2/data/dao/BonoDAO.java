@@ -3,17 +3,32 @@ package es.uco.practica2.data.dao;
 import es.uco.practica2.business.BonoDTO;
 import es.uco.practica2.data.common.DBConnection;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class BonoDAO {
     
     private DBConnection dbConnection;
+    private Properties propiedades = new Properties();
 
     public BonoDAO() {
         this.dbConnection = new DBConnection();
+    	
+    	try (InputStream input = new FileInputStream("sql.properties")) 
+    	{
+   			this.propiedades.load(input);
+    	}catch (IOException ex) 
+    	{
+    		System.out.println("Error al cargar las propiedades: " + ex.getMessage());
+    		return;
+    	}
     }
+    
 
     // Método para crear un nuevo bono
     public boolean createBono(BonoDTO bono) {
@@ -23,7 +38,7 @@ public class BonoDAO {
 
         try {
             connection = dbConnection.getConnection();
-            String sql = "INSERT INTO bonos (tamanio_pista, id_jugador, sesiones, fecha_cad) VALUES (?, ?, ?, ?)";
+            String sql = this.propiedades.getProperty("crearBonoInsert");
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, bono.getTamanio_pista());
             preparedStatement.setInt(2, bono.getId_jugador());
@@ -49,7 +64,7 @@ public class BonoDAO {
 
         try {
             connection = dbConnection.getConnection();
-            String sql = "SELECT * FROM bonos WHERE id = ?";
+            String sql = this.propiedades.getProperty("getBonoISelect");
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
             resultSet = preparedStatement.executeQuery();
@@ -79,7 +94,7 @@ public class BonoDAO {
 
         try {
             connection = dbConnection.getConnection();
-            String sql = "SELECT * FROM bonos WHERE id_jugador = ?";
+            String sql = this.propiedades.getProperty("getBonoJSelect");
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id_jugador);
             resultSet = preparedStatement.executeQuery();
@@ -109,7 +124,7 @@ public class BonoDAO {
 
         try {
             connection = dbConnection.getConnection();
-            String sql = "UPDATE bonos SET tamanio_pista = ?, id_jugador = ?, sesiones = ?, fecha_cad = ? WHERE id = ?";
+            String sql = this.propiedades.getProperty("updBonoUpdate");
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, bono.getTamanio_pista());
             preparedStatement.setInt(2, bono.getId_jugador());
@@ -134,7 +149,7 @@ public class BonoDAO {
 
         try {
             connection = dbConnection.getConnection();
-            String sql = "DELETE FROM bonos WHERE id = ?";
+            String sql = this.propiedades.getProperty("delBonoDelete");
             preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, id);
 
