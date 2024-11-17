@@ -79,7 +79,7 @@ public class MaterialDTO {
 	}
 	@Override
 	public String toString() {
-		return "MaterialDTO [id=" + id + ", tipo=" + tipo + ", uso_material=" + uso_material + ", estado=" + estado
+		return "MaterialDTO [tipo=" + tipo + ", uso_material=" + uso_material + ", estado=" + estado
 				+ ", id_pista=" + id_pista + "]";
 	}
 	

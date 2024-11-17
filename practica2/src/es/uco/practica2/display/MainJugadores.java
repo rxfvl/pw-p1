@@ -4,8 +4,8 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
-import es.uco.practica2.business.JugadorDTO;
-import es.uco.practica2.business.GestorJugadores;
+import es.uco.practica2.business.*;
+import java.util.Properties;
 
 public class MainJugadores {
     public static void main(String[] args) {
@@ -22,6 +22,7 @@ public class MainJugadores {
 
         boolean salir = false;
         Scanner scanner = new Scanner(System.in);
+        int res;
 
         while (!salir) {
             System.out.println("1. Añadir Jugador");
@@ -52,14 +53,11 @@ public class MainJugadores {
                     String fechaInscripcion = scanner.nextLine();
                     Date fechaIns = new SimpleDateFormat("dd/MM/yyyy").parse(fechaInscripcion);
 
-                    JugadorDTO jugador = new JugadorDTO(0, nombre, apellidos, fechaNacimiento, fechaIns, correo);
-
-                    try {
-                        gestorJugadores.addJugador(jugador);
-                        System.out.println("Jugador añadido con éxito.");
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                    res = gestorJugadores.addJugador(nombre, apellidos, fechaNacimiento, fechaIns, correo);
+                    
+                    if(res != -1) { System.out.println("Jugador añadido con éxito.");}
+                    else {System.out.println("Error en la creación del jugador");}
+                   
                     break;
                 case 2:
                     // Lógica para modificar un jugador

@@ -33,6 +33,7 @@ public class MainProgram {
 
         while (!salir) 
         {
+        	System.out.println("\n--- Menú principal ---");
             System.out.println("1. Gestión de Usuarios");
             System.out.println("2. Gestión de Pistas");
             System.out.println("3. Gestión de Reservas");
