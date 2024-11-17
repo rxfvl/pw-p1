@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class PistaDAO {
 	public int crearPista(PistaDTO pista)
 	{
-		int cont = 0, status = -1;
+		int status = -1;
 		try{
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();

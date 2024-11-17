@@ -1,17 +1,18 @@
 package es.uco.practica2.business;
 
 import java.util.Date;
+import java.time.LocalDate;
 
 public class JugadorDTO {
     private int id;
     private String nombre;
     private String apellidos;
     private Date fecha_nacimiento;
-    private Date fecha_inscripcion;
+    private LocalDate fecha_inscripcion;
     private String correo_electronico;
 
     // Constructor que incluye el ID
-    public JugadorDTO(String nombre, String apellidos, Date fecha_nacimiento, Date fecha_inscripcion,
+    public JugadorDTO(String nombre, String apellidos, Date fecha_nacimiento, LocalDate fecha_inscripcion,
                       String correo_electronico) {
         //this.id = id;
         this.nombre = nombre;
@@ -74,13 +75,13 @@ public class JugadorDTO {
 	/**
 	 * @return the fecha_inscripcion
 	 */
-	public Date getFecha_inscripcion() {
+	public LocalDate getFecha_inscripcion() {
 		return fecha_inscripcion;
 	}
 	/**
 	 * @param fecha_inscripcion the fecha_inscripcion to set
 	 */
-	public void setFecha_inscripcion(Date fecha_inscripcion) {
+	public void setFecha_inscripcion(LocalDate fecha_inscripcion) {
 		this.fecha_inscripcion = fecha_inscripcion;
 	}
 	/**

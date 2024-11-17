@@ -5,30 +5,31 @@ import es.uco.practica2.data.dao.JugadorDAO;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Date;
+import java.time.LocalDate;
 
 public class GestorJugadores {
     private JugadorDAO jugadorDAO = new JugadorDAO();
 
-    public int addJugador(String nombre, String apellidos, Date fechaNacimiento, Date fechaIns, String correo)
+    public int addJugador(String nombre, String apellidos, Date fechaNacimiento, LocalDate fechaIns, String correo)
     {
     	JugadorDTO jugador = new JugadorDTO(nombre, apellidos, fechaNacimiento, fechaIns, correo);
-        int res = jugadorDAO.addJugador(jugador);
-        return res;
+        return jugadorDAO.addJugador(jugador); 
     }
 
-    public void updateJugador(JugadorDTO jugador) throws SQLException {
-        jugadorDAO.updateJugador(jugador);
+    public int updateJugador(String nombre, String apellidos, Date fechaN, String correo)
+    {
+    	JugadorDTO jugador = new JugadorDTO(nombre, apellidos, fechaN, LocalDate.now(), correo);
+        return jugadorDAO.updateJugador(jugador);
     }
-
-    public void deleteJugador(int id) {
-        jugadorDAO.deleteJugador(id);
-    }
-
-    public JugadorDTO getJugador(int id) {
-        return jugadorDAO.getJugador(id);
-    }
-
-    public List<JugadorDTO> getAllJugadores() {
+    
+    public List<JugadorDTO> getAllJugadores() 
+    {
         return jugadorDAO.getAllJugadores();
+    }
+    
+    public int deleteJugador(String correo) 
+    {
+    	JugadorDTO jugador = new JugadorDTO("n", "a", new Date(), LocalDate.now(), correo);
+        return jugadorDAO.deleteJugador(jugador);
     }
 }

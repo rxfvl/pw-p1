@@ -4,105 +4,121 @@ import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
+import java.util.List;
 import es.uco.practica2.business.*;
-import java.util.Properties;
+import java.time.LocalDate;
+import java.text.ParseException;
 
-public class MainJugadores {
-    public static void main(String[] args) {
-        Properties propiedades = new Properties();
-        GestorJugadores gestorJugadores = new GestorJugadores(); // Inicia el gestor de jugadores
+public class MainJugadores
+{
+    private static Scanner scanner;
+    private static GestorJugadores gestorJ;
 
-        // Cargar propiedades del fichero
-        try (InputStream input = new FileInputStream("config.properties")) {
-            propiedades.load(input);
-        } catch (IOException ex) {
-            System.out.println("Error al cargar las propiedades: " + ex.getMessage());
-            return;
-        }
-
+    public static void main(String[] args) 
+    {
+        scanner = new Scanner(System.in);
+        gestorJ = new GestorJugadores();
+        
         boolean salir = false;
-        Scanner scanner = new Scanner(System.in);
-        int res;
-
-        while (!salir) {
-            System.out.println("1. Añadir Jugador");
-            System.out.println("2. Modificar información Jugador");
+        
+        while (!salir) 
+        {
+            System.out.println("\n--- Gestión de Jugadores ---");
+            System.out.println("1. Crear Jugador");
+            System.out.println("2. Borrar Jugador");
             System.out.println("3. Listar Jugadores");
-            System.out.println("0. Salir");
+            System.out.println("4. Editar Jugador");
+            System.out.println("0. Volver al Menú Principal");
             System.out.print("Selecciona una opción: ");
             int opcion = scanner.nextInt();
             scanner.nextLine(); // Limpiar el buffer
 
-            switch (opcion) {
+            switch (opcion)
+            {
                 case 1:
-                    // Lógica para añadir un jugador
-                    System.out.print("Ingrese su nombre: ");
-                    String nombre = scanner.nextLine();
-
-                    System.out.print("Ingrese sus apellidos: ");
-                    String apellidos = scanner.nextLine();
-
-                    System.out.print("Ingrese su correo electrónico: ");
-                    String correo = scanner.nextLine();
-
-                    System.out.print("Ingrese su fecha de nacimiento (dd/MM/yyyy): ");
-                    String fechaNac = scanner.nextLine();
-                    Date fechaNacimiento = new SimpleDateFormat("dd/MM/yyyy").parse(fechaNac);
-
-                    System.out.print("Ingrese la fecha de inscripción (dd/MM/yyyy): ");
-                    String fechaInscripcion = scanner.nextLine();
-                    Date fechaIns = new SimpleDateFormat("dd/MM/yyyy").parse(fechaInscripcion);
-
-                    res = gestorJugadores.addJugador(nombre, apellidos, fechaNacimiento, fechaIns, correo);
-                    
-                    if(res != -1) { System.out.println("Jugador añadido con éxito.");}
-                    else {System.out.println("Error en la creación del jugador");}
-                   
+                    crearJ();
                     break;
                 case 2:
-                    // Lógica para modificar un jugador
-                    System.out.print("Introduzca el ID del jugador a modificar: ");
-                    int idM = scanner.nextInt();
-                    scanner.nextLine(); // Limpiar el buffer
-                    JugadorDTO jugadorParaModificar = gestorJugadores.getJugador(idM);
-
-                    if (jugadorParaModificar != null) {
-                        System.out.print("Nombre (actual " + jugadorParaModificar.getNombre() + "): ");
-                        jugadorParaModificar.setNombre(scanner.nextLine());
-
-                        System.out.print("Apellidos (actual " + jugadorParaModificar.getApellidos() + "): ");
-                        jugadorParaModificar.setApellidos(scanner.nextLine());
-
-                        System.out.print("Correo electrónico (actual " + jugadorParaModificar.getCorreo_electronico() + "): ");
-                        jugadorParaModificar.setCorreo_electronico(scanner.nextLine());
-
-                        try {
-                            gestorJugadores.updateJugador(jugadorParaModificar);
-                            System.out.println("Jugador modificado con éxito.");
-                        } catch (SQLException e) {
-                            e.printStackTrace();
-                        }
-                    } else {
-                        System.out.println("Jugador no encontrado.");
-                    }
+                	borrarJ();
                     break;
                 case 3:
-                    // Listar jugadores
-                    try {
-                        for (JugadorDTO j : gestorJugadores.getAllJugadores()) {
-                            System.out.println(j);
-                        }
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
+                	listarJ();
                     break;
+                case 4:
+                	editarJ();
+                	break;
                 case 0:
-                    salir = true; // Salir del bucle
+                    salir = true; // Volver al menú principal
                     break;
                 default:
                     System.out.println("Opción no válida. Por favor intenta de nuevo.");
             }
         }
-        scanner.close();
+    }
+    
+    private static void crearJ()
+    {
+    	SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+    	
+    	System.out.print("Introduce el nombre: ");
+    	String nombre = scanner.nextLine();
+    	System.out.print("Introduce los apellidos: ");
+    	String apellidos = scanner.nextLine();
+    	try {
+    	System.out.print("Introduce la fecha de nacimiento (dd/MM/yyyy): ");
+    	String fechaN = scanner.nextLine();
+    	Date fechaNacimiento = formatoFecha.parse(fechaN);
+    	}catch(ParseException e) {System.out.println("Formato de fecha inválido");}
+    	System.out.print("Introduce el correo electronico: ");
+    	String correo = scanner.nextLine();
+    	LocalDate fechaIns = LocalDate.now();
+    	
+    	int res = gestorJ.addJugador(nombre, apellidos, fechaNacimiento, fechaIns, correo);
+    }
+    
+    private static void listarJ()
+    {
+    	List<JugadorDTO> jugadores = gestorJ.getAllJugadores();
+    	if (jugadores.isEmpty()) {
+            System.out.println("No hay jugadores disponibles.");
+        } else {
+            System.out.println("Lista de jugadores:");
+            for (JugadorDTO jugador : jugadores) {
+                System.out.println(jugador.toString());
+            }
+        }
+    }
+    
+    private static void borrarJ()
+    {
+    	System.out.print("Introduce el correo del jugador a borrar: ");
+    	String correo = scanner.nextLine();
+    	int res = gestorJ.deleteJugador(correo);
+    	
+    	if(res == -1){System.out.println("Error en el borrado del jugador");}
+    	else if(res == 0){System.out.println("El jugador no existe");}
+    	else{System.out.println("Jugador borrado con éxito");}
+    }
+    
+    private static void editarJ()
+    {
+    	SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
+    	
+    	System.out.print("Introduce el correo del jugador a editar: ");
+    	String correo = scanner.nextLine();
+    	System.out.print("Introduce el nuevo nombre: ");
+    	String nombre = scanner.nextLine();
+    	System.out.print("Introduce los nuevos apellidos: ");
+    	String apellidos = scanner.nextLine();
+    	try{System.out.print("Introduce la nueva fecha de nacimiento (dd/MM/yyyy): ");
+    	String fechaN = scanner.nextLine(); 
+    	Date fechaNacimiento = formatoFecha.parse(fechaN);
+		}catch(ParseException e) {System.out.println("Formato de fecha inválido");}
+    	
+    	int res = gestorJ.updateJugador(nombre, apellidos, fechaNacimiento, correo);
+    	
+    	if(res == -1){System.out.println("Error en la actualizacion del jugador");}
+    	else if(res == 0){System.out.println("El jugador no existe");}
+    	else{System.out.println("Jugador editado con éxito");}
     }
 }

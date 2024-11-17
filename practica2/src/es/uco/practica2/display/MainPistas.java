@@ -9,7 +9,8 @@ public class MainPistas {
     private static Scanner scanner;
     private static GestorPistas gestorP;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) 
+    {
         scanner = new Scanner(System.in);
         gestorP = new GestorPistas(); // Inicia el gestor de pistas
 
