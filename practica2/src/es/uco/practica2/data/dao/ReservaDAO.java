@@ -14,12 +14,15 @@ import es.uco.practica2.business.*;
 import es.uco.practica2.data.common.DBConnection;
 
 public class ReservaDAO {
-	public void crearReservaIndividual(ReservasDTO reserva)
+	public void crearReservaIndividual(ReservasDTO reserva, String correo)
 	{
 		try{
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			PreparedStatement ps = null;
+			ps = con.prepareStatement("SELECT id FROM jugadores where correo_electronico = ?");
+			ps.setString(1, correo);
+			ResultSet id_jugador = ps.executeQuery();
 			switch(reserva.getTipo_reserva())
 			{
 				case 0:	//adultos
@@ -34,7 +37,7 @@ public class ReservaDAO {
 					ps.setInt(8, 0);
 					ps.setInt(9, reserva.getNum_adultos());
 					ps.setNull(10, Types.INTEGER);
-					ps.setInt(11, reserva.getId_jugador());
+					ps.setInt(11, id_jugador.getInt("id"));
 					ps.executeUpdate();
 				break;
 				
@@ -50,7 +53,7 @@ public class ReservaDAO {
 					ps.setInt(8, reserva.getNum_ninios());
 					ps.setInt(9, 0);
 					ps.setNull(10, Types.INTEGER);
-					ps.setInt(11, reserva.getId_jugador());
+					ps.setInt(11, id_jugador.getInt("id"));
 					ps.executeUpdate();
 				break;
 				
@@ -66,7 +69,7 @@ public class ReservaDAO {
 					ps.setInt(8, reserva.getNum_ninios());
 					ps.setInt(9, reserva.getNum_adultos());
 					ps.setNull(10, Types.INTEGER);
-					ps.setInt(11, reserva.getId_jugador());
+					ps.setInt(11, id_jugador.getInt("id"));
 					ps.executeUpdate();
 				break;
 				
@@ -80,12 +83,15 @@ public class ReservaDAO {
 		}
 	}
 	
-	public void crearReservaBono(ReservasDTO reserva)
+	public void crearReservaBono(ReservasDTO reserva, String correo)
 	{
 		try{
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			PreparedStatement ps = null;
+			ps = con.prepareStatement("SELECT id FROM jugadores where correo_electronico = ?");
+			ps.setString(1, correo);
+			ResultSet id_jugador = ps.executeQuery();
 			switch(reserva.getTipo_reserva())
 			{
 				case 0:	//adultos
@@ -100,7 +106,7 @@ public class ReservaDAO {
 					ps.setInt(8, 0);
 					ps.setInt(9, reserva.getNum_adultos());
 					ps.setInt(10, reserva.getId_bono());
-					ps.setInt(11, reserva.getId_jugador());
+					ps.setInt(11, id_jugador.getInt("id"));
 					ps.executeUpdate();
 				break;
 				
@@ -116,7 +122,7 @@ public class ReservaDAO {
 					ps.setInt(8, reserva.getNum_ninios());
 					ps.setInt(9, 0);
 					ps.setInt(10, reserva.getId_bono());
-					ps.setInt(11, reserva.getId_jugador());
+					ps.setInt(11, id_jugador.getInt("id"));
 					ps.executeUpdate();
 				break;
 				
@@ -132,7 +138,7 @@ public class ReservaDAO {
 					ps.setInt(8, reserva.getNum_ninios());
 					ps.setInt(9, reserva.getNum_adultos());
 					ps.setInt(10, reserva.getId_bono());
-					ps.setInt(11, reserva.getId_jugador());
+					ps.setInt(11, id_jugador.getInt("id"));
 					ps.executeUpdate();
 				break;
 				
@@ -146,12 +152,16 @@ public class ReservaDAO {
 		}
 	}
 	
-	public void modificarReserva(ReservasDTO reserva, int id)
+	public void modificarReserva(ReservasDTO reserva)
 	{
 		try{
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			PreparedStatement ps = null;
+			ps = con.prepareStatement("SELECT id FROM reservas where id_pista = ? and fecha = ?");
+			ps.setInt(1, reserva.getId_pista());
+			ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
+			ResultSet id = ps.executeQuery();
 			ps = con.prepareStatement("UPDATE reservas SET fecha = ?, duracion = ?, id_pista = ?, precio = ?, descuento = ?, tipo_reserva = ?, num_ninios = ?, num_adultos = ?, WHERE id = ?");
 			ps.setDate(1, new java.sql.Date(reserva.getFecha().getTime()));
 			ps.setInt(2, reserva.getDuracion());
@@ -161,7 +171,7 @@ public class ReservaDAO {
 			ps.setInt(6, reserva.getTipo_reserva());
 			ps.setInt(7, reserva.getNum_ninios());
 			ps.setInt(8, reserva.getNum_adultos());
-			ps.setInt(9, id);
+			ps.setInt(9, id.getInt("id"));
 			ps.executeUpdate();
 				
 		}catch(Exception e)
@@ -171,14 +181,15 @@ public class ReservaDAO {
 		}
 	}
 	
-	public void cancelarReserva(int id)
+	public void cancelarReserva(ReservasDTO reserva)
 	{
 		try{
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			PreparedStatement ps = null;
-			ps = con.prepareStatement("DELETE FROM reservas WHERE id = ?");
-			ps.setInt(1, id);
+			ps = con.prepareStatement("DELETE FROM reservas WHERE id_pista = ? and fecha = ?");
+			ps.setInt(1, reserva.getId_pista());
+			ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 			ps.executeUpdate();
 				
 		}catch(Exception e)
@@ -224,25 +235,23 @@ public class ReservaDAO {
 		return reservas;
 	}
 	
-	public ReservasDTO consultarReserva(JugadorDTO jugador)
+	public ReservasDTO consultarReserva(ReservasDTO reserva)
 	{
-		ReservasDTO reserva = new ReservasDTO();
 		ResultSet select;
 		try {
 			DBConnection dbcon = new DBConnection();
 			Connection con = dbcon.getConnection();
 		
-			String selectQuery = "select * from reservas where id_jugador = ?";
+			String selectQuery = "select * from reservas where id_pista = ? and fecha = ?";
 			
 			PreparedStatement ps = con.prepareStatement(selectQuery);
-			ps.setInt(1, jugador.getId());
+			ps.setInt(1, reserva.getId_pista());
+			ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 			select = ps.executeQuery();
 			
 			if (select.next())
 			{
-				reserva.setFecha(select.getDate("fecha"));
 				reserva.setDuracion(select.getInt("duracion"));
-				reserva.setId_pista(select.getInt("id_pista"));
 				reserva.setPrecio(select.getFloat("precio"));
 				reserva.setDescuento(select.getFloat("descuento"));
 				reserva.setTipo_reserva(select.getInt("tipo_reserva"));
