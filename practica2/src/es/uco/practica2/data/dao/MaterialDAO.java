@@ -1,6 +1,8 @@
 package es.uco.practica2.data.dao;
 
 import java.sql.*;
+import java.util.List;
+import java.util.ArrayList;
 import es.uco.practica2.business.*;
 import es.uco.practica2.data.common.DBConnection;
 
@@ -121,5 +123,36 @@ public class MaterialDAO {
 		
 		return 0;
 	}
-	
+	public List<MaterialDTO> listarMateriales()
+	{
+		try
+		{
+			List<MaterialDTO> lista = new ArrayList<>();
+			DBConnection dbConnection = new DBConnection();
+			Connection con = dbConnection.getConnection();
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("select * from materiales");
+			
+			while(rs.next())
+			{
+				//int id = rs.getInt("id");
+				int tipo = rs.getInt("tipo");
+				int uso_material = rs.getInt("uso_material");
+				int estado = rs.getInt("estado");
+				int id_pista = rs.getInt("id_pista");
+				MaterialDTO material = new MaterialDTO(tipo, uso_material, estado, id_pista);
+				lista.add(material);
+			}
+			if (stmt != null) stmt.close();
+			
+			return lista;
+			
+		}
+		catch(Exception e)
+		{
+			System.err.println(e);
+			e.printStackTrace();
+			return null; //CUIDADO
+		}
+	}
 }

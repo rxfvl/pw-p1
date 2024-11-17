@@ -1,11 +1,8 @@
 package es.uco.practica2.display;
 
 import java.io.*;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Properties;
 import java.util.Scanner;
 import es.uco.practica2.business.JugadorDTO;
 import es.uco.practica2.business.GestorJugadores;
@@ -13,8 +10,7 @@ import es.uco.practica2.business.GestorJugadores;
 public class MainJugadores {
     public static void main(String[] args) {
         Properties propiedades = new Properties();
-        Connection connection = new DBConnection().getConnection(); // Conexión a la base de datos
-        GestorJugadores gestorJugadores = new GestorJugadores(connection);
+        GestorJugadores gestorJugadores = new GestorJugadores(); // Inicia el gestor de jugadores
 
         // Cargar propiedades del fichero
         try (InputStream input = new FileInputStream("config.properties")) {
@@ -50,13 +46,13 @@ public class MainJugadores {
 
                     System.out.print("Ingrese su fecha de nacimiento (dd/MM/yyyy): ");
                     String fechaNac = scanner.nextLine();
-                    Date fechaNacimiento = new SimpleDateFormat("dd/MM/yyyy").parse(fechaNac);  // Asegúrate de manejar este parse correctamente
+                    Date fechaNacimiento = new SimpleDateFormat("dd/MM/yyyy").parse(fechaNac);
 
                     System.out.print("Ingrese la fecha de inscripción (dd/MM/yyyy): ");
                     String fechaInscripcion = scanner.nextLine();
-                    Date fechaIns = new SimpleDateFormat("dd/MM/yyyy").parse(fechaInscripcion); // Asegúrate de manejar este parse correctamente
+                    Date fechaIns = new SimpleDateFormat("dd/MM/yyyy").parse(fechaInscripcion);
 
-                    JugadorDTO jugador = new JugadorDTO(0, nombre, apellidos, fechaNacimiento, fechaIns, correo); // ID inicial en 0
+                    JugadorDTO jugador = new JugadorDTO(0, nombre, apellidos, fechaNacimiento, fechaIns, correo);
 
                     try {
                         gestorJugadores.addJugador(jugador);
@@ -81,9 +77,6 @@ public class MainJugadores {
 
                         System.out.print("Correo electrónico (actual " + jugadorParaModificar.getCorreo_electronico() + "): ");
                         jugadorParaModificar.setCorreo_electronico(scanner.nextLine());
-
-                        // Modificar la fecha de nacimiento o inscripción si deseas
-                        // ...
 
                         try {
                             gestorJugadores.updateJugador(jugadorParaModificar);
