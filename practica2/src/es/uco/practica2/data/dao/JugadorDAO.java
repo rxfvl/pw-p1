@@ -68,7 +68,7 @@ public class JugadorDAO {
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
                 return new JugadorDTO(
-                        rs.getInt("id"),
+                        //rs.getInt("id"),
                         rs.getString("nombre"),
                         rs.getString("apellidos"),
                         rs.getDate("fecha_nacimiento"),
@@ -89,7 +89,7 @@ public class JugadorDAO {
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 jugadores.add(new JugadorDTO(
-                        rs.getInt("id"),
+                        //rs.getInt("id"),
                         rs.getString("nombre"),
                         rs.getString("apellidos"),
                         rs.getDate("fecha_nacimiento"),
