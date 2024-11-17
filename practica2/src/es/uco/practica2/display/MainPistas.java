@@ -101,8 +101,8 @@ public class MainPistas {
         
        res = gestorP.crearPista(nombre, estado, tipo, tamanio, jugadores);
        
-       if (res != 0) {System.out.println("Pista creada con éxito");}
-       else {System.out.println("Error en la creación de la pista");}
+       if (res == -1) {System.out.println("Error en la creación de la pista");}
+       else {System.out.println("Pista creada con éxito");}
     }
 
     private static void listarP() {
@@ -137,7 +137,7 @@ public class MainPistas {
     	System.out.print("Tipo de material (1 para CANASTAS, 2 para CONOS, 3 para PELOTAS): ");
     	mat = scanner.nextInt();
     	
-    	System.out.print("Uso del material (1 para INTERIOR, 2 para EXTERIOR)");
+    	System.out.print("Uso del material (1 para INTERIOR, 2 para EXTERIOR): ");
     	uso = scanner.nextInt();
     	
     	System.out.print("Estado del material (1 para DISPONIBLE, 2 para RESERVADO, 3 para MALESTADO)");
@@ -150,20 +150,16 @@ public class MainPistas {
     }
     
     private static void asociarM()
-    {
-    	int tipo, uso, estado, res;
-    	String nombre;
-    	
-    	System.out.print("Tipo de material a asociar (1 para CANASTAS, 2 para CONOS, 3 para PELOTAS):");
-    	tipo = scanner.nextInt();
-    	System.out.print("Uso del material (1 para INTERIOR, 2 para EXTERIOR)");
-    	uso = scanner.nextInt();
-    	System.out.print("Estado del material (1 para DISPONIBLE, 2 para RESERVADO, 3 para MALESTADO)");
-    	estado = scanner.nextInt();
+    {    	
+    	System.out.print("Tipo de material a asociar (1 para CANASTAS, 2 para CONOS, 3 para PELOTAS): ");
+    	int tipo = scanner.nextInt();
+    	System.out.print("Uso del material (1 para INTERIOR, 2 para EXTERIOR): ");
+    	int uso = scanner.nextInt();
     	System.out.print("Nombre de la pista a la que asociarlo: ");
-    	nombre = scanner.nextLine();
+    	scanner.nextLine();
+    	String nombre = scanner.nextLine();
     	
-    	res = gestorP.asociar(nombre, tipo, uso, estado);
+    	int res = gestorP.asociar(nombre, tipo, uso);
     	
     	if(res == 0){System.out.println("La pista indicada no existe");}
     	else if(res == -1){System.out.println("La pista ha alcanzado el número máximo de materiales de ese tipo");}
@@ -174,7 +170,7 @@ public class MainPistas {
     {
     	int tipo, res;
     	
-    	System.out.print("Tipo de material a borrar (1 para CANASTAS, 2 para CONOS, 3 para PELOTAS):");
+    	System.out.print("Tipo de material a borrar (1 para CANASTAS, 2 para CONOS, 3 para PELOTAS): ");
     	tipo = scanner.nextInt();
     	
     	res = gestorP.borrarMat(tipo);

@@ -11,8 +11,8 @@ public class GestorPistas {
 	
     private List<PistaDTO> pistas;
     private ArrayList<MaterialDTO> materiales;
-    private PistaDAO pistaDAO;
-    private MaterialDAO matDAO;
+    private PistaDAO pistaDAO = new PistaDAO();
+    private MaterialDAO matDAO = new MaterialDAO();
     
     public GestorPistas() {
         this.pistas = new ArrayList<>();
@@ -49,9 +49,9 @@ public class GestorPistas {
 		return  matDAO.crearMaterial(material);
 	}
 	
-	public int asociar(String nombre, int tipo, int uso, int estado)
+	public int asociar(String nombre, int tipo, int uso)
 	{		
-		MaterialDTO mat = new MaterialDTO(tipo, uso, estado, -1);
+		MaterialDTO mat = new MaterialDTO(tipo, uso, 1, -1);
 		PistaDTO pista = new PistaDTO(nombre, -1, -1, -1, -1);
 		
 		return matDAO.asociarMaterialPista(pista, mat);

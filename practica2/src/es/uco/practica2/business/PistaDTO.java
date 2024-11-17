@@ -103,7 +103,7 @@ public class PistaDTO {
 	}
 	@Override
 	public String toString() {
-		return "PistaDTO [id=" + id + ", nombre=" + nombre + ", estado=" + estado + ", tipo=" + tipo + ", tamanio="
+		return "PistaDTO [nombre=" + nombre + ", estado=" + estado + ", tipo=" + tipo + ", tamanio="
 				+ tamanio + ", jugadores_max=" + jugadores_max + "]";
 	}
 	

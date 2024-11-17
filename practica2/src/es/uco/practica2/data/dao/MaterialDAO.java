@@ -13,7 +13,7 @@ public class MaterialDAO {
 			DBConnection dbConnection = new DBConnection();
 			Connection connection = dbConnection.getConnection();
 			
-			PreparedStatement ps = connection.prepareStatement("insert into Materiales (tipo, uso_material, estado, id_pista) values(?,?,?,?)");
+			PreparedStatement ps = connection.prepareStatement("insert into materiales (tipo, uso_material, estado, id_pista) values(?,?,?,?)");
 			ps.setInt(1,material.getTipo());	
 			ps.setInt(2, material.getUso_material());
 			ps.setInt(3, material.getEstado());
@@ -101,16 +101,17 @@ public class MaterialDAO {
 					if(mat.getTipo() == 1 && filas < 2){insertar = 1;}
 					else if(mat.getTipo() == 2 && filas < 20){insertar = 1;}
 					else if(mat.getTipo() == 3 && filas < 12){insertar = 1;}
-					
-					if(insertar == 1)
-					{
-						mat.setId(pistaID);
-						int res = crearMaterial(mat);
-						return res;
-					}
-					else{return -1;}
+				}
+				else {insertar = 1;}
+				
+				if(insertar == 1)
+				{
+					mat.setId_pista(pistaID);
+					int res = crearMaterial(mat);
+					return res;
 				}
 			}		
+			else {return -1;}
 			
 		}catch(Exception e)
 		{

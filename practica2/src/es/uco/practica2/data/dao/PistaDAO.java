@@ -10,18 +10,18 @@ import java.util.ArrayList;
 public class PistaDAO {
 	public int crearPista(PistaDTO pista)
 	{
-		int cont = 0, status;
+		int cont = 0, status = -1;
 		try{
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			
-			PreparedStatement stmt = con.prepareStatement("select * from Pistas where nombre = ?");
+			PreparedStatement stmt = con.prepareStatement("select * from pistas where nombre = ?");
 			stmt.setString(1, pista.getNombre());
 			ResultSet rs = stmt.executeQuery();
 			
-			if(rs.next())
+			if(!rs.next())
 			{
-				PreparedStatement ps = con.prepareStatement("insert into Pistas (nombre,estado,tipo,tamanio,jugadores_max) values(?,?,?,?,?)");
+				PreparedStatement ps = con.prepareStatement("insert into pistas (nombre,estado,tipo,tamanio,jugadores_max) values(?,?,?,?,?)");
 				ps.setString(1,pista.getNombre());	
 				ps.setInt(2, pista.getEstado());
 				ps.setInt(3, pista.getTipo());
@@ -29,11 +29,9 @@ public class PistaDAO {
 				ps.setInt(5, pista.getJugadores_max());
 				
 				status = ps.executeUpdate();
-				
-				return status;
 			}
 			
-			return 0;
+			return status;
 			
 		}catch(Exception e)
 		{
@@ -51,7 +49,7 @@ public class PistaDAO {
 			DBConnection dbConnection = new DBConnection();
 			Connection con = dbConnection.getConnection();
 			Statement stmt = con.createStatement();
-			ResultSet rs = stmt.executeQuery("select * from Pistas");
+			ResultSet rs = stmt.executeQuery("select * from pistas");
 			
 			while(rs.next())
 			{
@@ -77,25 +75,24 @@ public class PistaDAO {
 	
 	public int borrarPista(PistaDTO pista)
 	{
-		int status = 0;
-		
-		if(pista.getId() == -1)
-		{
-			try{
-				DBConnection dbConnection = new DBConnection();
-				Connection con = dbConnection.getConnection();
+		try{
+			int status = 0;
 				
-				PreparedStatement ps = con.prepareStatement("delete from Pistas where nombre=?");
-				ps.setString(1,pista.getNombre());
+			DBConnection dbConnection = new DBConnection();
+			Connection con = dbConnection.getConnection();
 				
-				status=ps.executeUpdate();
+			PreparedStatement ps = con.prepareStatement("delete from pistas where nombre=?");
+			ps.setString(1,pista.getNombre());
+				
+			status=ps.executeUpdate();
+				
+			return status;
 
-			}catch(Exception e)
-			{
-				System.err.println(e);
-				e.printStackTrace();
-			}
+		}catch(Exception e)
+		{
+			System.err.println(e);
+			e.printStackTrace();
+			return -1;
 		}		
-		return status;
 	}
 }
