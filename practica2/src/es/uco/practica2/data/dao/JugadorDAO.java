@@ -1,7 +1,6 @@
 package es.uco.practica2.data.dao;
 
 import es.uco.practica2.business.JugadorDTO;
-import es.uco.practica2.business.PistaDTO;
 import es.uco.practica2.data.common.DBConnection;
 
 import java.sql.Connection;
@@ -65,7 +64,6 @@ public class JugadorDAO {
     }
 
     public int deleteJugador(JugadorDTO jugador) {
-        String sql = "DELETE FROM jugadores WHERE correo_electronico = ?";
         try{
         	int status = 0;
 			

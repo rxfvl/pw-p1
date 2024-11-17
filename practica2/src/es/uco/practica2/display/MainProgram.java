@@ -3,11 +3,8 @@ package es.uco.practica2.display;
 import java.util.*;
 import java.io.*;
 import java.util.Properties;
-import es.uco.practica2.business.*;
 
 public class MainProgram {
-	private static GestorPistas gestorPistas;
-    private static GestorReservas gestorReservas;
 
     public static void main(String[] args) 
     {

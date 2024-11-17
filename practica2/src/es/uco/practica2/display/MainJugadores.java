@@ -1,6 +1,5 @@
 package es.uco.practica2.display;
 
-import java.io.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Scanner;
@@ -58,22 +57,29 @@ public class MainJugadores
     
     private static void crearJ()
     {
-    	SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
     	
     	System.out.print("Introduce el nombre: ");
     	String nombre = scanner.nextLine();
     	System.out.print("Introduce los apellidos: ");
     	String apellidos = scanner.nextLine();
-    	try {
-    	System.out.print("Introduce la fecha de nacimiento (dd/MM/yyyy): ");
-    	String fechaN = scanner.nextLine();
-    	Date fechaNacimiento = formatoFecha.parse(fechaN);
-    	}catch(ParseException e) {System.out.println("Formato de fecha inválido");}
+    	Date fechaNacimiento;
+		try {
+			System.out.print("Introduce la fecha de nacimiento: ");
+			String fechaInput = scanner.nextLine();
+			fechaNacimiento = new SimpleDateFormat("dd/MM/yyyy").parse(fechaInput);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return;
+		}
     	System.out.print("Introduce el correo electronico: ");
     	String correo = scanner.nextLine();
     	LocalDate fechaIns = LocalDate.now();
     	
     	int res = gestorJ.addJugador(nombre, apellidos, fechaNacimiento, fechaIns, correo);
+    	
+    	if(res != 1){System.out.println("Error en la creación del jugador");}
+    	else{System.out.println("Jugador creado con éxito");}
     }
     
     private static void listarJ()
@@ -102,7 +108,6 @@ public class MainJugadores
     
     private static void editarJ()
     {
-    	SimpleDateFormat formatoFecha = new SimpleDateFormat("dd/MM/yyyy");
     	
     	System.out.print("Introduce el correo del jugador a editar: ");
     	String correo = scanner.nextLine();
@@ -110,10 +115,16 @@ public class MainJugadores
     	String nombre = scanner.nextLine();
     	System.out.print("Introduce los nuevos apellidos: ");
     	String apellidos = scanner.nextLine();
-    	try{System.out.print("Introduce la nueva fecha de nacimiento (dd/MM/yyyy): ");
-    	String fechaN = scanner.nextLine(); 
-    	Date fechaNacimiento = formatoFecha.parse(fechaN);
-		}catch(ParseException e) {System.out.println("Formato de fecha inválido");}
+    	Date fechaNacimiento;
+		try {
+			System.out.print("Introduce la fecha de nacimiento: ");
+			String fechaInput = scanner.nextLine();
+			fechaNacimiento = new SimpleDateFormat("dd/MM/yyyy").parse(fechaInput);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return;
+		}
     	
     	int res = gestorJ.updateJugador(nombre, apellidos, fechaNacimiento, correo);
     	

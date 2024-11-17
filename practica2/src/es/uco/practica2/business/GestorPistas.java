@@ -1,22 +1,16 @@
 package es.uco.practica2.business;
 
-import java.util.ArrayList;
 import java.util.List;
-import es.uco.practica2.business.*;
 import es.uco.practica2.data.dao.*;
-import java.sql.ResultSet;
 
 public class GestorPistas {
 
-	
-    private List<PistaDTO> pistas;
-    private ArrayList<MaterialDTO> materiales;
+
     private PistaDAO pistaDAO = new PistaDAO();
     private MaterialDAO matDAO = new MaterialDAO();
     
     public GestorPistas() {
-        this.pistas = new ArrayList<>();
-        this.materiales = new ArrayList<>();
+        
     }
     
 	public int crearPista(String nombre, int estado, int tipo, int tamanio, int jugadores)

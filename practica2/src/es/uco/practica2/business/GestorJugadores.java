@@ -2,7 +2,6 @@ package es.uco.practica2.business;
 
 import es.uco.practica2.data.dao.JugadorDAO;
 
-import java.sql.SQLException;
 import java.util.List;
 import java.util.Date;
 import java.time.LocalDate;
