@@ -11,15 +11,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class JugadorDAO {
-    private DBConnection dbConnection;
+    private Connection connection;
 
-    public JugadorDAO() {
-        this.dbConnection = new DBConnection();
+    public JugadorDAO(Connection connection) {
+        this.connection = connection;
     }
 
     public void addJugador(JugadorDTO jugador) throws SQLException {
         String sql = "INSERT INTO jugadores (nombre, apellidos, fecha_nacimiento, fecha_inscripcion, correo_electronico) VALUES (?, ?, ?, ?, ?)";
-        try (Connection connection = dbConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, jugador.getNombre());
             stmt.setString(2, jugador.getApellidos());
             stmt.setDate(3, new java.sql.Date(jugador.getFecha_nacimiento().getTime()));
@@ -31,7 +31,7 @@ public class JugadorDAO {
 
     public void updateJugador(JugadorDTO jugador) throws SQLException {
         String sql = "UPDATE jugadores SET nombre = ?, apellidos = ?, fecha_nacimiento = ?, fecha_inscripcion = ?, correo_electronico = ? WHERE id = ?";
-        try (Connection connection = dbConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setString(1, jugador.getNombre());
             stmt.setString(2, jugador.getApellidos());
             stmt.setDate(3, new java.sql.Date(jugador.getFecha_nacimiento().getTime()));
@@ -44,7 +44,7 @@ public class JugadorDAO {
 
     public void deleteJugador(int id) throws SQLException {
         String sql = "DELETE FROM jugadores WHERE id = ?";
-        try (Connection connection = dbConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         }
@@ -52,7 +52,7 @@ public class JugadorDAO {
 
     public JugadorDTO getJugador(int id) throws SQLException {
         String sql = "SELECT * FROM jugadores WHERE id = ?";
-        try (Connection connection = dbConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -72,7 +72,7 @@ public class JugadorDAO {
     public List<JugadorDTO> getAllJugadores() throws SQLException {
         List<JugadorDTO> jugadores = new ArrayList<>();
         String sql = "SELECT * FROM jugadores";
-        try (Connection connection = dbConnection.getConnection(); PreparedStatement stmt = connection.prepareStatement(sql);
+        try (PreparedStatement stmt = connection.prepareStatement(sql);
              ResultSet rs = stmt.executeQuery()) {
             while (rs.next()) {
                 jugadores.add(new JugadorDTO(
