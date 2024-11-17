@@ -1,100 +1,101 @@
-package es.uco.practica2.data;
+package es.uco.practica2.business;
 
-import es.uco.practica2.business.BonoDTO;
-import es.uco.practica2.data.common.DBConnection;
+import java.util.Date;
 
-import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
 
-public class BonoDAO {
+public class BonoDTO
+{
+	private int id;
+	private int tamanio_pista;
+	private int id_jugador;
+	private int sesiones;
+	private Date fecha_cad;
+	
+	public BonoDTO(int tamanio_pista, int id_jugador, int sesiones, Date fecha_cad) {
+		this.tamanio_pista = tamanio_pista;
+		this.id_jugador = id_jugador;
+		this.sesiones = sesiones;
+		this.fecha_cad = fecha_cad;
+	}
+	
+	public BonoDTO() {}
 
-    private DBConnection dbConnection;
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
 
-    public BonoDAO() {
-        dbConnection = new DBConnection();
-    }
+	/**
+	 * @param id the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    public void createBono(BonoDTO bono) {
-        String query = "INSERT INTO bonos (tamanio_pista, id_jugador, sesiones, fecha_cad) VALUES (?, ?, ?, ?)";
-        try (Connection connection = dbConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, bono.getTamanio_pista());
-            preparedStatement.setInt(2, bono.getId_jugador());
-            preparedStatement.setInt(3, bono.getSesiones());
-            preparedStatement.setDate(4, new java.sql.Date(bono.getFecha_cad().getTime()));
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println("Error while creating bono: " + e.getMessage());
-        }
-    }
+	/**
+	 * @return the tamanio_pista
+	 */
+	public int getTamanio_pista() {
+		return tamanio_pista;
+	}
 
-    public BonoDTO getBonoById(int id) {
-        String query = "SELECT * FROM bonos WHERE id = ?";
-        BonoDTO bono = null;
-        try (Connection connection = dbConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, id);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
-                bono = new BonoDTO(
-                        resultSet.getInt("id"),
-                        resultSet.getInt("tamanio_pista"),
-                        resultSet.getInt("id_jugador"),
-                        resultSet.getInt("sesiones"),
-                        resultSet.getDate("fecha_cad")
-                );
-            }
-        } catch (SQLException e) {
-            System.err.println("Error while retrieving bono: " + e.getMessage());
-        }
-        return bono;
-    }
+	/**
+	 * @param tamanio_pista the tamanio_pista to set
+	 */
+	public void setTamanio_pista(int tamanio_pista) {
+		this.tamanio_pista = tamanio_pista;
+	}
 
-    public List<BonoDTO> getAllBonos() {
-        String query = "SELECT * FROM bonos";
-        List<BonoDTO> bonos = new ArrayList<>();
-        try (Connection connection = dbConnection.getConnection();
-             Statement statement = connection.createStatement();
-             ResultSet resultSet = statement.executeQuery(query)) {
-            while (resultSet.next()) {
-                bonos.add(new BonoDTO(
-                        resultSet.getInt("id"),
-                        resultSet.getInt("tamanio_pista"),
-                        resultSet.getInt("id_jugador"),
-                        resultSet.getInt("sesiones"),
-                        resultSet.getDate("fecha_cad")
-                ));
-            }
-        } catch (SQLException e) {
-            System.err.println("Error while retrieving all bonos: " + e.getMessage());
-        }
-        return bonos;
-    }
+	/**
+	 * @return the id_jugador
+	 */
+	public int getId_jugador() {
+		return id_jugador;
+	}
 
-    public void updateBono(BonoDTO bono) {
-        String query = "UPDATE bonos SET tamanio_pista = ?, id_jugador = ?, sesiones = ?, fecha_cad = ? WHERE id = ?";
-        try (Connection connection = dbConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, bono.getTamanio_pista());
-            preparedStatement.setInt(2, bono.getId_jugador());
-            preparedStatement.setInt(3, bono.getSesiones());
-            preparedStatement.setDate(4, new java.sql.Date(bono.getFecha_cad().getTime()));
-            preparedStatement.setInt(5, bono.getId());
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println("Error while updating bono: " + e.getMessage());
-        }
-    }
+	/**
+	 * @param id_jugador the id_jugador to set
+	 */
+	public void setId_jugador(int id_jugador) {
+		this.id_jugador = id_jugador;
+	}
 
-    public void deleteBono(int id) {
-        String query = "DELETE FROM bonos WHERE id = ?";
-        try (Connection connection = dbConnection.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-            preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
-        } catch (SQLException e) {
-            System.err.println("Error while deleting bono: " + e.getMessage());
-        }
-    }
+	/**
+	 * @return the sesiones
+	 */
+	public int getSesiones() {
+		return sesiones;
+	}
+
+	/**
+	 * @param sesiones the sesiones to set
+	 */
+	public void setSesiones(int sesiones) {
+		this.sesiones = sesiones;
+	}
+
+	/**
+	 * @return the fecha_cad
+	 */
+	public Date getFecha_cad() {
+		return fecha_cad;
+	}
+
+	/**
+	 * @param fecha_cad the fecha_cad to set
+	 */
+	public void setFecha_cad(Date fecha_cad) {
+		this.fecha_cad = fecha_cad;
+	}
+
+	@Override
+	public String toString() {
+		return "BonoDTO [id=" + id + ", tamanio_pista=" + tamanio_pista + ", id_jugador=" + id_jugador + ", sesiones="
+				+ sesiones + ", fecha_cad=" + fecha_cad + "]";
+	}
+
+	
+	
 }
