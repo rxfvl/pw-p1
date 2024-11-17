@@ -1,7 +1,7 @@
 package es.uco.practica2.data.dao;
 
 import java.sql.*;
-import com.mysql.jdbc.ResultSet;
+//import com.mysql.jdbc.ResultSet;
 import es.uco.practica2.business.*;
 import es.uco.practica2.data.common.DBConnection;
 import java.util.List;
@@ -39,6 +39,7 @@ public class PistaDAO {
 		{
 			System.err.println(e);
 			e.printStackTrace();
+			return -1; // CUIDADO
 		}
 	}
 	
@@ -70,6 +71,7 @@ public class PistaDAO {
 		{
 			System.err.println(e);
 			e.printStackTrace();
+			return null; //CUIDADO
 		}
 	}
 	

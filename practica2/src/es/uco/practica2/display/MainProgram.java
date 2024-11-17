@@ -45,7 +45,7 @@ public class MainProgram {
             {
                 case 1:
                     // Lógica de gestión de usuarios
-                    MainUsuarios.main(args); // Llamada al main de gestión de usuarios
+                    MainJugadores.main(args); // Llamada al main de gestión de usuarios
                     break;
                 case 2:
                     // Lógica de gestión de pistas

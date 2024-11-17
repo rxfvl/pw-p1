@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import es.uco.practica2.business.*;
 import es.uco.practica2.data.dao.*;
+import java.sql.ResultSet;
 
 public class GestorPistas {
 
