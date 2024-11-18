@@ -3,6 +3,7 @@ package es.uco.practica2.data.dao;
 import es.uco.practica2.business.BonoDTO;
 import es.uco.practica2.data.common.DBConnection;
 
+// Importaciones necesarias:
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,11 +12,19 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+/**
+ * La clase BonoDAO es responsable de gestionar las operaciones de acceso a datos relacionadas
+ * con los bonos en la base de datos. Proporciona métodos para crear, obtener, actualizar y eliminar bonos.
+ */
 public class BonoDAO {
     
-    private DBConnection dbConnection;
-    private Properties propiedades = new Properties();
+    private DBConnection dbConnection; // Instancia de conexión a la base de datos.
+    private Properties propiedades = new Properties(); // Propiedades para consultar SQL.
 
+    /**
+     * Constructor de la clase BonoDAO. Inicializa la conexión a la base de datos y carga
+     * las propiedades desde el archivo "sql.properties".
+     */
     public BonoDAO() {
         this.dbConnection = new DBConnection();
     	
@@ -29,8 +38,12 @@ public class BonoDAO {
     	}
     }
     
-
-    // Método para crear un nuevo bono
+    /**
+     * Crea un nuevo bono en la base de datos.
+     *
+     * @param bono El objeto BonoDTO que contiene la información del bono a crear.
+     * @return true si el bono se creó con éxito, false en caso contrario.
+     */
     public boolean createBono(BonoDTO bono) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -55,7 +68,12 @@ public class BonoDAO {
         return created;
     }
 
-    // Método para obtener un bono por ID
+    /**
+     * Obtiene un bono de la base de datos basado en su ID.
+     *
+     * @param id El identificador del bono a recuperar.
+     * @return Un objeto BonoDTO que representa el bono, o null si no se encuentra.
+     */
     public BonoDTO getBonoById(int id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -85,7 +103,12 @@ public class BonoDAO {
         return bono;
     }
 
-    // Método para obtener todos los bonos asociadas a un jugador
+    /**
+     * Obtiene una lista de todos los bonos asociados a un jugador específico.
+     *
+     * @param id_jugador El identificador del jugador cuyo bonos se desean recuperar.
+     * @return Una lista de objetos BonoDTO que representan los bonos asociados al jugador.
+     */
     public List<BonoDTO> getBonosByJugadorId(int id_jugador) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -116,7 +139,12 @@ public class BonoDAO {
         return bonos;
     }
 
-    // Método para actualizar un bono
+    /**
+     * Actualiza la información de un bono existente en la base de datos.
+     *
+     * @param bono El objeto BonoDTO que contiene la nueva información del bono.
+     * @return true si el bono se actualizó con éxito, false en caso contrario.
+     */
     public boolean updateBono(BonoDTO bono) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -141,7 +169,12 @@ public class BonoDAO {
         return updated;
     }
 
-    // Método para eliminar un bono
+    /**
+     * Elimina un bono de la base de datos basado en su ID.
+     *
+     * @param id El identificador del bono a eliminar.
+     * @return true si el bono se eliminó con éxito, false en caso contrario.
+     */
     public boolean deleteBono(int id) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -162,7 +195,12 @@ public class BonoDAO {
         return deleted;
     }
 
-    // Método auxiliar para cerrar recursos
+    /**
+     * Método auxiliar para cerrar los recursos utilizados para la conexión y la declaración.
+     *
+     * @param connection La conexión a cerrar.
+     * @param preparedStatement La declaración preparara a cerrar.
+     */
     private void closeResources(Connection connection, PreparedStatement preparedStatement) {
         try {
             if (preparedStatement != null) preparedStatement.close();
@@ -172,7 +210,13 @@ public class BonoDAO {
         }
     }
 
-    // Método auxiliar para cerrar recursos con ResultSet
+    /**
+     * Método auxiliar para cerrar los recursos, incluyendo el ResultSet.
+     *
+     * @param connection La conexión a cerrar.
+     * @param preparedStatement La declaración preparara a cerrar.
+     * @param resultSet El conjunto de resultados a cerrar.
+     */
     private void closeResources(Connection connection, PreparedStatement preparedStatement, ResultSet resultSet) {
         try {
             if (resultSet != null) resultSet.close();
