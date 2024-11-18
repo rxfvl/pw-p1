@@ -42,7 +42,10 @@ public class ReservaDAO {
 			ps = con.prepareStatement(this.propiedades.getProperty("crearResISelect"));
 			ps.setString(1, correo);
 			ResultSet id_jugador = ps.executeQuery();
-			id_jugador.next();
+			if (!id_jugador.next())
+			{
+				return;
+			}
 			switch(reserva.getTipo_reserva())
 			{
 				case 0:	//adultos
@@ -112,7 +115,10 @@ public class ReservaDAO {
 			ps = con.prepareStatement(this.propiedades.getProperty("crearResBSelect"));
 			ps.setString(1, correo);
 			ResultSet id_jugador = ps.executeQuery();
-			id_jugador.next();
+			if (!id_jugador.next())
+			{
+				return;
+			}
 			switch(reserva.getTipo_reserva())
 			{
 				case 0:	//adultos
@@ -183,7 +189,10 @@ public class ReservaDAO {
 			ps.setInt(1, reserva.getId_pista());
 			ps.setDate(2, new java.sql.Date(reserva.getFecha().getTime()));
 			ResultSet id = ps.executeQuery();
-			id.next();
+			if (!id.next())
+			{
+				return;
+			}
 			ps = con.prepareStatement(this.propiedades.getProperty("modResUpdate"));
 			ps.setDate(1, new java.sql.Date(reserva.getFecha().getTime()));
 			ps.setInt(2, reserva.getDuracion());

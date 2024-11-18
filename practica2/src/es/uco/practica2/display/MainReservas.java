@@ -112,7 +112,7 @@ public class MainReservas {
         
         ReservasDTO reserva = gestorReservas.crearReservaIndividual(fecha, duracion, idPista, precio, descuento, tipo_reserva, num_ninios, num_adultos, correo);
         
-        if (reserva != null) {
+        if (reserva.getId_jugador() != -1) {
             System.out.println("Reserva creada con éxito: " + reserva);
         } else {
             System.out.println("Error al crear la reserva.");
@@ -176,7 +176,7 @@ public class MainReservas {
         
         ReservasDTO reserva = gestorReservas.crearReservaBono(fecha, duracion, idPista, precio, descuento, tipo_reserva, num_ninios, num_adultos, id_bono, correo);
         
-        if (reserva != null) {
+        if (reserva.getId_jugador() != -1) {
             System.out.println("Reserva creada con éxito: " + reserva);
         } else {
             System.out.println("Error al crear la reserva.");
