@@ -1,5 +1,6 @@
 package es.uco.practica2.data.dao;
 
+// Importación de clases necesarias
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,10 +11,19 @@ import java.util.Properties;
 import es.uco.practica2.business.*;
 import es.uco.practica2.data.common.DBConnection;
 
+/**
+ * Clase DAO que gestiona las operaciones de acceso a datos para los materiales.
+ * Proporciona métodos para crear, borrar, asociar materiales a pistas y listar materiales.
+ */
 public class MaterialDAO {
 	
 	private Properties propiedades = new Properties();
 	
+	/**
+	 * Constructor de la clase MaterialDAO.
+	 * Inicializa el objeto Properties cargando las configuraciones de la conexión a la base de datos
+	 * desde el archivo sql.properties.
+	 */
 	public MaterialDAO()
 	{
 		try (InputStream input = new FileInputStream("sql.properties")) 
@@ -26,13 +36,18 @@ public class MaterialDAO {
         }
 	}
 	
+	/**
+	 * Crea un nuevo material en la base de datos.
+	 * 
+	 * @param material objeto MaterialDTO que contiene los datos del material a crear.
+	 * @return un entero que indica el estado de la operación (1 para éxito, -1 para error).
+	 */
 	public int crearMaterial(MaterialDTO material)
 	{
 		int status = -1;
 		try{
 			DBConnection dbConnection = new DBConnection();
 			Connection connection = dbConnection.getConnection();
-			
 			
 			PreparedStatement ps = connection.prepareStatement(this.propiedades.getProperty("crearMatInsert"));
 			ps.setInt(1,material.getTipo());	
@@ -53,6 +68,12 @@ public class MaterialDAO {
 		return status;
 	}
 	
+	/**
+	 * Borra un material de la base de datos.
+	 * 
+	 * @param material objeto MaterialDTO cuyo material se va a borrar.
+	 * @return un entero que indica el estado de la operación (1 para éxito, 0 si no se encontró el registro, -1 para error).
+	 */
 	public int borrarMaterial(MaterialDTO material)
 	{
 		ResultSet select;
@@ -92,6 +113,14 @@ public class MaterialDAO {
 		return status;
 	}
 	
+	/**
+	 * Asocia un material a una pista en la base de datos. 
+	 * Se verifica si la pista tiene capacidad suficiente para el tipo de material.
+	 * 
+	 * @param pista objeto PistaDTO que representa la pista a la que se va a asociar el material.
+	 * @param mat objeto MaterialDTO que representa el material a asociar.
+	 * @return un entero que indica el estado de la operación (1 para éxito, -1 si la pista no se encontró, 0 para otros errores).
+	 */
 	public int asociarMaterialPista(PistaDTO pista, MaterialDTO mat)
 	{
 		try
@@ -142,6 +171,12 @@ public class MaterialDAO {
 		
 		return 0;
 	}
+	
+	/**
+	 * Lista todos los materiales presentes en la base de datos.
+	 * 
+	 * @return una lista de objetos MaterialDTO que representan los materiales, o null si ocurre un error.
+	 */
 	public List<MaterialDTO> listarMateriales()
 	{
 		try
