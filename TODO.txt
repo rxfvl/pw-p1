@@ -1,6 +1,0 @@
-Gestion de errores ReservaDAO (linea 26) id_jugador.next() X
-Gestion de errores ReservaDAO (linea 96) id_jugador.next() X
-Gestion de errores ReservaDAO (linea 167) id.next() X
-ConsultarReserva no hace nada
-
-
