@@ -1,0 +1,17 @@
+crearMatInsert=insert into materiales (tipo, uso_material, estado, id_pista) values(?,?,?,?)
+borrarMatSelect=select min(id) from materiales where id_pista is null and estado = 1 and tipo = ?
+borrarMatDelete=delete from materiales where id = ?
+asMatSelect1=SELECT * FROM pistas where nombre = ?
+asMatSelect2=SELECT COUNT(*) as total FROM materiales where tipo = ? and id_pista = ?
+listMatSelect=select * from materiales
+
+crearPistSelect=select * from pistas where nombre = ?
+crearPistInsert=insert into pistas (nombre,estado,tipo,tamanio,jugadores_max) values(?,?,?,?,?)
+listPistSelect=select * from pistas
+borrarPistDelete=delete from pistas where nombre=?
+
+addJugInsert=INSERT INTO jugadores (nombre, apellidos, fecha_nacimiento, fecha_inscripcion, correo_electronico) VALUES (?, ?, ?, ?, ?)
+addJugSelect=select * from jugadores where correo_electronico = ?
+updJugUpdate=UPDATE jugadores SET nombre = ?, apellidos = ?, fecha_nacimiento = ? WHERE correo_electronico = ?
+delJugDelete=delete from jugadores where correo_electronico = ?
+getJugSelect=

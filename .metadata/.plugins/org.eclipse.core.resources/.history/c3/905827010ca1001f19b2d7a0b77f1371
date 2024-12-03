@@ -1,0 +1,22 @@
+package es.uco.practica2.business;
+
+public class PistaDTO {
+	private int id;
+	private String nombre;
+	private int estado;
+	private int tipo;
+	private int tamanio;
+	private int jugadores_max;
+	
+	public PistaDTO(int id, String nombre, int estado, int tipo, int tamanio, int jugadores_max) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.estado = estado;
+		this.tipo = tipo;
+		this.tamanio = tamanio;
+		this.jugadores_max = jugadores_max;
+	}
+	
+	
+}

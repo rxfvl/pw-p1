@@ -1,0 +1,18 @@
+package es.uco.practica2.data.common;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+
+public class DBConnection {
+	
+	protected Connection connection = null;
+
+	// Important: This configuration is hard-coded here for illustrative purposes only
+	
+	protected String url = "jdbc:mysql://oraclepr.uco.es:3306/i72raqua";
+
+	protected String user = "i72raqua";
+
+	protected String password = "pw2021";
+}

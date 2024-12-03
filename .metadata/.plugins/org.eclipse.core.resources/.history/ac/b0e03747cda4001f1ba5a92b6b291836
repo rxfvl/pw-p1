@@ -1,0 +1,11 @@
+package es.uco.practica2.business;
+
+
+public class BonoDTO
+{
+	private int id;
+	private int tamanio_pista;
+	private int id_jugador;
+	private int sesiones;
+	private Date fecha_cad;
+}

@@ -1,0 +1,1 @@
+insertMat=insert into materiales (tipo, uso_material, estado, id_pista) values(?,?,?,?)

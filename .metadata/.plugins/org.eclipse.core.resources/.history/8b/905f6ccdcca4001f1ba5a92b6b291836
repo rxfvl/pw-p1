@@ -1,0 +1,12 @@
+package es.uco.practica2.data;
+
+import es.uco.practica2.business.BonoDTO;
+import es.uco.practica2.data.common.DBConnection;
+
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class BonoDTO {
+
+    

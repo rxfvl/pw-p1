@@ -1,0 +1,1 @@
+Para la ejecución de la práctica se debe ejecutar el archivo Main.java dentro del IDE Eclipse

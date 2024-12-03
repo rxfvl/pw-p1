@@ -1,0 +1,105 @@
+package es.uco.practica2.data.dao;
+
+import es.uco.practica2.business.JugadorDTO;
+import es.uco.practica2.data.common.DBConnection;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+public class JugadorDAO {
+    private DBConnection dbConnection;
+
+    public JugadorDAO() {
+        this.dbConnection = new DBConnection();
+    }
+    
+    private Connection getConnection() throws SQLException {
+        return dbConnection.getConnection();
+    }
+
+    public int addJugador(JugadorDTO jugador) {
+        String sql = "INSERT INTO jugadores (nombre, apellidos, fecha_nacimiento, fecha_inscripcion, correo_electronico) VALUES (?, ?, ?, ?, ?)";
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, jugador.getNombre());
+            stmt.setString(2, jugador.getApellidos());
+            stmt.setDate(3, new java.sql.Date(jugador.getFecha_nacimiento().getTime()));
+            stmt.setDate(4, new java.sql.Date(jugador.getFecha_inscripcion().getTime()));
+            stmt.setString(5, jugador.getCorreo_electronico());
+            return stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return -1;
+        }
+    }
+
+    public void updateJugador(JugadorDTO jugador) {
+        String sql = "UPDATE jugadores SET nombre = ?, apellidos = ?, fecha_nacimiento = ?, fecha_inscripcion = ?, correo_electronico = ? WHERE id = ?";
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setString(1, jugador.getNombre());
+            stmt.setString(2, jugador.getApellidos());
+            stmt.setDate(3, new java.sql.Date(jugador.getFecha_nacimiento().getTime()));
+            stmt.setDate(4, new java.sql.Date(jugador.getFecha_inscripcion().getTime()));
+            stmt.setString(5, jugador.getCorreo_electronico());
+            stmt.setInt(6, jugador.getId());
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void deleteJugador(int id) {
+        String sql = "DELETE FROM jugadores WHERE id = ?";
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public JugadorDTO getJugador(int id) {
+        String sql = "SELECT * FROM jugadores WHERE id = ?";
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new JugadorDTO(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("apellidos"),
+                        rs.getDate("fecha_nacimiento"),
+                        rs.getDate("fecha_inscripcion"),
+                        rs.getString("correo_electronico")
+                );
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public List<JugadorDTO> getAllJugadores() {
+        List<JugadorDTO> jugadores = new ArrayList<>();
+        String sql = "SELECT * FROM jugadores";
+        try (Connection connection = getConnection(); PreparedStatement stmt = connection.prepareStatement(sql);
+             ResultSet rs = stmt.executeQuery()) {
+            while (rs.next()) {
+                jugadores.add(new JugadorDTO(
+                        rs.getInt("id"),
+                        rs.getString("nombre"),
+                        rs.getString("apellidos"),
+                        rs.getDate("fecha_nacimiento"),
+                        rs.getDate("fecha_inscripcion"),
+                        rs.getString("correo_electronico")
+                ));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return jugadores;
+    }
+}
